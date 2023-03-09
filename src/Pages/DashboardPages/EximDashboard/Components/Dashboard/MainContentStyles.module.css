@@ -1,0 +1,10 @@
+
+.innerBlock {
+    border: 2px solid rgb(70, 70, 70);
+    border-radius: 5px;
+    margin: 0px;
+}
+
+.innerBlockValues {
+    font-size: xx-large;
+}

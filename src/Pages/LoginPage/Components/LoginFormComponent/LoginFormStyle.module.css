@@ -1,0 +1,76 @@
+.loginFormContainer{
+    /* background-image: url("../../Images/Login.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; */
+    /* color: aliceblue; */
+}
+.ElementSize {
+    /* width: 100%;
+    height: 50px;
+    font-size: x-large; */
+}
+
+.inputPassword {
+    /* border: 1px solid black; */
+    /* background-color: white; */
+    padding: 0px;
+}
+
+.passwordError {
+    border: 1px solid red; 
+}
+
+.errorShown {
+    display: flex;
+    color: red;
+}
+
+.inputPassword input {
+    width: 90%;
+    height: 100%;
+}
+
+input[type=checkbox] {
+    vertical-align: middle;
+    position: relative;
+    bottom: 1px;
+}
+
+.styledCheckbox {
+    width: 20px;
+    height: 20px;
+}
+
+label {
+    display: block;
+}
+
+.rememberMeSection {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+input:focus {
+    outline: none;
+}
+
+input {
+    border: none;
+}
+
+
+.button {
+    border: none;
+    background-color: white;
+    -webkit-box-shadow: 0px -1px 18px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px -1px 18px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px -1px 18px 0px rgba(0, 0, 0, 0.75);
+    cursor: pointer;
+}
+
+.button:focus {
+    outline: none;
+    background-color: rgb(248, 248, 248);
+}
