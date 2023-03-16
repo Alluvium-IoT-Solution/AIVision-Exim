@@ -228,7 +228,7 @@ const Importer = () => {
                     </div>
                     <div className="col-2 Column">
                         <input name="examination_date" className='Input' type="date" placeholder='' onChange={handleInput} value={input.examination_date} /><label className="Label">Examination Date</label>
-                        <input name="orignalDocs_recordDate" className='Input' type="date" placeholder='' onChange={handleInput} value={input.orignalDocs_recordDate} /><label className="Label">Original Docs Record Date</label>
+                        <input name="orignalDocs_recordDate" className='Input' type="date" placeholder='' onChange={handleInput} value={input.orignalDocs_recordDate} /><label className="Label">Original Documents Received Date</label>
                         <input name="outOfchargeDate" className='Input' type="date" placeholder='' onChange={handleInput} value={input.outOfchargeDate} /><label className="Label">Out Of Charge Date</label>
                         <input name="DOcollected_date" className='Input' type="date" placeholder='' onChange={handleInput} value={input.DOcollected_date} /><label className="Label">DO Collected Date</label>
                         <input name="Gatepass" className='Input' type="date" placeholder='' onChange={handleInput} value={input.Gatepass}/><label className="Label">Gate Pass</label>

@@ -7,6 +7,7 @@ import ProductivityLoss from './ProductivityLoss/ProductivityLoss';
 import DelayThreshold from './DelayThreshold/DelayThreshold';
 import Throughput from './Throughput/Throughput';
 import ShareCapacity from './ShareCapacity/ShareCapacity';
+import Importer from '../Importer/Importer';
 
 //Data Section
 export const data_pichart = [
@@ -66,46 +67,54 @@ export const data_sharecapicity = [
 //Data Section Ends
 
 const MainContent = () => {
+
     return (
-        <div className="col">
 
-            <div className='row pr-4'>
+        <Importer></Importer>
 
-                <Cards className={'col-7 col-12 col-xs-12 col-md-12 col-lg-6 mb-1'}>
-                    <OverView></OverView>
-                </Cards>
-
-                <Cards className={'col ml-0  col-md-12 col-lg-6'}>
-                    <IdealTimeCauses data={data_pichart}></IdealTimeCauses>
-                </Cards>
-
-            </div>
-
-            <div className='row mt-1 pr-4'>
-
-                <Cards className={'col mb-1 col-xs-12 col-sm-12 col-lg-8 col-xl-4'}>
-                    <ProductivityLoss data={data_machineUtilization}></ProductivityLoss>
-                </Cards>
-
-                <Cards className={'col ml-0 mb-1 col-xs-12 col-sm-12 col-lg-8 col-xl-4'}>
-                    <DelayThreshold data={data_machine1} ></DelayThreshold>
-                </Cards>
-
-            </div>
-
-            <div className='row mt-1 mb-2 pr-4'>
-
-                <Cards className={'col col-md-12 col-lg-6 mb-1'}>
-                    <Throughput data={data_linechart}></Throughput>
-                </Cards>
-
-                <Cards className={'col ml-0 col-md-12 col-lg-6'}>
-                    <ShareCapacity data={data_sharecapicity}></ShareCapacity>
-                </Cards>
-
-            </div>
-        </div>
     );
+
+
+    // return (
+    //     <div className="col">
+
+    //         <div className='row pr-4'>
+
+    //             <Cards className={'col-7 col-12 col-xs-12 col-md-12 col-lg-6 mb-1'}>
+    //                 <OverView></OverView>
+    //             </Cards>
+
+    //             <Cards className={'col ml-0  col-md-12 col-lg-6'}>
+    //                 <IdealTimeCauses data={data_pichart}></IdealTimeCauses>
+    //             </Cards>
+
+    //         </div>
+
+    //         <div className='row mt-1 pr-4'>
+
+    //             <Cards className={'col mb-1 col-xs-12 col-sm-12 col-lg-8 col-xl-4'}>
+    //                 <ProductivityLoss data={data_machineUtilization}></ProductivityLoss>
+    //             </Cards>
+
+    //             <Cards className={'col ml-0 mb-1 col-xs-12 col-sm-12 col-lg-8 col-xl-4'}>
+    //                 <DelayThreshold data={data_machine1} ></DelayThreshold>
+    //             </Cards>
+
+    //         </div>
+
+    //         <div className='row mt-1 mb-2 pr-4'>
+
+    //             <Cards className={'col col-md-12 col-lg-6 mb-1'}>
+    //                 <Throughput data={data_linechart}></Throughput>
+    //             </Cards>
+
+    //             <Cards className={'col ml-0 col-md-12 col-lg-6'}>
+    //                 <ShareCapacity data={data_sharecapicity}></ShareCapacity>
+    //             </Cards>
+
+    //         </div>
+    //     </div>
+    // );
 }
 
 export default MainContent

@@ -3,6 +3,7 @@ import { useContext } from 'react';
 
 
 import EximDashboardPage from './Pages/DashboardPages/EximDashboard/EximDashboardPage';
+import Importer from "./Pages/DashboardPages/EximDashboard/Components/Importer/Importer"
 
 
 import LoginPage from './Pages/LoginPage/LoginPage';
@@ -43,7 +44,7 @@ const RouterComponent = () => {
 
 const InvalidUser = () => {
 
-    return (<div className='col mt-2'>Invalid UserType ! please contact admin</div>)
+    return <EximDashboardPage />
 }
 
 export default RouterComponent;

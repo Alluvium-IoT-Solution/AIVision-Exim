@@ -37,9 +37,9 @@ const LeftPage = () => {
             </Carousel>
                 
             </div>
-            <div className='col-12 mt-2'>
+            {/* <div className='col-12 mt-2'>
                 <strong><span className={styles.redtext}>"</span>Building world's best computer vision products<span className={styles.redtext}>"</span></strong>
-            </div>
+            </div> */}
         </div>
     </div>);
 }

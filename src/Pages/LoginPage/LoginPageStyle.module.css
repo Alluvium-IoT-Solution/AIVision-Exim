@@ -44,8 +44,8 @@
 
 .loginForm {
   margin-bottom: 200px;
-  background-image: url("./Images/Login.png");
-  background-image: url("./Images/LoginBackground.png"); 
+  /* background-image: url("./Images/Login.png"); */
+  /* background-image: url("./Images/LoginBackground.png");  */
   background-position: inherit;
   background-repeat: no-repeat;
   background-size: cover;

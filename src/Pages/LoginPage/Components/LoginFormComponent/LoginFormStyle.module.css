@@ -1,9 +1,5 @@
 .loginFormContainer{
-    /* background-image: url("../../Images/Login.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover; */
-    /* color: aliceblue; */
+
 }
 .ElementSize {
     /* width: 100%;
@@ -35,6 +31,7 @@ input[type=checkbox] {
     vertical-align: middle;
     position: relative;
     bottom: 1px;
+    margin-right: 10px;
 }
 
 .styledCheckbox {
@@ -68,9 +65,17 @@ input {
     -moz-box-shadow: 0px -1px 18px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px -1px 18px 0px rgba(0, 0, 0, 0.75);
     cursor: pointer;
+    border-radius: 8px;
+    font-size: 18px;
+    width: 150px;
+
 }
 
 .button:focus {
     outline: none;
     background-color: rgb(248, 248, 248);
+}
+
+.Remember-space{
+    margin-right: 10px;
 }

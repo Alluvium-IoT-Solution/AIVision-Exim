@@ -75,7 +75,7 @@ const LoginForm = () => {
 </div>
 <br></br> */}
                 <div>
-                    <h1>WELCOME</h1>
+                    <h3>User Login</h3>
                 </div>
                 <div>
                     <label htmlFor="">Username</label>
@@ -92,9 +92,15 @@ const LoginForm = () => {
                 <div className={"mt-2 " + styles.rememberMeSection}>
                     <label>
                         <input type="checkbox" className={styles.styledCheckbox} />
-                        <span> Remember me ?</span>
+                        <span style={{ marginRight: '10px'}}> Remember me?</span>
                     </label>
-                    <a href='/' style={{ color: 'black' }}> Forgot password</a>
+                    <a href='/' class="Remember-space" style={{ color: 'black'}}>Forgot password</a>
+                </div>
+                <div className={"mt-2 " + styles.rememberMeSection}>
+                    <label>
+                        <input type="checkbox" className={styles.styledCheckbox} />
+                        <span>2F Authenticator</span>
+                    </label>
                 </div>
                 <br />
                 <button type='submit' className={'mt-4 ' + styles.ElementSize + " " + styles.button}>LOGIN</button>

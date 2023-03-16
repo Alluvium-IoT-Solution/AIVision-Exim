@@ -59,18 +59,18 @@ const SideBar = props => {
                 </div>
                 <div className='row mt-4 justify-content-left pr-2'>
                     <ul id={styles.sideMenuItems}>
-                        <li onClick={() => Navigate(DashboardPages.DashboardOverview)} className={currentActive === DashboardPages.DashboardOverview && styles.pageselected} ><span><i className={"fa fa-thin fa-house-user"}></i> </span>Dashboard</li>
-                        <li><span onClick={ExpandList} ><i className="fa fa-thin fa-chart-column"></i> Reports <i className="fa-solid fa-angle-down"></i></span>
-                            <ul className={showList ? styles.ReportsListShown : styles.ReportsListHidden}> {/*Commenteed will uncomment when finished*/}
+                        <li onClick={() => Navigate(DashboardPages.DashboardOverview)} className={currentActive === DashboardPages.DashboardOverview && styles.pageselected} ><span><i className={"fa fa-thin fa-house-user"}></i> </span>Importer</li>
+                        {/* <li><span onClick={ExpandList} ><i className="fa fa-thin fa-chart-column"></i> Reports <i className="fa-solid fa-angle-down"></i></span>
+                            <ul className={showList ? styles.ReportsListShown : styles.ReportsListHidden}> 
 
                                 {Object.keys(DashboardPages.Reports).map((data,index) => {
                                     return (<li key={index} onClick={() => Navigate(DashboardPages.Reports[data])} className={currentActive === DashboardPages.Reports[data] && styles.pageselected} >{DashboardPages.Reports[data]}</li>)
                                 })}
 
                             </ul>
-                        </li>
+                        </li> */}
                         {/* {open && <Popup setOpen={setOpen} />} */}
-                        <li onClick={() => Navigate(DashboardPages.FloorBoard) &&  props.setOpen(true) && <Popup setOpen={setOpen}></Popup>} className={currentActive === DashboardPages.FloorBoard && styles.pageselected}><span><i  className="fa-solid fa-border-none"></i> </span>Importer</li>
+                        {/* <li onClick={() => Navigate(DashboardPages.FloorBoard) &&  props.setOpen(true) } className={currentActive === DashboardPages.FloorBoard && styles.pageselected}><span><i  className="fa-solid fa-border-none"></i> </span>Importer</li> */}
                        
 
                     </ul>
