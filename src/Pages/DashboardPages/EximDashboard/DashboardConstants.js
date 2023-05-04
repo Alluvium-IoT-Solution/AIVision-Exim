@@ -12,10 +12,13 @@ const DashboardPages = {
         MachineWiseThroughPut :"Machine Wise throughPut",
     },
     FloorBoard:7,
+    Completed:8,
+    Alljobs:9,
+    MainReport: 10,
+    SFPL_Importer: 11,
     Importer: {
         JobNo1:"Job No:123",
         JobNo:"Job No:1234",
-       
     },
     // Importer:7
     

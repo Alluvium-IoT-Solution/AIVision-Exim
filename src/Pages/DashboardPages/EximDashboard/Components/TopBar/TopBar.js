@@ -1,6 +1,6 @@
 import { Fragment, React, useContext } from 'react'
 
-import profilepic from './Images/profile.jpg'
+import profile1 from './Images/profile1.jpeg'
 
 import styles from './TopBarStyle.module.css'
 import AuthContext from '../../../../../Context/auth-context'
@@ -43,8 +43,7 @@ const TopBar = ({setOpen}) => {
       </div> */}
  
       <div className={" col-10 col-md-1 " + styles.profile} style={{ border: "0.5px solid black" }}>
-        <h5 className={styles.title}>SFPL</h5>
-        <img className={styles.profileimage} width="25px" height="25px" alt="profilepic" src={profilepic} />
+        <img className={styles.profileimage} width="120px" height="30px" alt="profilepic" src={profile1} />
       </div>
       <div className="dropdown ">
         <i id={styles.topDrop} style={{ width: "15px", height: "15px" }} className="fa-solid fa-angle-down "></i>

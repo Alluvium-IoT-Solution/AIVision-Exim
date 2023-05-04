@@ -55,7 +55,7 @@ const LoginForm = () => {
 
     const TryLoginUser = (password) => {
         console.log(password)
-        if (password !== "CNCUSER" && password !== "TEXUSER" && password !== "STAMPUSER") {
+        if (password !== "admin" && password !== "TEXUSER" && password !== "STAMPUSER") {
             setIsPasswordInvalid(true)
             setPasswordInvalidMessage("Password is incorrect !");
             return;
@@ -83,8 +83,8 @@ const LoginForm = () => {
                 </div>
                 <div className={"col-12 " + styles.inputPassword + " " + styles.ElementSize + " " + (passwordInputInvalid && styles.passwordError)}>
                     <label htmlFor="">Password</label>
-                    <input type={showPassword ? "text" : "password"} onBlur={onPasswordBlur} placeholder="Password" ref={_passwordInputRef}></input>
-                    <img src={showPassword ? eyeopen : eyeclose} onClick={passwordStateHandler} width="20px" alt="eyeicon"></img>
+                    <input type={showPassword ? "text" : "password"} onBlur={onPasswordBlur} ref={_passwordInputRef}></input>
+                    <img src={showPassword ? eyeopen : eyeclose} onClick={passwordStateHandler}  width="20px" alt="eyeicon"></img>
                 </div>
 
                 {passwordInputInvalid && <div className={styles.errorShown}><span>{_InvalidPasswordMessage}</span></div>}

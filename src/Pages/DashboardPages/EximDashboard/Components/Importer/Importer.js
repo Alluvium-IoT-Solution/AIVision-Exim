@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import "./Importer.css"
 import axios from 'axios'
+import * as XLSX from 'xlsx'
 
 const Importer = () => {
-
 
     const [input, setInput] = useState({
         jobNo: "",
@@ -97,7 +97,6 @@ const Importer = () => {
             emptyReturnDate: input.emptyReturnDate,
             billNo: input.billNo,
             remarks: input.remarks,
-           
         }
 
         console.log(newInput)
@@ -108,8 +107,8 @@ const Importer = () => {
 
     }
 
-
     function jobSumbit(event){
+
         event.preventDefault();
 
         const newInput = {
@@ -118,25 +117,13 @@ const Importer = () => {
 
         console.log(newInput)
     
-        axios.post("http://localhost:3001/job", newInput)
-
-        // fetch("http://localhost:3001/job")
-        // .then(response=>{
-        //     if(response.ok){
-        //         return response.json();
-        //     }
-        // }).then(data => {
-        //     if(data){
-        //         console.log(data)
-        //     }
-        // }).catch(err => console.log(err));
-   
+        axios.put("http://localhost:3001/job", newInput)
     }
 
     function getData(event){
         event.preventDefault();
 
-        fetch("http://localhost:3001/"+ (input.jobNo).toString())
+        fetch("http://localhost:3001/" +  (input.jobNo).toString())
         .then(response=>{
             if(response.ok){
                 return response.json();
@@ -181,18 +168,62 @@ const Importer = () => {
             }
         }).catch(err => console.log(err));
 
-
-
     }
 
-    
+    function handleFileUpload (event) {
+        const file = event.target.files[0];
+        convertExcelToJson(file);
+      }
 
-  
+      function convertExcelToJson (file) {
+        const reader = new FileReader();
+        reader.readAsBinaryString(file);
+        reader.onload = (event) => {
+          const data = event.target.result;
+          const workbook = XLSX.read(data, { type: 'binary' });
+          const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+          const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+          axios.post('http://localhost:3001/exceldata', json)
+          .then(response => console.log(response))
+          .catch(error => console.log(error));
+        };
+      }
+
+      function handleExport() {
+
+        fetch("http://localhost:3001/" +  (input.jobNo).toString())
+        .then(response=>{
+            if(response.ok){
+                return response.json();
+            }
+        }).then(data => {
+
+            if(data){
+
+              
+                const wb = XLSX.utils.book_new();
+      
+                const ws = XLSX.utils.json_to_sheet(data);
+
+                ws['!rows'] = [{ cells: [{ style: { fill: { fgColor: { rgb: "FF0000FF" } } } }] }];
+              
+                XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+              
+                XLSX.writeFile(wb, 'data.xlsx');
+               
+
+                console.log(data[0])
+
+            }
+        }).catch(err => console.log(err));
+        
+      }
+
     return (
         <form autoComplete='off' >
             <div className=''>
                 <h1 className='text-center'>Welcome to EXIM</h1>
-                {/* <button className='UploadSheetBtn'>Upload Sheet <i className="fa-solid fa-upload"></i></button> */}
+                <input className='UploadSheetBtn' type="file" onChange={handleFileUpload}/>
             </div>
             <div className=" mt-5">
                 <div className="row">
@@ -210,11 +241,12 @@ const Importer = () => {
                         <input name="proofOfLoading" className='Input' onChange={handleInput} value={input.proofOfLoading} type="text" placeholder='Proof Of Loading'  />
                         <input name="invoiceValue" className='Input' onChange={handleInput} value={input.invoiceValue} type="text" placeholder='Invoice Value'/>
                         <input name="unitPrice" className='Input' onChange={handleInput} value={input.unitPrice} type="text" placeholder='Unit Price'/>
-                        <input name="eta" className='Input' onChange={handleInput} value={input.eta} type="text" placeholder=''/><label className="Label">ETA at Port (Dt)</label>
-                        <input name="icdArrivalDate" className='Input' onChange={handleInput} value={input.icdArrivalDate} type="date" placeholder='text' /><label className="Label">ICD Arrival Date</label>
+                       
 
                     </div>
                     <div className="col-2 Column">
+                        <input name="eta" className='Input' onChange={handleInput} value={input.eta} type="text" placeholder=''/><label className="Label">ETA at Port (Dt)</label>
+                        <input name="icdArrivalDate" className='Input' onChange={handleInput} value={input.icdArrivalDate} type="date" placeholder='text' /><label className="Label">ICD Arrival Date</label>
                         <input name="freeTime" className='Input' type="text" placeholder='' onChange={handleInput} value={input.freeTime} /><label className="Label">Free Time</label>
                         <input name="shippingLine" className='Input' type="text" placeholder='Shipping Line' onChange={handleInput} value={input.shippingLine}/>
                         <input name="containerNo" className='Input' type="text" placeholder='Container No' onChange={handleInput} value={input.containerNo} />
@@ -223,10 +255,9 @@ const Importer = () => {
                         <input name="billofEntryNo" className='Input' type="text" placeholder='Bill Of Entry No.' onChange={handleInput} value={input.billofEntryNo}/>
                         <input name="date_new" className='Input' type="date" placeholder='' onChange={handleInput} value={input.date_new} /><label className="Label">Date</label>
                         <input name="assessment_date" className='Input' type="date" placeholder='' onChange={handleInput} value={input.assessment_date} /><label className="Label">Assesment Date</label>
-                        <input name="duty_payment_date" className='Input' type="date" placeholder='' onChange={handleInput} value={input.duty_payment_date} /><label className="Label">Duty Payment Date</label>
-
                     </div>
                     <div className="col-2 Column">
+                        <input name="duty_payment_date" className='Input' type="date" placeholder='' onChange={handleInput} value={input.duty_payment_date} /><label className="Label">Duty Payment Date</label>
                         <input name="examination_date" className='Input' type="date" placeholder='' onChange={handleInput} value={input.examination_date} /><label className="Label">Examination Date</label>
                         <input name="orignalDocs_recordDate" className='Input' type="date" placeholder='' onChange={handleInput} value={input.orignalDocs_recordDate} /><label className="Label">Original Documents Received Date</label>
                         <input name="outOfchargeDate" className='Input' type="date" placeholder='' onChange={handleInput} value={input.outOfchargeDate} /><label className="Label">Out Of Charge Date</label>
@@ -244,10 +275,10 @@ const Importer = () => {
             </div>
             <div className='Buttons'>
                 <button onClick={handleClick} className='submitBtn'>Submit</button>
+                <button className='submitBtn' onClick={handleExport}>Export to Excel</button>
                 <button className='clearBtn'>Clear</button>
                 <i className="fa-sharp fa-solid fa-turn-down-left"></i>
             </div>
-
         </form>
 
     )

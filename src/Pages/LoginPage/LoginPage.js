@@ -7,6 +7,7 @@ import { Carousel } from 'react-responsive-carousel';
 import logoImage from './Images/logo.png'
 import lockimage from './Images/Lock.png'
 import surajLogo from "./Images/surajLogo.png"
+
 const LoginPage = () => {
     return (
         <div className={"container-fluid"} id={styles.loginContainer}>
@@ -34,7 +35,7 @@ const LeftPage = () => {
 
                 </div>
                 
-            </Carousel>
+                </Carousel>
                 
             </div>
             {/* <div className='col-12 mt-2'>
@@ -54,7 +55,7 @@ const RightPage = () => {
                 <LoginForm></LoginForm>
             </div>
             <div className={styles.footer} >
-                <span>Version</span>
+                <span>Version 0.1</span>
                 <span>Support</span>
                 <span>Privacy Policy</span>
                 <span>T & C</span>

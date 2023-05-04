@@ -24,6 +24,45 @@
     border-radius: 10px;
 }
 
+.jobs{
+  background-color: grey;
+  color: white !important;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.pendingjob {
+  background-color: rgb(255,203,17);
+  color: black !important;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.completedjob {
+  background-color: rgb(39, 139, 3);
+  color: black !important;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.alljob {
+
+  background-color: grey;
+  color: black !important;
+  padding: 8px;
+  border-radius: 10px;
+
+}
+
+.mainreport {
+
+  background-color: grey;
+  color: black !important;
+  padding: 8px;
+  border-radius: 10px;
+
+}
+
 .ReportsListHidden{
     display: none;
 }

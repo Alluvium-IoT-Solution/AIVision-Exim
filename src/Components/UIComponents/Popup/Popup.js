@@ -13,8 +13,7 @@ const Popup = ({ setOpen }) => {
             </div>
        
             <div className="">
-                <button onClick={() => setOpen(false)} className="btn btn-light  my-1 mx-2">close </button>
-                <button onClick={() => setOpen(false)} className="btn btn-light  my-1 mx-2">close </button>
+                <button onClick={() => setOpen(false)} className="btn btn-light  my-1 mx-2">close</button>
                 <button className="popupSubmitBtn">save </button>
             </div>
            </div>
