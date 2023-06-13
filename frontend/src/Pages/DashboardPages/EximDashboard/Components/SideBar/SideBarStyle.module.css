@@ -1,0 +1,142 @@
+#sideMenuItems {
+    list-style-type: none;
+}
+
+
+#sideMenuItems li {
+    font-weight: bold;
+    color: grey;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#sideMenuItems li:hover {
+    font-weight: bold;
+    color: rgb(170, 88, 88);
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.pageselected {
+    background-color: grey;
+    color: white !important;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.jobs{
+  background-color: grey;
+  color: white !important;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.pendingjob {
+  background-color: rgb(255,203,17);
+  color: black !important;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.completedjob {
+  background-color: rgb(39, 139, 3);
+  color: black !important;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.alljob {
+
+  background-color: grey;
+  color: black !important;
+  padding: 8px;
+  border-radius: 10px;
+
+}
+
+.mainreport {
+
+  background-color: grey;
+  color: black !important;
+  padding: 8px;
+  border-radius: 10px;
+
+}
+
+.ReportsListHidden{
+    display: none;
+}
+
+.ReportsListShown{
+    display: block;
+}
+.TopMobileIcon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .logo  {  
+      left:-380px;
+      top: 0px;
+    }
+  }
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    .logo  {
+        width: 80px;
+    }
+  }
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .logo  {
+        width: 100px; 
+    }
+  }
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    #LogoDrop {
+      padding: 0.5px;
+      margin-left: 2px;
+      height: 18px;
+      width: 18x;
+    }
+  }
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    li {
+      font-size: 14px;
+      color: red;
+    }
+  }
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    ul {
+      padding-left: 20px;
+    }
+  }
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    .pageselected {
+      padding: 2.5px;
+      border-radius: 5px;
+    }
+  }
+  @media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .pageselected {
+      padding: 2.5px;
+      border-radius: 5px;
+    }
+  }
+  @media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .ReportsListShown {
+      padding: 20px;
+      width: 90%;
+    }
+  }
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    .ReportsListShown {
+      padding: 20px;
+      width: 80%;
+    }
+  }
+  @media only screen and (min-width: 481px) and (max-width: 3000px) {
+    .MenuIcon {
+      display: none;
+    }
+  }
+  

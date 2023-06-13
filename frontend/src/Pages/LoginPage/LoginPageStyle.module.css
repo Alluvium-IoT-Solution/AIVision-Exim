@@ -1,0 +1,83 @@
+#loginContainer{
+  background-image: url("./Images/LoginBackground.png");
+  /* font-size: 2px; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.verticalCenter {
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+}
+
+.leftchild {
+  /* background-image: url("./Images/LeftPage.jpg"); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.rightchild {
+  /* background-image: url("./Images/RightPage.jpg"); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.logo {
+  margin-left: 150px;
+  margin-bottom: 350px;
+  text-align: center;
+  font-size: large;
+}
+
+.redtext {
+  color: red;
+}
+
+.lockimage {
+  margin-bottom: 0px;
+}
+
+.loginForm {
+  margin-bottom: 200px;
+  /* background-image: url("./Images/Login.png"); */
+  /* background-image: url("./Images/LoginBackground.png");  */
+  background-position: inherit;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.footer {
+  justify-content: space-around;
+  gap: 100px;
+  position: absolute;
+  bottom: 0px;
+  gap: 100px;
+  font-size: 20px;
+
+  display: flex;
+}
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  .footer {
+    /* color: red; */
+    gap: 20px;
+    font-size: 16px;
+    /* background-color: aqua; */
+  }
+}
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  .footer {
+    gap: 20px;
+    font-size: 16px;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .footer {
+    gap: 20px;
+    font-size: 16px;
+  }
+}

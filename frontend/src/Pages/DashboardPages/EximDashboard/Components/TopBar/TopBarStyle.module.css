@@ -1,0 +1,184 @@
+.topbaricons {
+    font-size: larger;
+    padding-left: 400px;
+}
+
+.serchfield {
+    padding: 0px 2px;
+    border-radius: 5px;
+    color: white;
+    background-color: rgb(217, 217, 217);
+    height: 30px;
+    display: flex;
+}
+#SearchIcon {
+    background-color: #606060;
+    border-radius: 10px;
+    padding: 7px 13px 4px 13px;
+  }
+.serchfield input {
+    width: 90%;
+    background-color: rgb(217, 217, 217);
+}
+
+.serchfield input::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+    opacity: 1;
+    /* Firefox */
+}
+
+.serchfield input:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: black;
+}
+
+.serchfield input::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: black;
+}
+
+.userProfile {
+    border: 1px solid black;
+}
+
+.profileimage {
+    border-radius: 100px;
+    border-color: black;
+    border-width: 20px;
+}
+
+.notification{
+
+    font-size: 7px;
+    color: white;
+    background-color: red;
+    bottom: 10px;
+    right: 5px;
+    
+ }
+.filters {
+    background-color: grey;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    margin-right: 24px;
+}
+.profile {
+    border: 1 solid black;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    margin-right: 10px;
+  }
+  .title {
+    margin-bottom: 0px;
+    /* border:0.5px 0px 0.5px 0px solid red; */
+  }
+.logoutbtn {
+    background-color: gray;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .serchfield input {
+      border-radius: 5px;
+      padding: 2px;
+      border: none;
+    }
+  }
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    .serchfield {
+      padding: 0px;
+    }
+  }
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    #SearchIcon {
+      padding: 7px 22px 0px 10px;
+      height: 20px;
+      width: 20px;
+      height: 28px;
+    }
+  }
+  @media only screen and (min-width: 480px) and (max-width: 768px) {
+    #SearchIcon {
+      padding: 7px 22px 0px 10px;
+      height: 20px;
+      width: 20px;
+      height: 28px;
+    }
+  }
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    .filters {
+      margin: 0px 0px;
+    }
+  }
+  @media only screen and (min-width: 481px) and (max-width: 1024px) {
+    .filters {
+      width: 0px;
+      height: 29px;
+      padding: 10px;
+    }
+  }
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    .profile {
+      margin-right: 20px;
+      gap: 4px;
+      height: 30px;
+      margin-top: 5px;
+    }
+  }
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    .title {
+      font-size: 12px;
+      /* margin-left: 5px; */
+    }
+  }
+  @media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .title {
+      font-size: 14px;
+    }
+  }
+  @media only screen and (min-width: 1025px) and (max-width: 1440px) {
+    .title {
+      font-size: 16px;
+    }
+  }
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    .profileimage {
+      height: 18px;
+      width: 18px;
+    }
+  }
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    .profileimage {
+      height: 12px;
+      width: 12px;
+    }
+  }
+  @media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .profileimage {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    #topDrop{
+      position:relative;
+      top: -30px;
+      left: 110px;
+    }
+  }
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    #topDropItem {
+      margin-top: -20px !important;
+      position: inherit;
+      width: fit-content;
+    }
+  }
+  

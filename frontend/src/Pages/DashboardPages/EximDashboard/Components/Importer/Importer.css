@@ -1,0 +1,46 @@
+.UploadSheetBtn {
+  border: none;
+  border-radius: 5px;
+  float: right;
+  margin-right: 20px;
+  /* margin: 10px; */
+  margin-bottom: 20px;
+  /* padding: 5px 15px; */
+  background-color: #4A4E5E;
+  color: white;
+}
+.Input {
+  background-color: #c7c8c7;
+  border: 1px solid black;
+  margin: 5px;
+  /* font-weight: bold; */
+  text-align: center;
+  width: 225px;
+
+}
+.Column{
+    margin: 0px 50px;
+}
+.Label {
+  font-weight: bold;
+  text-align: center;
+}
+.Buttons {
+  float: right;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+.submitBtn {
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 5px 15px;
+  background-color: #4A4E5E;
+  color: white;
+}
+.clearBtn {
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 5px 15px;
+}

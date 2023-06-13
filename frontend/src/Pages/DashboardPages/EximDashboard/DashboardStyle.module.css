@@ -1,0 +1,60 @@
+#sidemenu {
+    background-color: rgb(230, 230, 230);
+}
+
+.maindashboardbody {
+    background-image: url('./Images/Dashboard-Background.jpg');
+    background-repeat: repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.MainContentContainer {
+    min-height: 100vh;
+}
+
+.Pichart {
+    border-right: 1px solid grey;
+    height: 150px;
+}
+.bar {
+    writing-mode: vertical-lr;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(173, 173, 173);
+    position: relative;
+    top: -70px;
+    border-radius: 20px;
+    left: 277px;
+    height: 75vh;
+    width: 30px;
+  }
+  
+@media only screen and (min-width: 769px)  {
+    .bar {
+      /* 
+      left: 130px;
+      height: 190vh;
+      top: 0px;
+      gap: 200px;
+                  */
+      display: none;
+    }
+  }
+  @media only screen and (min-width: 481px) and (max-width: 1024px) {
+    .bar {
+      /*left: 88px;
+      height: 210vh;
+      top: 0px;
+      gap: 200px;*/
+      display: none;
+    }
+  }
+  
+  
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    .bar {
+      display: none;
+    }
+  }
