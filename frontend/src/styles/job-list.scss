@@ -1,0 +1,63 @@
+.jobs-list-header {
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+
+  h3 {
+    flex: 1;
+  }
+
+  select {
+    margin-right: 10px;
+    padding: 5px;
+  }
+
+  button {
+    padding: 5px 10px;
+    box-sizing: border-box;
+    background-color: #273041;
+    border: none;
+    outline: none;
+    color: #fff;
+  }
+}
+
+.custom-clearance-completed {
+  background-color: #ccffff;
+}
+
+.clearance-pending {
+  background-color: #8eaadb;
+}
+
+.arrival-pending {
+  background-color: #f4b083;
+}
+
+.sea-igm-filed {
+  background-color: #ffff66;
+}
+
+.eta {
+  background-color: #fff;
+}
+
+.custom-clearance-completed:hover {
+  background-color: #ccffff !important;
+}
+
+.clearance-pending:hover {
+  background-color: #8eaadb !important;
+}
+
+.arrival-pending:hover {
+  background-color: #f4b083 !important;
+}
+
+.sea-igm-filed:hover {
+  background-color: #ffff66 !important;
+}
+
+.eta:hover {
+  background-color: #fff !important;
+}

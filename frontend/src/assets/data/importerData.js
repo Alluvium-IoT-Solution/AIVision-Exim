@@ -1,0 +1,18 @@
+export const importerData = [
+  { id: 1, name: "Laxcon Steel Limited", url: "laxcon_steel" },
+  { id: 2, name: "Allied Refactory", url: "allied_refactory" },
+  { id: 3, name: "Ankit", url: "ankit" },
+  { id: 4, name: "Sakar Industries", url: "sakar_industries" },
+  { id: 5, name: "AIA Engineering", url: "aia_engineering" },
+  { id: 6, name: "Ghanshyam Metal Udyog", url: "ghanshyam_metal_udyog" },
+  { id: 7, name: "Arfin India Limited", url: "arfin_india" },
+  { id: 8, name: "Baheti Metal and Ferro Alloys", url: "baheti_metal" },
+  { id: 9, name: "Bhumi Electro India Pvt. Ltd", url: "bhumi_electro" },
+  { id: 10, name: "GBP Industries LLP", url: "gbp_industries" },
+  { id: 11, name: "Parag Metal", url: "parag_metal" },
+  { id: 12, name: "Nandeshwari Steel Limited", url: "nandeshwari_steel" },
+  { id: 13, name: "SG Metal", url: "sg_metal" },
+  { id: 14, name: "RY Midas Metacast", url: "ry_midas_metacast" },
+  { id: 15, name: "Maruti Recycling", url: "maruti_recycling" },
+  { id: 16, name: "Kothari Metals", url: "kothari_metals" },
+];

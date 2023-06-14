@@ -8,13 +8,13 @@ router.put("/:client/updatejob/:jobNo", async (req, res) => {
   const jobNo = req.params.jobNo;
   const {
     arrival_date,
+    eta,
     free_time,
     detention_from,
-    remarks,
     status,
     detailed_status,
-    bill_of_lading_date,
   } = req.body;
+
   try {
     const clientDoc = await JobModel.findOne({ client: client });
 
@@ -29,13 +29,11 @@ router.put("/:client/updatejob/:jobNo", async (req, res) => {
     }
 
     matchingJob.arrival_date = arrival_date;
+    matchingJob.eta = eta;
     matchingJob.free_time = free_time;
     matchingJob.detention_from = detention_from;
-    matchingJob.remarks = remarks;
     matchingJob.status = status;
     matchingJob.detailed_status = detailed_status;
-    matchingJob.bill_of_lading_date = bill_of_lading_date;
-    console.log(matchingJob.detailed_status, detailed_status);
 
     const updatedClient = await clientDoc.save();
 

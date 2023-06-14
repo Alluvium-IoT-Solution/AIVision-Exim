@@ -1,0 +1,98 @@
+@mixin flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.landing {
+  height: 100vh;
+  @include flex();
+  background-color: rgb(249, 250, 251);
+  padding: 0 80px;
+
+  * {
+    overflow-y: hidden;
+  }
+}
+
+.landing-banner {
+  flex: 1;
+  overflow: visible;
+
+  .row {
+    overflow: visible;
+    height: 100%;
+  }
+
+  .landing-banner-left-col,
+  .landing-banner-right-col {
+    @include flex();
+    justify-content: center;
+    height: 100%;
+    overflow: visible;
+  }
+
+  h1 {
+    font-size: 56px;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: 20px;
+    line-height: 30px;
+    margin-top: 20px;
+  }
+
+  button {
+    margin-top: 20px;
+    border: none;
+    outline: none;
+    background-image: linear-gradient(90deg, #723efe, #349bff);
+    padding: 15px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
+    width: 50%;
+    border-radius: 3px;
+    box-shadow: 2px 2px 50px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .landing-banner h1 {
+    font-size: 46px;
+    font-weight: 500;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .landing {
+    padding: 0 20px;
+  }
+  .landing-banner h1 {
+    font-size: 40px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .landing-banner h1 {
+    font-size: 36px;
+  }
+  .landing-banner-right-col {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .landing-banner h1 {
+    font-size: 30px;
+  }
+  .landing-banner p {
+    font-size: 16px;
+  }
+  .landing-banner button {
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+  }
+}

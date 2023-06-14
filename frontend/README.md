@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+# AIVision-Exim
+
+1. Go to the backend branch and clone it. 
+2. Inside the backend branch folder named "Alvision-Exim-main" clone the code of Frontend branch 
+3. Run npm i in both Frontend and Backend to download necessary node modules
+4. Command to start backend - nodemon server.js
+5. Command to start frontend - npm start
+6. Add connection to MongoDB string in server.js file
+7. DEMO Link :- https://drive.google.com/file/d/1cUpL-ZUaHOvLTXdSiSKgcWRaUhhMeJ_N/view?usp=sharing
+=======
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +79,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+>>>>>>> Frontend

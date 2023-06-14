@@ -9,14 +9,16 @@ const jobSchema = new mongoose.Schema({
     {
       arrival_date: {
         type: String,
-        // required: true,
+        required: true,
       },
+      eta: { type: String },
       bill_date: {
         type: String,
       },
       bill_number: { type: String },
       bill_of_entry_date: { type: String },
       bill_of_entry_number: { type: String },
+      bill_of_lading_number: { type: String },
       bill_of_lading_date: { type: String },
       checklist: { type: String },
       client: { type: String },
