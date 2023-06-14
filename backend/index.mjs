@@ -15,13 +15,10 @@ app.use(cors());
 dotenv.config();
 // process.env.MONGODB_URI
 mongoose
-  .connect(
-    "mongodb+srv://aivision:1vXTEjf392erw6cG@alvision.y4ciyhs.mongodb.net/alvision?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     // Get jobs list
     app.use(getJobsList);
