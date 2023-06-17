@@ -35,7 +35,7 @@ mongoose
     // Login
     app.use(login);
 
-    app.listen(process.env.MONGODB_PORT, () => {
+    app.listen(9002, () => {
       console.log("BE started at port 9002");
     });
   })
