@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post("/jobs/addjob", async (req, res) => {
   const requestData = req.body; // Assuming the frontend sends an array of data
+  console.log(requestData)
 
   try {
     for (const i of requestData) {
