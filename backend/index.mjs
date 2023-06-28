@@ -44,8 +44,8 @@ mongoose
 
     app.use(getReport);
 
-    app.listen(process.env.MONGODB_PORT, () => {
-      console.log(`BE started at port ${process.env.MONGODB_PORT}`);
+    app.listen(9002, () => {
+      console.log(`BE started at port 9002`);
     });
   })
   .catch((err) => console.log("Error connecting to MongoDB Atlas:", err));
