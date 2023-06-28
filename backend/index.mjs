@@ -16,14 +16,7 @@ app.use(bodyParser.json({ limit: "100mb" }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true })); // Add 'extended: true' option
-app.use(
-  cors({
-    credentials: true,
-    origin: "https://localhost:3000",
-    allowedHeaders: "Content-Type,Authorization,Set-Cookie",
-    exposedHeaders: "Set-Cookie",
-  })
-);
+app.use(cors());
 dotenv.config();
 
 mongoose

@@ -5,12 +5,13 @@ import { TextField } from "@mui/material";
 import { validationSchema } from "../schema/LoginSchema";
 import axios from "axios";
 import { UserContext } from "../Context/UserContext";
-import { loginAPI } from "../assets/api/api";
+import { apiRoutes } from "../utils/apiRoutes";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const { loginAPI } = apiRoutes();
 
   const formik = useFormik({
     initialValues: {
