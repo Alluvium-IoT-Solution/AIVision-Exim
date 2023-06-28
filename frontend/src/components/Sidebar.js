@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/sidebar.scss";
 import { sidebarData } from "../assets/data/sidebarData";
 import { IconButton, List, ListItem, ListItemButton } from "@mui/material";
@@ -9,8 +9,10 @@ import { ClientContext } from "../Context/ClientContext";
 import { UserContext } from "../Context/UserContext";
 
 function Sidebar() {
-  const { client } = useContext(ClientContext);
+  const { importer } = useContext(ClientContext);
   const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
   return (
     <div className="sidebar">
       <List>
@@ -56,7 +58,7 @@ function Sidebar() {
                       style={{ padding: "0 20px" }}
                     >
                       <NavLink
-                        to={`${client}/jobs/${job.url}`}
+                        to={`${importer}/jobs/${job.url}`}
                         key={id}
                         className="sidebar-link"
                       >
@@ -68,7 +70,12 @@ function Sidebar() {
                           <div
                             style={{ display: "flex", alignItems: "center" }}
                           >
-                            <IconButton sx={{ color: "#ffffff9f" }}>
+                            <IconButton
+                              sx={{
+                                color: "#ffffff9f",
+                                border: "none !important",
+                              }}
+                            >
                               {job.icon}
                             </IconButton>
                             <p className="sidebar-list-text">{job.name}</p>
@@ -90,6 +97,7 @@ function Sidebar() {
           }}
           onClick={() => {
             setUser(null);
+            navigate("/");
             localStorage.removeItem("user");
           }}
         >

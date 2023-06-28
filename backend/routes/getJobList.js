@@ -3,11 +3,11 @@ import JobModel from "../models/jobModel.mjs";
 
 const router = express.Router();
 
-router.get("/:client/jobs/:status", async (req, res) => {
+router.get("/api/:importer/jobs/:status", async (req, res) => {
   try {
-    const client = req.params.client;
+    const importer = req.params.importer;
     const status = req.params.status;
-    const query = { client: client };
+    const query = { importer: importer };
 
     const result = await JobModel.findOne(query).populate("jobs");
 
@@ -19,7 +19,7 @@ router.get("/:client/jobs/:status", async (req, res) => {
 
     if (status !== "all") {
       matchingJobs = matchingJobs.filter(
-        (job) => job.status.toLowerCase() === status.toLowerCase()
+        (job) => job.status?.toLowerCase() === status?.toLowerCase()
       );
 
       if (matchingJobs.length === 0) {

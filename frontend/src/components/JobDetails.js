@@ -1,99 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import { useParams } from "react-router-dom";
 import { TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
-import { validationSchema } from "../schema/JobSchema";
-import { useFormik } from "formik";
 import "../styles/job-details.scss";
+import useFetchJobDetails from "../customHooks/useFetchJobDetails";
+import Checkbox from "@mui/material/Checkbox";
 
 function JobDetails() {
   const params = useParams();
-  const [data, setData] = useState(null);
   const options = Array.from({ length: 25 }, (_, index) => index);
-  const navigate = useNavigate();
-  const [detentionFrom, setDetentionFrom] = useState("");
-
-  useEffect(() => {
-    async function getJobDetails() {
-      const response = await axios.get(
-        `http://localhost:9002/${params.client}/job/${params.jobNo}`
-      );
-      setData(response.data);
-    }
-
-    getJobDetails();
-  }, []);
-
-  const formik = useFormik({
-    initialValues: {
-      arrival_date: "",
-      eta: "",
-      free_time: "",
-      status: "",
-      detailed_status: "",
-    },
-    validationSchema: validationSchema,
-    onSubmit: async (values) => {
-      function convertDateFormat(dateString) {
-        const [year, month, day] = dateString.split("-");
-        const formattedDate = `${day}.${month}.${year.slice(-2)}`;
-        return formattedDate;
-      }
-
-      const eta = convertDateFormat(values.eta);
-
-      console.log({
-        arrival_date: values.arrival_date,
-        eta: eta,
-        free_time: values.free_time,
-        status: values.status,
-        detailed_status: values.detailed_status,
-      });
-
-      const res = await axios.put(
-        `http://localhost:9002/${params.client}/updatejob/${params.jobNo}`,
-        {
-          arrival_date: values.arrival_date,
-          eta: eta,
-          free_time: values.free_time,
-          status: values.status,
-          detailed_status: values.detailed_status,
-        }
-      );
-      console.log(res);
-      navigate(`/${params.client}/jobs/pending`);
-    },
-  });
-  console.log(formik.values.free_time);
-
-  useEffect(() => {
-    if (data) {
-      function convertDateFormat(dateString) {
-        return dateString.replace(/^(\d{2})\.(\d{2})\.(\d{2})$/, "20$3-$2-$1");
-      }
-
-      const arrival_date = convertDateFormat(data.arrival_date);
-      const eta = convertDateFormat(data.eta);
-
-      formik.setValues({
-        arrival_date: arrival_date,
-        eta: eta,
-        free_time: data.free_time,
-        status: data.status,
-        detailed_status: data.detailed_status,
-      });
-    }
-  }, [data]);
-
-  console.log(formik.values.free_time);
+  const [checked, setChecked] = useState(false);
+  const { data, detentionFrom, formik } = useFetchJobDetails(params, checked);
 
   return (
     <>
       <Container>
         <Row>
-          <h4>Job Number:&nbsp;{params.jobNo}</h4>
+          <h4>
+            Job Number:&nbsp;{params.jobNo}&nbsp;|&nbsp;
+            {data && `Custom House: ${data.custom_house}`}
+          </h4>
         </Row>
       </Container>
 
@@ -101,98 +28,99 @@ function JobDetails() {
         <form onSubmit={formik.handleSubmit}>
           <Row className="job-detail-row">
             <Col>
-              <strong>Bill of Lading Number:&nbsp;</strong>
-              {data.bill_of_lading_number}
+              <strong>Party:&nbsp;</strong>
+              <span className="non-editable-text">{data.party}</span>
             </Col>
             <Col>
-              <strong>Bill of Lading Date:&nbsp;</strong>
-              {data.bill_of_lading_date}
+              <strong>Invoice Number:&nbsp;</strong>
+              <span className="non-editable-text">{data.invoice_number}</span>
             </Col>
             <Col>
-              <strong>Bill of Entry Date:&nbsp;</strong>
-              {data.bill_of_entry_date}
+              <strong>Invoice Date:&nbsp;</strong>
+              <span className="non-editable-text">{data.invoice_date}</span>
             </Col>
           </Row>
-
           <Row className="job-detail-row">
             <Col>
-              <strong>Port of Discharge:&nbsp;</strong>
-              {data.port_of_discharge}
+              <strong>Invoice Value and Unit Price:&nbsp;</strong>
+              <span className="non-editable-text">
+                {data.invoice_value_and_rate}
+              </span>
+            </Col>
+            <Col>
+              <strong>Bill Number:&nbsp;</strong>
+              <span className="non-editable-text">{data.bill_no}</span>
+            </Col>
+            <Col>
+              <strong>Bill Date:&nbsp;</strong>
+              <span className="non-editable-text">{data.bill_date}</span>
+            </Col>
+          </Row>
+          <Row className="job-detail-row">
+            <Col>
+              <strong>Commodity:&nbsp;</strong>
+              <span className="non-editable-text">{data.commodity}</span>
+            </Col>
+            <Col>
+              <strong>Number of Packages:&nbsp;</strong>
+              <span className="non-editable-text">
+                {data.number_of_packages}
+              </span>
+            </Col>
+            <Col>
+              <strong>Gross Weight:&nbsp;</strong>
+              <span className="non-editable-text">{data.gross_weight}</span>
+            </Col>
+          </Row>
+          <Row className="job-detail-row">
+            <Col>
+              <strong>POL:&nbsp;</strong>
+              <span className="non-editable-text">{data.loading_port}</span>
             </Col>
             <Col>
               <strong>Shipping Line:&nbsp;</strong>
-              {data.shipping_line}
-            </Col>
-            <Col></Col>
-          </Row>
-
-          <Row className="job-detail-row">
-            <Col>
-              <div className="job-detail-input-container">
-                <strong>Arrival Date:&nbsp;</strong>
-                <TextField
-                  size="large"
-                  margin="normal"
-                  variant="outlined"
-                  type="date"
-                  id="arrival_date"
-                  name="arrival_date"
-                  label=""
-                  value={formik.values.arrival_date}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.arrival_date &&
-                    Boolean(formik.errors.arrival_date)
-                  }
-                  helperText={
-                    formik.touched.arrival_date && formik.errors.arrival_date
-                  }
-                />
-              </div>
+              <span className="non-editable-text">
+                {data.shipping_line_airline}
+              </span>
             </Col>
             <Col>
-              <div className="job-detail-input-container">
-                <strong>ETA/ Discharge Date:&nbsp;</strong>
-                <TextField
-                  size="large"
-                  margin="normal"
-                  variant="outlined"
-                  type="date"
-                  id="eta"
-                  name="eta"
-                  label=""
-                  value={formik.values.eta}
-                  onChange={formik.handleChange}
-                  error={formik.touched.eta && Boolean(formik.errors.eta)}
-                  helperText={formik.touched.eta && formik.errors.eta}
-                />
-              </div>
-            </Col>
-            <Col>
-              <div className="job-detail-input-container">
-                <strong>Free Time:&nbsp;</strong>
-                <TextField
-                  select
-                  size="large"
-                  margin="normal"
-                  variant="outlined"
-                  id="free_time"
-                  name="free_time"
-                  label=""
-                  value={formik.values.free_time}
-                  onChange={formik.handleChange}
-                >
-                  {options.map((option, id) => (
-                    <MenuItem key={id} value={(option, id)}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </div>
+              <strong>Size:&nbsp;</strong>
+              <span className="non-editable-text">{data.size}</span>
             </Col>
           </Row>
-
           <Row className="job-detail-row">
+            <Col>
+              <strong>DO Validity:&nbsp;</strong>
+              <span className="non-editable-text">{data.do_validity}</span>
+            </Col>
+            <Col>
+              <strong>Bill of Entry Number:&nbsp;</strong>
+              <span className="non-editable-text">{data.be_no}</span>
+            </Col>
+            <Col>
+              <strong>Bill of Entry Date:&nbsp;</strong>
+              <span className="non-editable-text">{data.be_date}</span>
+            </Col>
+          </Row>
+          <Row className="job-detail-row">
+            <Col>
+              <strong>Checklist:&nbsp;</strong>
+              <span className="non-editable-text">{data.checklist}</span>
+            </Col>
+            <Col>
+              <strong>Bill of Lading Number:&nbsp;</strong>
+              <span className="non-editable-text">{data.awb_bl_no}</span>
+            </Col>
+            <Col>
+              <strong>Bill of Lading Date:&nbsp;</strong>
+              <span className="non-editable-text">{data.awb_bl_date}</span>
+            </Col>
+          </Row>
+          <Row className="job-detail-row">
+            <Col style={{ display: "flex", alignItems: "center" }}>
+              <strong>Out of Duty Date:&nbsp;</strong>
+              <span className="non-editable-text">{data.out_of_duty_date}</span>
+            </Col>
             <Col>
               <div className="job-detail-input-container">
                 <strong>Status:&nbsp;</strong>
@@ -245,21 +173,164 @@ function JobDetails() {
                 </TextField>
               </div>
             </Col>
-            <Col
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              {/* <strong>Detention From:</strong> */}
+          </Row>
+
+          <Row>
+            <Col xs={4}>
+              <div className="job-detail-input-container">
+                <strong>ETA/ Discharge Date:&nbsp;</strong>
+                <TextField
+                  size="large"
+                  margin="normal"
+                  variant="outlined"
+                  type="date"
+                  id="eta"
+                  name="eta"
+                  label=""
+                  value={formik.values.eta}
+                  onChange={formik.handleChange}
+                  error={formik.touched.eta && Boolean(formik.errors.eta)}
+                  helperText={formik.touched.eta && formik.errors.eta}
+                />
+              </div>
+            </Col>
+            <Col>
+              <div className="job-detail-input-container">
+                <Checkbox
+                  value={checked}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setChecked(true);
+                    } else {
+                      setChecked(false);
+                    }
+                  }}
+                />
+
+                {!checked && (
+                  <strong>All containers arrived at same date</strong>
+                )}
+
+                {checked && (
+                  <>
+                    <strong>Arrival Date:&nbsp;</strong>
+                    <TextField
+                      size="large"
+                      margin="normal"
+                      variant="outlined"
+                      type="date"
+                      id="arrival_date"
+                      name="arrival_date"
+                      label=""
+                      value={formik.values.arrival_date}
+                      onChange={formik.handleChange}
+                      error={
+                        formik.touched.arrival_date &&
+                        Boolean(formik.errors.arrival_date)
+                      }
+                      helperText={
+                        formik.touched.arrival_date &&
+                        formik.errors.arrival_date
+                      }
+                    />
+                  </>
+                )}
+              </div>
             </Col>
           </Row>
 
-          <Row className="job-detail-row">
-            <Col></Col>
-            <Col></Col>
+          <hr />
+
+          {formik.values.status !== "" &&
+            formik.values.container_nos.map((container, index) => {
+              return (
+                <div key={index}>
+                  <div style={{ padding: "30px" }}>
+                    <h6>
+                      <strong>
+                        {index + 1}. Container Number:&nbsp;
+                        {container.container_number}
+                      </strong>
+                    </h6>
+
+                    <br />
+                    <Row>
+                      {!checked && (
+                        <Col>
+                          <div className="job-detail-input-container">
+                            <strong>Arrival Date:&nbsp;</strong>
+                            <TextField
+                              key={index}
+                              size="large"
+                              margin="normal"
+                              variant="outlined"
+                              type="date"
+                              id={`arrival_date_${index}`}
+                              name={`container_nos[${index}].arrival_date`}
+                              label=""
+                              value={container.arrival_date}
+                              onChange={formik.handleChange}
+                              error={
+                                formik.touched.container_nos?.[index]
+                                  ?.arrival_date &&
+                                Boolean(
+                                  formik.errors.container_nos?.[index]
+                                    ?.arrival_date
+                                )
+                              }
+                              helperText={
+                                formik.touched.container_nos?.[index]
+                                  ?.arrival_date &&
+                                formik.errors.container_nos?.[index]
+                                  ?.arrival_date
+                              }
+                            />
+                          </div>
+                        </Col>
+                      )}
+                      <Col>
+                        <div className="job-detail-input-container">
+                          <strong>Free Time:&nbsp;</strong>
+                          <TextField
+                            select
+                            size="large"
+                            margin="normal"
+                            variant="outlined"
+                            id="free_time"
+                            name="free_time"
+                            label=""
+                            value={formik.values.free_time}
+                            onChange={formik.handleChange}
+                          >
+                            {options.map((option, id) => (
+                              <MenuItem key={id} value={option}>
+                                {option}
+                              </MenuItem>
+                            ))}
+                          </TextField>
+                        </div>
+                      </Col>
+
+                      <Col style={{ display: "flex", alignItems: "center" }}>
+                        <strong>Detention From:&nbsp;</strong>
+                        {detentionFrom[index]}
+                      </Col>
+                      {checked && <Col></Col>}
+                    </Row>
+                  </div>
+                  <hr />
+                </div>
+              );
+            })}
+
+          <Row style={{ marginTop: "20px" }}>
             <Col>
-              <button type="submit">Submit</button>
+              <button
+                type="submit"
+                style={{ float: "right", margin: "0px 20px" }}
+              >
+                Submit
+              </button>
             </Col>
           </Row>
         </form>

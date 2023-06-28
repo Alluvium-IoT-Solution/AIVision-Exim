@@ -7,36 +7,45 @@ import getJobsList from "./routes/getJobList.js";
 import updateJob from "./routes/updateJob.mjs";
 import addJob from "./routes/addJobsFromExcel.js";
 import login from "./routes/login.mjs";
+import getReport from "./routes/getReport.js";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 
 const app = express();
+app.use(bodyParser.json({ limit: "100mb" }));
 app.use(express.json());
-app.use(express.urlencoded());
-app.use(cors());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true })); // Add 'extended: true' option
+app.use(
+  cors({
+    credentials: true,
+    origin: "https://localhost:3000",
+    allowedHeaders: "Content-Type,Authorization,Set-Cookie",
+    exposedHeaders: "Set-Cookie",
+  })
+);
 dotenv.config();
-// process.env.MONGODB_URI
+
 mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
-    // Get jobs list
     app.use(getJobsList);
 
-    // Get Job
     app.use(getJob);
 
-    // Update Job
     app.use(updateJob);
 
-    // Add Job
     app.use(addJob);
 
-    // Login
     app.use(login);
 
-    app.listen(9002, () => {
-      console.log("BE started at port 9002");
+    app.use(getReport);
+
+    app.listen(process.env.MONGODB_PORT, () => {
+      console.log(`BE started at port ${process.env.MONGODB_PORT}`);
     });
   })
   .catch((err) => console.log("Error connecting to MongoDB Atlas:", err));

@@ -1,96 +1,52 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { useParams } from "react-router-dom";
 import { ClientContext } from "../Context/ClientContext";
-import axios from "axios";
 import "../styles/job-list.scss";
 import useJobColumns from "../customHooks/useJobColumns";
 import { convertToExcel } from "../utils/convertToExcel";
 import { getTableRowsClassname } from "../utils/getTableRowsClassname";
-import { convertToTimestamp } from "../utils/convertToTimestamp";
+import useFetchJobList from "../customHooks/useFetchJobList";
+import { detailedStatusOptions } from "../assets/data/detailedStatusOptions";
+import { useParams } from "react-router-dom";
 
 function JobsList() {
-  const params = useParams();
-  const { clientName } = useContext(ClientContext);
+  const { importerName } = useContext(ClientContext);
   const [detailedStatus, setDetailedStatus] = useState("");
-  const columns = useJobColumns();
-  const [rows, setRows] = useState([]);
-
-  useEffect(() => {
-    async function getData() {
-      setRows([]);
-      const res = await axios.get(
-        `http://localhost:9002/${params.client}/jobs/${params.status}`
-      );
-
-      if (detailedStatus === "") {
-        setRows(res.data);
-      } else if (detailedStatus === "Estimated Time of Arrival") {
-        const filteredRows = res.data.filter(
-          (item) => item.detailed_status === detailedStatus
-        );
-
-        const sortedRows = filteredRows.sort((a, b) => {
-          const dateA = convertToTimestamp(a.bill_of_entry_date);
-          const dateB = convertToTimestamp(b.bill_of_entry_date);
-          return dateA - dateB;
-        });
-        setRows(sortedRows);
-      } else if (detailedStatus === "Sea IGM Filed") {
-        const filteredRows = res.data.filter(
-          (item) => item.detailed_status === detailedStatus
-        );
-        setRows(filteredRows);
-      } else if (detailedStatus === "BE Noted, Arrival Pending") {
-        const filteredRows = res.data.filter(
-          (item) => item.detailed_status === detailedStatus
-        );
-        const sortedRows = filteredRows.sort((a, b) => {
-          const dateA = convertToTimestamp(a.arrival_date);
-          const dateB = convertToTimestamp(b.arrival_date);
-          return dateA - dateB;
-        });
-        setRows(sortedRows);
-      } else if (detailedStatus === "BE Noted, Clearance Pending") {
-        const filteredRows = res.data.filter(
-          (item) => item.detailed_status === detailedStatus
-        );
-        setRows(filteredRows);
-      } else if (detailedStatus === "Custom Clearance Completed") {
-        const filteredRows = res.data.filter(
-          (item) => item.detailed_status === detailedStatus
-        );
-        setRows(filteredRows);
-      }
-    }
-    getData();
-  }, [params.client, params.status, detailedStatus]);
+  const columns = useJobColumns(detailedStatus);
+  const rows = useFetchJobList(detailedStatus);
+  const params = useParams();
 
   return (
     <>
       <div className="jobs-list-header">
-        <h3>{clientName}</h3>
+        <h5>
+          {importerName} |&nbsp;
+          {params.status === "pending"
+            ? "Pending Jobs"
+            : params.status === "completed"
+            ? "Completed  Jobs"
+            : params.status === "cancelled"
+            ? "Cancelled  Jobs"
+            : "All Jobs"}
+        </h5>
         <select
           name="status"
           onChange={(e) => setDetailedStatus(e.target.value)}
         >
-          <option value="">Select Status</option>
-          <option value="Custom Clearance Completed">
-            Custom Clearance Completed
-          </option>
-          <option value="BE Noted, Clearance Pending">
-            BE Noted, Clearance Pending
-          </option>
-          <option value="BE Noted, Arrival Pending">
-            BE Noted, Arrival Pending
-          </option>
-          <option value="Sea IGM Filed">Sea IGM Filed</option>
-          <option value="Estimated Time of Arrival">
-            Estimated Time of Arrival
-          </option>
+          {detailedStatusOptions.map((option) => (
+            <option key={option.id} value={option.value}>
+              {option.name}
+            </option>
+          ))}
         </select>
 
-        <button onClick={() => convertToExcel(rows)}>Export</button>
+        <button
+          onClick={() =>
+            convertToExcel(rows, importerName, params.status, detailedStatus)
+          }
+        >
+          Export
+        </button>
       </div>
 
       <DataGrid
@@ -105,9 +61,10 @@ function JobsList() {
         headerAlign="center"
         rows={rows}
         columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
-        rowHeight={50}
+        pageSize={50}
+        stickyHeader
+        rowsPerPageOptions={[50]}
+        rowHeight={150}
         autoHeight={true}
         disableColumnMenu={true}
         disableSelectionOnClick

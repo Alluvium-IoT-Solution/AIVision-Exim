@@ -10,16 +10,16 @@ import { UserContext } from "./Context/UserContext";
 
 function App() {
   const [user, setUser] = useState(localStorage.getItem("user"));
-  const [client, setClient] = useState(localStorage.getItem("client"));
-  const [clientName, setClientName] = useState(
-    localStorage.getItem("clientName")
+  const [importer, setImporter] = useState(localStorage.getItem("importer"));
+  const [importerName, setImporterName] = useState(
+    localStorage.getItem("importerName")
   );
   const muiTheme = useMuiTheme();
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <ClientContext.Provider
-        value={{ client, setClient, clientName, setClientName }}
+        value={{ importer, setImporter, importerName, setImporterName }}
       >
         <ThemeProvider theme={muiTheme}>
           <div className="App">

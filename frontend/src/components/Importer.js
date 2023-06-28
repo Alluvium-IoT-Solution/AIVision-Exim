@@ -6,14 +6,14 @@ import { useNavigate } from "react-router-dom";
 import "../styles/importer.scss";
 
 function Importer() {
-  const { setClient, setClientName } = React.useContext(ClientContext);
+  const { setImporter, setImporterName } = React.useContext(ClientContext);
   const navigate = useNavigate();
 
   const handleClient = (url, name) => {
-    setClient(url);
-    setClientName(name);
-    localStorage.setItem("client", url);
-    localStorage.setItem("clientName", name);
+    setImporter(url);
+    setImporterName(name);
+    localStorage.setItem("importer", url);
+    localStorage.setItem("importerName", name);
     navigate(`/${url}/jobs/pending`);
   };
 

@@ -5,9 +5,12 @@ import { TextField } from "@mui/material";
 import { validationSchema } from "../schema/LoginSchema";
 import axios from "axios";
 import { UserContext } from "../Context/UserContext";
+import { loginAPI } from "../assets/api/api";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -17,7 +20,7 @@ const LoginForm = () => {
 
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const res = await axios.post("http://localhost:9002/login", values);
+      const res = await axios.post(loginAPI, values);
       console.log(res);
       if (res.data.message === "User not registered") {
         alert(res.data.message);
@@ -26,6 +29,7 @@ const LoginForm = () => {
       } else if (res.data.message === "Login Successfull") {
         localStorage.setItem("user", res.data.user);
         setUser(res.data.user);
+        navigate("/importer");
       }
     },
   });

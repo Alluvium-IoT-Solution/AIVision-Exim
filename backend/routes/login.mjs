@@ -5,13 +5,12 @@ import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
-router.post("/login", (req, res) => {
+router.post("/api/login", (req, res) => {
   const { username, password } = req.body;
 
   userModel
     .findOne({ username: username })
     .then((user) => {
-      console.log(user);
       if (user) {
         bcrypt.compare(password, user.password, (err, result) => {
           if (result) {
@@ -19,7 +18,7 @@ router.post("/login", (req, res) => {
               {
                 username: user.username,
               },
-              "secret123"
+              process.env.SECRET_KEY
             );
             res.json({ message: "Login Successfull", user: token });
           } else {

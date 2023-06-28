@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 
-function useJobColumns() {
+function useJobColumns(detailedStatus) {
   const params = useParams();
 
   const columns = [
@@ -12,10 +12,15 @@ function useJobColumns() {
     },
 
     {
-      field: "job_number",
+      field: "job_no",
       sortable: false,
       headerName: "Job Number",
-      width: "150",
+      width: 150,
+      // detailedStatus === "" ||
+      // detailedStatus === "Estimated Time of Arrival" ||
+      // detailedStatus === "Gateway IGM Filed"
+      //   ? "200"
+      //   : "100",
       align: "center",
     },
 
@@ -28,43 +33,111 @@ function useJobColumns() {
     },
 
     {
-      field: "bill_of_lading_number",
+      field: "awb_bl_no",
       sortable: false,
       headerName: "Bill of Lading Number",
       width: "200",
       align: "center",
+      hide:
+        detailedStatus === "Estimated Time of Arrival" ||
+        detailedStatus === "Gateway IGM Filed" ||
+        detailedStatus === ""
+          ? false
+          : true,
     },
 
     {
-      field: "container_number",
+      field: "be_no",
       sortable: false,
-      headerName: "Container Number",
+      headerName: "Bill of Entry Number",
       width: 150,
       align: "center",
+      hide:
+        detailedStatus === "BE Noted, Arrival Pending" ||
+        detailedStatus === "BE Noted, Clearance Pending" ||
+        detailedStatus === "Custom Clearance Completed"
+          ? false
+          : true,
+    },
+
+    {
+      field: "be_date",
+      sortable: false,
+      headerName: "Bill of Entry Date",
+      width: 150,
+      align: "center",
+      hide:
+        detailedStatus === "BE Noted, Arrival Pending" ||
+        detailedStatus === "BE Noted, Clearance Pending" ||
+        detailedStatus === "Custom Clearance Completed"
+          ? false
+          : true,
+    },
+
+    {
+      field: "container_numbers",
+      sortable: false,
+      headerName: "Container Numbers",
+      width: 150,
+      align: "center",
+      renderCell: (cell) => {
+        return cell.row.container_nos.map((container, id) => {
+          return (
+            <React.Fragment key={id}>
+              {container.container_number}
+              <br />
+            </React.Fragment>
+          );
+        });
+      },
     },
 
     {
       field: "eta",
       sortable: false,
       headerName: "Estimated Time of Arrival",
-      width: 350,
+      width: 250,
       align: "center",
-    },
-
-    {
-      field: "bill_of_entry_date",
-      sortable: false,
-      hide: true,
-    },
-
-    {
-      field: "pol",
-      sortable: false,
-      hide: true,
+      hide:
+        detailedStatus === "Estimated Time of Arrival" ||
+        detailedStatus === "Gateway IGM Filed" ||
+        detailedStatus === "BE Noted, Arrival Pending" ||
+        detailedStatus === ""
+          ? false
+          : true,
     },
 
     {
       field: "arrival_date",
+      sortable: false,
+      headerName: "Arrival Date",
+      width: 250,
+      align: "center",
+      hide: detailedStatus !== "BE Noted, Clearance Pending" ? true : false,
+      renderCell: (cell) => {
+        return cell.row.container_nos.map((container, id) => {
+          console.log(container);
+          return (
+            <React.Fragment key={id}>
+              {container.arrival_date}
+              <br />
+            </React.Fragment>
+          );
+        });
+      },
+    },
+
+    {
+      field: "out_of_duty_date",
+      sortable: false,
+      headerName: "Out of Duty Date",
+      width: 250,
+      align: "center",
+      hide: detailedStatus !== "Custom Clearance Completed" ? true : false,
+    },
+
+    {
+      field: "pol",
       sortable: false,
       hide: true,
     },
@@ -165,12 +238,6 @@ function useJobColumns() {
 
     {
       field: "do_validity",
-      sortable: false,
-      hide: true,
-    },
-
-    {
-      field: "bill_of_entry_number",
       sortable: false,
       hide: true,
     },
@@ -279,7 +346,7 @@ function useJobColumns() {
       align: "center",
       renderCell: (cell) => {
         return (
-          <Link to={`/${params.client}/job/${cell.row.job_number}`}>
+          <Link to={`/${params.importer}/job/${cell.row.job_no}`}>
             View Job
           </Link>
         );
