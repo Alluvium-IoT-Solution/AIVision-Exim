@@ -20,14 +20,10 @@ app.use(cors());
 dotenv.config();
 
 mongoose
-  .connect(
-    // process.env.MONGODB_URI
-    "mongodb+srv://ysam020:rNgvq7ZjPkxiwhuT@cluster0.66lgz9a.mongodb.net/exim?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     app.use(getJobsList);
 
