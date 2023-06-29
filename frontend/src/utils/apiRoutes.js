@@ -12,13 +12,13 @@ export function apiRoutes(importer, arg2, arg3) {
 
   // server
   const loginAPI = "https://exim-pfqn.onrender.com/api/login";
-  const getJobsListAPI = `https://exim-pfqn.onrender.com/api/:${importer}/jobs/${
+  const getJobsListAPI = `https://exim-pfqn.onrender.com/api/${importer}/jobs/${
     arg2 || arg3
   }`;
-  const getJobAPI = `https://exim-pfqn.onrender.com/api/:${importer}/job/:${
+  const getJobAPI = `https://exim-pfqn.onrender.com/api/${importer}/job/${
     arg2 || arg3
   }`;
-  const updateJobAPI = `https://exim-pfqn.onrender.com/api/:${importer}/updatejob/:${
+  const updateJobAPI = `https://exim-pfqn.onrender.com/api/${importer}/updatejob/${
     arg2 || arg3
   }`;
   const addJobAPI = "https://exim-pfqn.onrender.com/api/jobs/addJob";

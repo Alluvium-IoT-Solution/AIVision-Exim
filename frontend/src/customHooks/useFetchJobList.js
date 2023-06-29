@@ -58,8 +58,8 @@ function useFetchJobList(detailedStatus) {
         );
 
         const sortedRows = filteredRows.sort((a, b) => {
-          const dateA = convertToTimestamp(a.bill_of_entry_date);
-          const dateB = convertToTimestamp(b.bill_of_entry_date);
+          const dateA = convertToTimestamp(a.be_date);
+          const dateB = convertToTimestamp(b.be_date);
           return dateA - dateB;
         });
         setRows(sortedRows);
