@@ -7,16 +7,15 @@ export const convertToExcel = async (
   status,
   detailedStatus
 ) => {
+  const dateOfReport = new Date().toLocaleDateString();
+
   const headers = [
     "JOB NUMBER",
     "CUSTOM HOUSE",
     "PARTY",
-    "DATE",
     "INVOICE NUMBER",
     "INVOICE DATE",
     "INVOICE VALUE AND UNIT PRICE",
-    "BILL NUMBER",
-    "BILL DATE",
     "COMMODITY",
     "CONTAINER COUNT",
     "GROSS WEIGHT",
@@ -54,12 +53,9 @@ export const convertToExcel = async (
       item.job_no,
       item.custom_house,
       item.party,
-      item.date,
       item.invoice_number,
       item.invoice_date,
       item.invoice_value_and_unit_price,
-      item.bill_no,
-      item.bill_date,
       item.commodity,
       item.container_count,
       item.gross_weight,
@@ -91,7 +87,7 @@ export const convertToExcel = async (
 
   // Set the title for title row
   const titleRow = worksheet.getRow(1);
-  titleRow.getCell(1).value = importer;
+  titleRow.getCell(1).value = `${importer}: Status as of ${dateOfReport}`;
 
   // Apply formatting to the title row
   titleRow.font = { size: 24, color: { argb: "FFFFFFFF" } };
