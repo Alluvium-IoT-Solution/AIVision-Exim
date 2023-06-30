@@ -12,7 +12,7 @@ export const convertToExcel = async (
   const headers = [
     "JOB NUMBER",
     "CUSTOM HOUSE",
-    "PARTY",
+    "IMPORTER",
     "INVOICE NUMBER",
     "INVOICE DATE",
     "INVOICE VALUE AND UNIT PRICE",
@@ -48,13 +48,15 @@ export const convertToExcel = async (
       .map((container) => container.detention_from)
       .join(",\n");
 
+    const invoice_value_and_unit_price = `${item.cif_amount} | ${item.unit_price}`;
+
     return [
       item.job_no,
       item.custom_house,
-      item.party,
+      item.importer,
       item.invoice_number,
       item.invoice_date,
-      item.invoice_value_and_unit_price,
+      invoice_value_and_unit_price,
       item.commodity,
       item.container_count,
       item.gross_weight,
@@ -62,7 +64,7 @@ export const convertToExcel = async (
       arrivalDates,
       item.free_time,
       detentionFrom,
-      item.shipping_line,
+      item.shipping_line_airline,
       containerNumbers,
       item.size,
       item.remarks,
@@ -249,6 +251,12 @@ export const convertToExcel = async (
     }
     if (headers[id] === "INVOICE VALUE AND UNIT PRICE") {
       column.width = 35;
+    }
+    if (headers[id] === "IMPORTER") {
+      column.width = 40;
+    }
+    if (headers[id] === "SHIPPING LINE") {
+      column.width = 40;
     }
   });
 

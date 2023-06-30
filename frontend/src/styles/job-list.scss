@@ -61,3 +61,18 @@
 .eta:hover {
   background-color: #fff !important;
 }
+
+@media screen and (max-width: 992px) {
+  .jobs-list-header {
+    flex-direction: column;
+
+    h5 {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    select {
+      margin-bottom: 10px;
+    }
+  }
+}

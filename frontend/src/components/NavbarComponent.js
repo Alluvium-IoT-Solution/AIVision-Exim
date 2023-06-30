@@ -73,11 +73,8 @@ function ResponsiveDrawer() {
 
           <label
             htmlFor="uploadBtn"
-            style={{
-              backgroundColor: "#273041",
-              padding: "10px",
-              cursor: "pointer",
-            }}
+            className="uploadBtn"
+            
           >
             Upload Party Data (excel file)
           </label>

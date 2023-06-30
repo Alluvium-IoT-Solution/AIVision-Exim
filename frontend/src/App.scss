@@ -44,6 +44,23 @@ $background-color: rgba(249, 250, 251, 0.3);
   }
 }
 
+// upload button in navbar
+.uploadBtn {
+  background-color: #273041;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.uploadBtn-mobile {
+  background-color: #f9fafb;
+  padding: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  display: none;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
 /* Hide arrows from input type number */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -116,4 +133,13 @@ input[type="number"]::-webkit-outer-spin-button {
 .MuiSelect-select.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
   padding: 8px;
   padding-right: 30px;
+}
+
+@media screen and (max-width: 768px) {
+  .uploadBtn {
+    display: none;
+  }
+  .uploadBtn-mobile {
+    display: block;
+  }
 }

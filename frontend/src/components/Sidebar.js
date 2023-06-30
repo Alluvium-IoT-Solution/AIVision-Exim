@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/sidebar.scss";
 import { sidebarData } from "../assets/data/sidebarData";
@@ -7,11 +7,15 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import { jobStatus } from "../assets/data/jobStatus";
 import { ClientContext } from "../Context/ClientContext";
 import { UserContext } from "../Context/UserContext";
+import useFileUpload from "../customHooks/useFileUpload";
+import Snackbar from "@mui/material/Snackbar";
 
 function Sidebar() {
   const { importer } = useContext(ClientContext);
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const inputRef = useRef();
+  const { handleFileUpload, snackbar } = useFileUpload(inputRef);
 
   return (
     <div className="sidebar">
@@ -23,6 +27,20 @@ function Sidebar() {
             width={180}
           />
         </div>
+
+        <label htmlFor="uploadBtn" className="uploadBtn-mobile">
+          Upload Party Data (excel file)
+        </label>
+        <input
+          type="file"
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          id="uploadBtn"
+          name="uploadBtn"
+          ref={inputRef}
+          style={{ display: "none" }}
+          onChange={handleFileUpload}
+        />
+
         {sidebarData.map((val) => {
           const { id, icon, name, url } = val;
           return (
@@ -37,9 +55,10 @@ function Sidebar() {
                     sx={{ textAlign: "left" }}
                     className="appbar-links"
                     style={{ padding: "5px 0" }}
+                    aria-label="list-item"
                   >
                     <div style={{ display: "flex", alignItems: "center" }}>
-                      <IconButton sx={{ color: "#ffffff9f" }}>
+                      <IconButton sx={{ color: "#ffffff9f" }} aria-label="icon">
                         {icon}
                       </IconButton>
                       <p className="sidebar-list-text">{name}</p>
@@ -66,6 +85,7 @@ function Sidebar() {
                           sx={{ textAlign: "left" }}
                           className="appbar-links"
                           style={{ padding: "5px 0" }}
+                          aria-label="list-item"
                         >
                           <div
                             style={{ display: "flex", alignItems: "center" }}
@@ -75,6 +95,7 @@ function Sidebar() {
                                 color: "#ffffff9f",
                                 border: "none !important",
                               }}
+                              aria-label="icon"
                             >
                               {job.icon}
                             </IconButton>
@@ -108,9 +129,10 @@ function Sidebar() {
               style={{
                 padding: "5px 0",
               }}
+              aria-label="list-item"
             >
               <div style={{ display: "flex", alignItems: "center" }}>
-                <IconButton sx={{ color: "#ffffff9f" }}>
+                <IconButton sx={{ color: "#ffffff9f" }} aria-label="icon">
                   <LogoutRoundedIcon />
                 </IconButton>
                 <p className="sidebar-list-text">Logout</p>
@@ -119,6 +141,12 @@ function Sidebar() {
           </div>
         </ListItem>
       </List>
+
+      <Snackbar
+        open={snackbar}
+        message="Jobs added successfully!"
+        sx={{ left: "auto !important", right: "24px !important" }}
+      />
     </div>
   );
 }

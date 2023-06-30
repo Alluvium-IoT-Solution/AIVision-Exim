@@ -41,10 +41,16 @@ function useFetchJobDetails(params, checked) {
       detailed_status: "",
       free_time: "",
       arrival_date: "",
+      size: "",
+      do_validity: "",
+      checklist: "",
+      remarks: "",
+      commodity: "",
     },
 
     onSubmit: async (values) => {
       const eta = convertDateFormatForDB(values.eta); // convert date to dd.mm.yy
+      const do_validity = convertDateFormatForDB(values.do_validity); // convert date to dd.mm.yy
 
       const res = await axios.put(`${updateJobAPI}`, {
         eta,
@@ -54,6 +60,11 @@ function useFetchJobDetails(params, checked) {
         detailed_status: values.detailed_status,
         container_nos: values.container_nos,
         arrival_date: values.arrival_date,
+        size: values.size,
+        do_validity,
+        checklist: values.checklist,
+        remarks: values.remarks,
+        commodity: values.commodity,
       });
       navigate(`/${params.importer}/jobs/pending`);
     },
@@ -83,6 +94,14 @@ function useFetchJobDetails(params, checked) {
           data.detailed_status === undefined
             ? "Estimated Time of Arrival"
             : data.detailed_status,
+        size: data.size === undefined ? "" : data.size,
+        do_validity:
+          data.do_validity === undefined
+            ? dateString
+            : convertDateFormatForUI(data.do_validity),
+        checklist: data.checklist === undefined ? "" : data.checklist,
+        remarks: data.remarks === undefined ? "" : data.remarks,
+        commodity: data.commodity === undefined ? "" : data.commodity,
       });
     }
     // eslint-disable-next-line

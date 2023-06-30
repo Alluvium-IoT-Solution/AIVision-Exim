@@ -65,7 +65,12 @@ const LoginForm = () => {
         helperText={formik.touched.password && formik.errors.password}
       />
 
-      <Button fullWidth type="submit" className="submit-form-btn">
+      <Button
+        fullWidth
+        type="submit"
+        className="submit-form-btn"
+        aria-label="login"
+      >
         Login
       </Button>
     </form>

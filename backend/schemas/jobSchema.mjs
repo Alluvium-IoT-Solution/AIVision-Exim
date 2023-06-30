@@ -59,6 +59,11 @@ const jobSchema = new mongoose.Schema({
       arrival_date: { type: String, trim: true },
       free_time: { type: String, trim: true },
       detention_from: { type: String, trim: true },
+      size: { type: String, trim: true },
+      do_validity: { type: String, trim: true },
+      checklist: { type: String, trim: true },
+      remarks: { type: String, trim: true },
+      commodity: { type: String, trim: true },
     },
   ],
 });

@@ -44,6 +44,8 @@ function JobsList() {
           onClick={() =>
             convertToExcel(rows, importerName, params.status, detailedStatus)
           }
+          aria-label="export"
+          style={{ cursor: "pointer" }}
         >
           Export
         </button>

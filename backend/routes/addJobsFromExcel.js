@@ -18,7 +18,7 @@ router.post("/api/jobs/addJob", async (req, res) => {
           // Job number doesn't exist, add the job with status "Pending"
           await JobModel.updateOne(
             { importer: i.importer },
-            { $push: { jobs: { ...jobData, status: "Pending" } } },
+            { $push: { jobs: { ...jobData, status: "Pending", } } },
             { upsert: true }
           );
         } else {

@@ -28,8 +28,8 @@ function JobDetails() {
         <form onSubmit={formik.handleSubmit}>
           <Row className="job-detail-row">
             <Col>
-              <strong>Party:&nbsp;</strong>
-              <span className="non-editable-text">{data.party}</span>
+              <strong>Importer:&nbsp;</strong>
+              <span className="non-editable-text">{data.importer}</span>
             </Col>
             <Col>
               <strong>Invoice Number:&nbsp;</strong>
@@ -44,7 +44,7 @@ function JobDetails() {
             <Col>
               <strong>Invoice Value and Unit Price:&nbsp;</strong>
               <span className="non-editable-text">
-                {data.invoice_value_and_rate}
+                ${data.cif_amount} | {data.unit_price}
               </span>
             </Col>
             <Col>
@@ -58,22 +58,6 @@ function JobDetails() {
           </Row>
           <Row className="job-detail-row">
             <Col>
-              <strong>Commodity:&nbsp;</strong>
-              <span className="non-editable-text">{data.commodity}</span>
-            </Col>
-            <Col>
-              <strong>Number of Packages:&nbsp;</strong>
-              <span className="non-editable-text">
-                {data.number_of_packages}
-              </span>
-            </Col>
-            <Col>
-              <strong>Gross Weight:&nbsp;</strong>
-              <span className="non-editable-text">{data.gross_weight}</span>
-            </Col>
-          </Row>
-          <Row className="job-detail-row">
-            <Col>
               <strong>POL:&nbsp;</strong>
               <span className="non-editable-text">{data.loading_port}</span>
             </Col>
@@ -83,16 +67,12 @@ function JobDetails() {
                 {data.shipping_line_airline}
               </span>
             </Col>
-            <Col>
-              <strong>Size:&nbsp;</strong>
-              <span className="non-editable-text">{data.size}</span>
+            <Col style={{ display: "flex", alignItems: "center" }}>
+              <strong>Out of Charge:&nbsp;</strong>
+              <span className="non-editable-text">{data.out_of_charge}</span>
             </Col>
           </Row>
           <Row className="job-detail-row">
-            <Col>
-              <strong>DO Validity:&nbsp;</strong>
-              <span className="non-editable-text">{data.do_validity}</span>
-            </Col>
             <Col>
               <strong>Bill of Entry Number:&nbsp;</strong>
               <span className="non-editable-text">{data.be_no}</span>
@@ -101,12 +81,10 @@ function JobDetails() {
               <strong>Bill of Entry Date:&nbsp;</strong>
               <span className="non-editable-text">{data.be_date}</span>
             </Col>
+            <Col></Col>
           </Row>
+
           <Row className="job-detail-row">
-            <Col>
-              <strong>Checklist:&nbsp;</strong>
-              <span className="non-editable-text">{data.checklist}</span>
-            </Col>
             <Col>
               <strong>Bill of Lading Number:&nbsp;</strong>
               <span className="non-editable-text">{data.awb_bl_no}</span>
@@ -115,11 +93,42 @@ function JobDetails() {
               <strong>Bill of Lading Date:&nbsp;</strong>
               <span className="non-editable-text">{data.awb_bl_date}</span>
             </Col>
+            <Col></Col>
           </Row>
+
           <Row className="job-detail-row">
-            <Col style={{ display: "flex", alignItems: "center" }}>
-              <strong>Out of Duty Date:&nbsp;</strong>
-              <span className="non-editable-text">{data.out_of_duty_date}</span>
+            <Col>
+              <strong>Number of Packages:&nbsp;</strong>
+              <span className="non-editable-text">{data.no_of_pkgs}</span>
+            </Col>
+            <Col>
+              <strong>Gross Weight:&nbsp;</strong>
+              <span className="non-editable-text">{data.gross_weight}</span>
+            </Col>
+            <Col></Col>
+          </Row>
+
+          <Row className="job-detail-row">
+            <Col>
+              <div className="job-detail-input-container">
+                <strong>Commodity:&nbsp;</strong>
+                <TextField
+                  size="large"
+                  margin="normal"
+                  variant="outlined"
+                  id="commodity"
+                  name="commodity"
+                  label=""
+                  value={formik.values.commodity}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.commodity && Boolean(formik.errors.commodity)
+                  }
+                  helperText={
+                    formik.touched.commodity && formik.errors.commodity
+                  }
+                />
+              </div>
             </Col>
             <Col>
               <div className="job-detail-input-container">
@@ -174,7 +183,92 @@ function JobDetails() {
               </div>
             </Col>
           </Row>
-
+          <Row>
+            <Col>
+              <div className="job-detail-input-container">
+                <strong>Size:&nbsp;</strong>
+                <TextField
+                  size="large"
+                  margin="normal"
+                  variant="outlined"
+                  id="size"
+                  name="size"
+                  label=""
+                  value={formik.values.size}
+                  onChange={formik.handleChange}
+                  error={formik.touched.size && Boolean(formik.errors.size)}
+                  helperText={formik.touched.size && formik.errors.size}
+                />
+              </div>
+            </Col>
+            <Col>
+              <div className="job-detail-input-container">
+                <strong>DO Validity:&nbsp;</strong>
+                <TextField
+                  size="large"
+                  type="date"
+                  margin="normal"
+                  variant="outlined"
+                  id="do_validity"
+                  name="do_validity"
+                  label=""
+                  value={formik.values.do_validity}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.do_validity &&
+                    Boolean(formik.errors.do_validity)
+                  }
+                  helperText={
+                    formik.touched.do_validity && formik.errors.do_validity
+                  }
+                />
+              </div>
+            </Col>
+            <Col>
+              <div className="job-detail-input-container">
+                <strong>Checklist:&nbsp;</strong>
+                <TextField
+                  size="large"
+                  margin="normal"
+                  variant="outlined"
+                  id="checklist"
+                  name="checklist"
+                  label=""
+                  value={formik.values.checklist}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.checklist && Boolean(formik.errors.checklist)
+                  }
+                  helperText={
+                    formik.touched.checklist && formik.errors.checklist
+                  }
+                />
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <div className="job-detail-input-container">
+                <strong>Remarks:&nbsp;</strong>
+                <TextField
+                  multiline
+                  fullWidth
+                  size="large"
+                  margin="normal"
+                  variant="outlined"
+                  id="remarks"
+                  name="remarks"
+                  label=""
+                  value={formik.values.remarks}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.remarks && Boolean(formik.errors.remarks)
+                  }
+                  helperText={formik.touched.remarks && formik.errors.remarks}
+                />
+              </div>
+            </Col>
+          </Row>
           <Row>
             <Col xs={4}>
               <div className="job-detail-input-container">
@@ -328,6 +422,7 @@ function JobDetails() {
               <button
                 type="submit"
                 style={{ float: "right", margin: "0px 20px" }}
+                aria-label="submit"
               >
                 Submit
               </button>
