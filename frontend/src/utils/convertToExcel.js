@@ -28,10 +28,9 @@ export const convertToExcel = async (
     "SIZE",
     "REMARKS",
     "DO VALIDITY",
-    "BILL OF ENTRY NUMBER",
-    "BILL OF ENTRY DATE",
+    "BE NUMBER",
+    "BE DATE",
     "CHECKLIST",
-    "STATUS",
     "DETAILED STATUS",
   ];
 
@@ -71,7 +70,6 @@ export const convertToExcel = async (
       item.be_no,
       item.be_date,
       item.checklist,
-      item.status,
       item.detailed_status,
     ];
   });
@@ -83,7 +81,7 @@ export const convertToExcel = async (
   const worksheet = workbook.addWorksheet("Sheet1");
 
   // Merge cells for the title row
-  worksheet.mergeCells("A1:Z1");
+  worksheet.mergeCells("A1:V1");
 
   // Set the title for title row
   const titleRow = worksheet.getRow(1);
@@ -240,17 +238,17 @@ export const convertToExcel = async (
     let maxLength = 0;
 
     column.eachCell({ includeEmpty: true }, (cell) => {
-      const columnLength = cell.value ? cell.value.toString().length : 40;
-      if (columnLength > maxLength) {
-        maxLength = columnLength;
-      }
+      maxLength = 10;
     });
-    // column.width = maxLength < 50 ? 50 : maxLength;
+
     if (headers[id] !== "CONTAINER NUMBER") {
       column.width = maxLength < 25 ? 25 : maxLength;
     }
     if (headers[id] === "CONTAINER NUMBER") {
       column.width = 30;
+    }
+    if (headers[id] === "INVOICE VALUE AND UNIT PRICE") {
+      column.width = 35;
     }
   });
 
@@ -258,6 +256,16 @@ export const convertToExcel = async (
   const lastColumnIndex = headers.length;
   worksheet
     .getColumn(lastColumnIndex)
+    .eachCell({ includeEmpty: true }, (cell) => {
+      cell.border = {
+        top: { style: "thin" },
+        left: { style: "thin" },
+        bottom: { style: "thin" },
+        right: { style: "thin" },
+      };
+    });
+  worksheet
+    .getColumn(lastColumnIndex - 1)
     .eachCell({ includeEmpty: true }, (cell) => {
       cell.border = {
         top: { style: "thin" },
