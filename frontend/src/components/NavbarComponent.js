@@ -17,6 +17,7 @@ import JobDetails from "./JobDetails";
 import MainReport from "./MainReport";
 import useFileUpload from "../customHooks/useFileUpload";
 import Snackbar from "@mui/material/Snackbar";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const drawerWidth = 250;
 const drawerPaperStyles = {
@@ -38,7 +39,7 @@ const drawerStyles = {
 function ResponsiveDrawer() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const inputRef = useRef();
-  const { handleFileUpload, snackbar } = useFileUpload(inputRef);
+  const { handleFileUpload, snackbar, loading } = useFileUpload(inputRef);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -71,13 +72,13 @@ function ResponsiveDrawer() {
             />
           </div>
 
-          <label
-            htmlFor="uploadBtn"
-            className="uploadBtn"
-            
-          >
-            Upload Party Data (excel file)
-          </label>
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            <label htmlFor="uploadBtn" className="uploadBtn">
+              Upload Party Data (excel file)
+            </label>
+          )}
           <input
             type="file"
             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"

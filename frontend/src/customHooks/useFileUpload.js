@@ -8,6 +8,7 @@ function useFileUpload(inputRef) {
   const [snackbar, setSnackbar] = useState(false);
   const navigate = useNavigate();
   const { addJobAPI } = apiRoutes();
+  const [loading, setLoading] = useState(false);
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -153,11 +154,18 @@ function useFileUpload(inputRef) {
 
     const data = handleMultipleContainers(importerData);
 
+    // Set file to null so that same file can be selected again
+    if (inputRef.current) {
+      inputRef.current.value = null;
+    }
+
     // Upload data to db
     async function uploadExcelData() {
+      setLoading(true);
       const res = await axios.post(addJobAPI, data);
       if (res.data === "Jobs added successfully") {
         setSnackbar(true); // show snackbar
+        setLoading(false);
       }
       navigate("/importer");
     }
@@ -165,17 +173,12 @@ function useFileUpload(inputRef) {
     uploadExcelData();
   };
 
-  // Set file to null so that same file can be selected again
-  if (inputRef.current) {
-    inputRef.current.value = null;
-  }
-
   // Hide snackbar after 2 seconds
   setTimeout(() => {
     setSnackbar(false);
   }, 2000);
 
-  return { handleFileUpload, snackbar };
+  return { handleFileUpload, snackbar, loading };
 }
 
 export default useFileUpload;

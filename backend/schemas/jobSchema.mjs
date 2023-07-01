@@ -9,7 +9,7 @@ const jobSchema = new mongoose.Schema({
   },
   jobs: [
     {
-      job_no: { type: String, trim: true, unique: true },
+      job_no: { type: String, trim: true },
       custom_house: { type: String, trim: true },
       job_date: { type: String, trim: true },
       importer: { type: String, trim: true },
