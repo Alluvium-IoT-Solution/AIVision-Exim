@@ -165,8 +165,10 @@ function useFileUpload(inputRef) {
       const res = await axios.post(addJobAPI, data);
       if (res.data === "Jobs added successfully") {
         setSnackbar(true); // show snackbar
-        setLoading(false);
+      } else {
+        alert("Something went wrong");
       }
+      setLoading(false);
       navigate("/importer");
     }
 
