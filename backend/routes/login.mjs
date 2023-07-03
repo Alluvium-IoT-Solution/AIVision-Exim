@@ -18,7 +18,7 @@ router.post("/api/login", (req, res) => {
               {
                 username: user.username,
               },
-              process.env.SECRET_KEY
+              "Ngvq7ZjPkxiwhuT"
             );
             res.json({ message: "Login Successfull", user: token });
           } else {
