@@ -18,6 +18,7 @@ import MainReport from "./MainReport";
 import useFileUpload from "../customHooks/useFileUpload";
 import Snackbar from "@mui/material/Snackbar";
 import CircularProgress from "@mui/material/CircularProgress";
+import DeleteCollection from "./DeleteCollection";
 
 const drawerWidth = 250;
 const drawerPaperStyles = {
@@ -151,6 +152,11 @@ function ResponsiveDrawer() {
           <Route exact path="/:importer/jobs/:status" element={<JobsList />} />
           <Route exact path="/:importer/job/:jobNo" element={<JobDetails />} />
           <Route exact path="/main_report" element={<MainReport />} />
+          {/* <Route
+            exact
+            path="/deleteCollection"
+            element={<DeleteCollection />}
+          /> */}
         </Routes>
       </Box>
 

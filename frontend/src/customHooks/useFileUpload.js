@@ -106,23 +106,28 @@ function useFileUpload(inputRef) {
     function handleMultipleContainers(data) {
       const convertedData = data.map((entry) => {
         const newData = entry.data.map((item) => {
-          // container numbers
           const containerNumbers = item.container_nos.split(",");
-          // const arrivalDates = item.arrival_dates.split(", ");
-          // const free_time = item.free_time.split(", ");
-          // const detention_from = item.detention_from.split(", ");
+          const size = item.no_of_container.split(",");
+          const onlySize = size[0];
 
           const containerData = [];
 
           for (let i = 0; i < containerNumbers.length; i++) {
             const containerObj = {
               container_number: containerNumbers[i],
-              // arrival_date: arrivalDates[i],
-              // free_time: free_time[i],
-              // detention_from: detention_from[i],
+              size:
+                size[i] === undefined
+                  ? onlySize === ""
+                    ? ""
+                    : onlySize.match(/\d+x(\d+)/)[1]
+                  : size[i] === ""
+                  ? ""
+                  : size[i].match(/\d+x(\d+)/)[1],
             };
             containerData.push(containerObj);
           }
+
+          console.log(containerData);
 
           return {
             ...item,

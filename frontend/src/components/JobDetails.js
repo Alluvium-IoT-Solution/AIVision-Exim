@@ -12,7 +12,10 @@ function JobDetails() {
   const options = Array.from({ length: 25 }, (_, index) => index);
   const [checked, setChecked] = useState(false);
   const { data, detentionFrom, formik } = useFetchJobDetails(params, checked);
-
+  if (data) {
+    const a = data.container_nos.map((c) => c.size);
+    console.log(a);
+  }
   return (
     <>
       <Container>
@@ -40,11 +43,12 @@ function JobDetails() {
               <span className="non-editable-text">{data.invoice_date}</span>
             </Col>
           </Row>
+
           <Row className="job-detail-row">
             <Col>
               <strong>Invoice Value and Unit Price:&nbsp;</strong>
               <span className="non-editable-text">
-                ${data.cif_amount} | {data.unit_price}
+                &#8377; {data.cif_amount} | FC {data.unit_price}
               </span>
             </Col>
             <Col>
@@ -56,6 +60,7 @@ function JobDetails() {
               <span className="non-editable-text">{data.bill_date}</span>
             </Col>
           </Row>
+
           <Row className="job-detail-row">
             <Col>
               <strong>POL:&nbsp;</strong>
@@ -72,6 +77,7 @@ function JobDetails() {
               <span className="non-editable-text">{data.out_of_charge}</span>
             </Col>
           </Row>
+
           <Row className="job-detail-row">
             <Col>
               <strong>Bill of Entry Number:&nbsp;</strong>
@@ -109,28 +115,30 @@ function JobDetails() {
           </Row>
 
           <Row className="job-detail-row">
-            <Col>
+            <Col xs={5}>
               <div className="job-detail-input-container">
-                <strong>Commodity:&nbsp;</strong>
+                <strong>Description:&nbsp;</strong>
                 <TextField
                   size="large"
+                  fullWidth
                   margin="normal"
                   variant="outlined"
-                  id="commodity"
-                  name="commodity"
+                  id="description"
+                  name="description"
                   label=""
-                  value={formik.values.commodity}
+                  value={formik.values.description}
                   onChange={formik.handleChange}
                   error={
-                    formik.touched.commodity && Boolean(formik.errors.commodity)
+                    formik.touched.description &&
+                    Boolean(formik.errors.description)
                   }
                   helperText={
-                    formik.touched.commodity && formik.errors.commodity
+                    formik.touched.description && formik.errors.description
                   }
                 />
               </div>
             </Col>
-            <Col>
+            <Col xs={3}>
               <div className="job-detail-input-container">
                 <strong>Status:&nbsp;</strong>
                 <TextField
@@ -183,24 +191,8 @@ function JobDetails() {
               </div>
             </Col>
           </Row>
+
           <Row>
-            <Col>
-              <div className="job-detail-input-container">
-                <strong>Size:&nbsp;</strong>
-                <TextField
-                  size="large"
-                  margin="normal"
-                  variant="outlined"
-                  id="size"
-                  name="size"
-                  label=""
-                  value={formik.values.size}
-                  onChange={formik.handleChange}
-                  error={formik.touched.size && Boolean(formik.errors.size)}
-                  helperText={formik.touched.size && formik.errors.size}
-                />
-              </div>
-            </Col>
             <Col>
               <div className="job-detail-input-container">
                 <strong>DO Validity:&nbsp;</strong>
@@ -245,7 +237,9 @@ function JobDetails() {
                 />
               </div>
             </Col>
+            <Col></Col>
           </Row>
+
           <Row>
             <Col>
               <div className="job-detail-input-container">
@@ -269,6 +263,7 @@ function JobDetails() {
               </div>
             </Col>
           </Row>
+
           <Row>
             <Col xs={4}>
               <div className="job-detail-input-container">
@@ -350,7 +345,7 @@ function JobDetails() {
                     <br />
                     <Row>
                       {!checked && (
-                        <Col>
+                        <Col xs={4}>
                           <div className="job-detail-input-container">
                             <strong>Arrival Date:&nbsp;</strong>
                             <TextField
@@ -382,7 +377,7 @@ function JobDetails() {
                           </div>
                         </Col>
                       )}
-                      <Col>
+                      <Col xs={2}>
                         <div className="job-detail-input-container">
                           <strong>Free Time:&nbsp;</strong>
                           <TextField
@@ -405,9 +400,16 @@ function JobDetails() {
                         </div>
                       </Col>
 
-                      <Col style={{ display: "flex", alignItems: "center" }}>
+                      <Col
+                        xs={3}
+                        style={{ display: "flex", alignItems: "center" }}
+                      >
                         <strong>Detention From:&nbsp;</strong>
                         {detentionFrom[index]}
+                      </Col>
+                      <Col style={{ display: "flex", alignItems: "center" }}>
+                        <strong>Size:&nbsp;</strong>
+                        {container.size}
                       </Col>
                       {checked && <Col></Col>}
                     </Row>

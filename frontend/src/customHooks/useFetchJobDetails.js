@@ -41,11 +41,11 @@ function useFetchJobDetails(params, checked) {
       detailed_status: "",
       free_time: "",
       arrival_date: "",
-      size: "",
       do_validity: "",
       checklist: "",
       remarks: "",
-      commodity: "",
+      description: "",
+      size: "",
     },
 
     onSubmit: async (values) => {
@@ -60,11 +60,10 @@ function useFetchJobDetails(params, checked) {
         detailed_status: values.detailed_status,
         container_nos: values.container_nos,
         arrival_date: values.arrival_date,
-        size: values.size,
         do_validity,
         checklist: values.checklist,
         remarks: values.remarks,
-        commodity: values.commodity,
+        description: values.description,
       });
       navigate(`/${params.importer}/jobs/pending`);
     },
@@ -79,6 +78,7 @@ function useFetchJobDetails(params, checked) {
             ? dateString
             : convertDateFormatForUI(container.arrival_date), // convert date to yyyy-mm-dd
         container_number: container.container_number,
+        size: container.size === undefined ? "" : container.size,
       }));
 
       formik.setValues({
@@ -94,14 +94,13 @@ function useFetchJobDetails(params, checked) {
           data.detailed_status === undefined
             ? "Estimated Time of Arrival"
             : data.detailed_status,
-        size: data.size === undefined ? "" : data.size,
         do_validity:
           data.do_validity === undefined
             ? dateString
             : convertDateFormatForUI(data.do_validity),
         checklist: data.checklist === undefined ? "" : data.checklist,
         remarks: data.remarks === undefined ? "" : data.remarks,
-        commodity: data.commodity === undefined ? "" : data.commodity,
+        description: data.description === undefined ? "" : data.description,
       });
     }
     // eslint-disable-next-line

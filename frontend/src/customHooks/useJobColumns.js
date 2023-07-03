@@ -16,11 +16,6 @@ function useJobColumns(detailedStatus) {
       sortable: false,
       headerName: "Job Number",
       width: 150,
-      // detailedStatus === "" ||
-      // detailedStatus === "Estimated Time of Arrival" ||
-      // detailedStatus === "Gateway IGM Filed"
-      //   ? "200"
-      //   : "100",
       align: "center",
     },
 
@@ -128,9 +123,9 @@ function useJobColumns(detailedStatus) {
     },
 
     {
-      field: "out_of_duty_date",
+      field: "out_of_charge",
       sortable: false,
-      headerName: "Out of Duty Date",
+      headerName: "Out of Charge Date",
       width: 250,
       align: "center",
       hide: detailedStatus !== "Custom Clearance Completed" ? true : false,

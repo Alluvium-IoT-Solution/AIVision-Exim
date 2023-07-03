@@ -10,13 +10,13 @@ export const convertToExcel = async (
   const dateOfReport = new Date().toLocaleDateString();
 
   const headers = [
-    "JOB NUMBER",
+    "JOB NO",
     "CUSTOM HOUSE",
     "IMPORTER",
     "INVOICE NUMBER",
     "INVOICE DATE",
     "INVOICE VALUE AND UNIT PRICE",
-    "COMMODITY",
+    "DESCRIPTION",
     "CONTAINER COUNT",
     "GROSS WEIGHT",
     "POL",
@@ -48,7 +48,12 @@ export const convertToExcel = async (
       .map((container) => container.detention_from)
       .join(",\n");
 
-    const invoice_value_and_unit_price = `${item.cif_amount} | ${item.unit_price}`;
+    const size = item.container_nos
+      .map((container) => container.size)
+      .join(",\n");
+
+    // const invoice_value_and_unit_price = `${item.cif_amount} | FC ${item.unit_price}`;
+    const invoice_value_and_unit_price = `\u20B9 ${item.cif_amount} | FC ${item.unit_price}`;
 
     return [
       item.job_no,
@@ -57,7 +62,7 @@ export const convertToExcel = async (
       item.invoice_number,
       item.invoice_date,
       invoice_value_and_unit_price,
-      item.commodity,
+      item.description,
       item.container_count,
       item.gross_weight,
       item.loading_port,
@@ -66,7 +71,7 @@ export const convertToExcel = async (
       detentionFrom,
       item.shipping_line_airline,
       containerNumbers,
-      item.size,
+      size,
       item.remarks,
       item.do_validity,
       item.be_no,
@@ -82,6 +87,7 @@ export const convertToExcel = async (
   // Add a worksheet
   const worksheet = workbook.addWorksheet("Sheet1");
 
+  ///////////////////////////////////////  Title Row  //////////////////////////////////////
   // Merge cells for the title row
   worksheet.mergeCells("A1:V1");
 
@@ -110,6 +116,7 @@ export const convertToExcel = async (
   });
   titleRow.height = 40;
 
+  /////////////////////////////////////  Header Row  //////////////////////////////////////
   // Add headers row
   worksheet.addRow(headers);
 
@@ -136,6 +143,7 @@ export const convertToExcel = async (
   // Increase the height of the header row
   headerRow.height = 35;
 
+  ///////////////////////////////////////  Data Row  //////////////////////////////////////
   // Add the data rows
   for (const row of dataWithHeaders) {
     const dataRow = worksheet.addRow(row);
@@ -246,6 +254,9 @@ export const convertToExcel = async (
     if (headers[id] !== "CONTAINER NUMBER") {
       column.width = maxLength < 25 ? 25 : maxLength;
     }
+    if (headers[id] === "JOB NO") {
+      column.width = 10;
+    }
     if (headers[id] === "CONTAINER NUMBER") {
       column.width = 30;
     }
@@ -257,6 +268,15 @@ export const convertToExcel = async (
     }
     if (headers[id] === "SHIPPING LINE") {
       column.width = 40;
+    }
+    if (headers[id] === "DESCRIPTION") {
+      column.width = 50;
+    }
+    if (headers[id] === "SIZE") {
+      column.width = 10;
+    }
+    if (headers[id] === "FREE TIME") {
+      column.width = 12;
     }
   });
 

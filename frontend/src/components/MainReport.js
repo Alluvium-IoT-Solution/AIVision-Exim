@@ -3,18 +3,20 @@ import { DataGrid } from "@mui/x-data-grid";
 import "../styles/job-list.scss";
 import { getTableRowsClassname } from "../utils/getTableRowsClassname";
 import axios from "axios";
+import { apiRoutes } from "../utils/apiRoutes";
 
 function MainReport() {
   const [rows, setRows] = useState([]);
+  const { mainReportAPI } = apiRoutes();
 
   useEffect(() => {
     async function getReport() {
-      const res = await axios.get("http://localhost:9002/api/report");
-      setRows(res.data);
-      console.log(res.data);
+      const res = await axios.get(mainReportAPI);
+      setRows(res.data.sort((a, b) => a.job_no - b.job_no));
     }
 
     getReport();
+    // eslint-disable-next-line
   }, []);
 
   const columns = [
@@ -298,7 +300,7 @@ function MainReport() {
     {
       field: "out_of_charge",
       sortable: false,
-      headerName: "Out of charge",
+      headerName: "Out of Charge",
       align: "center",
       width: 150,
     },

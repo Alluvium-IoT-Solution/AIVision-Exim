@@ -14,14 +14,13 @@ router.put("/api/:importer/updatejob/:jobNo", async (req, res) => {
     detailed_status,
     container_nos,
     free_time,
-    commodity,
+    description,
     checklist,
     do_validity,
     remarks,
-    size,
   } = req.body;
 
-  console.log(commodity, checklist, do_validity, remarks, size);
+  console.log(description, checklist, do_validity, remarks);
 
   try {
     const clientDoc = await JobModel.findOne({ importer: importer });
@@ -48,11 +47,10 @@ router.put("/api/:importer/updatejob/:jobNo", async (req, res) => {
     matchingJob.status = status;
     matchingJob.detailed_status = detailed_status;
     matchingJob.free_time = free_time;
-    matchingJob.commodity = commodity;
+    matchingJob.description = description;
     matchingJob.checklist = checklist;
     matchingJob.do_validity = do_validity;
     matchingJob.remarks = remarks;
-    matchingJob.size = size;
 
     if (checked) {
       matchingJob.container_nos = container_nos.map((container) => {
