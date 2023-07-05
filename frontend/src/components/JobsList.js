@@ -13,7 +13,7 @@ function JobsList() {
   const { importerName } = useContext(ClientContext);
   const [detailedStatus, setDetailedStatus] = useState("");
   const columns = useJobColumns(detailedStatus);
-  const rows = useFetchJobList(detailedStatus);
+  const { rows, filteredRows, setJobFilter } = useFetchJobList(detailedStatus);
   const params = useParams();
 
   return (
@@ -50,7 +50,14 @@ function JobsList() {
           Export
         </button>
       </div>
-
+      <div>
+        <input
+          type="text"
+          placeholder="Search job..."
+          onChange={(e) => setJobFilter(e.target.value)}
+          className="search-job-input"
+        />
+      </div>
       <DataGrid
         getRowId={(row) => row._id}
         sx={{
@@ -61,13 +68,12 @@ function JobsList() {
         }}
         className="table expense-table"
         headerAlign="center"
-        rows={rows}
+        rows={filteredRows}
         columns={columns}
         pageSize={50}
         stickyHeader
         rowsPerPageOptions={[50]}
-        rowHeight={150}
-        autoHeight={true}
+        rowHeight={200}
         disableColumnMenu={true}
         disableSelectionOnClick
         getRowClassName={getTableRowsClassname}

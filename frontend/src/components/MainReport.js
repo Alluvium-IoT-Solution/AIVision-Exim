@@ -7,6 +7,7 @@ import { apiRoutes } from "../utils/apiRoutes";
 
 function MainReport() {
   const [rows, setRows] = useState([]);
+  const [jobFilter, setJobFilter] = useState("");
   const { mainReportAPI } = apiRoutes();
 
   useEffect(() => {
@@ -18,6 +19,15 @@ function MainReport() {
     getReport();
     // eslint-disable-next-line
   }, []);
+
+  const filteresRows = rows.filter((job) => {
+    if (jobFilter === "") {
+      return job;
+    } else if (job.job_no.includes(jobFilter)) {
+      return job;
+    }
+    return false;
+  });
 
   const columns = [
     {
@@ -340,8 +350,17 @@ function MainReport() {
 
   return (
     <>
-      <h3>Main Report</h3>
-      <br />
+      <div style={{ display: "flex" }}>
+        <h3 style={{ flex: 1 }}>Main Report</h3>
+        {/* <br /> */}
+
+        <input
+          type="text"
+          placeholder="Search job..."
+          onChange={(e) => setJobFilter(e.target.value)}
+          className="search-job-input"
+        />
+      </div>
 
       <DataGrid
         getRowId={(row) => row._id}
@@ -353,13 +372,12 @@ function MainReport() {
         }}
         className="table expense-table"
         headerAlign="center"
-        rows={rows}
+        rows={filteresRows}
         columns={columns}
         pageSize={50}
         stickyHeader
         rowsPerPageOptions={[50]}
         rowHeight={150}
-        autoHeight={true}
         disableColumnMenu={true}
         disableSelectionOnClick
         getRowClassName={getTableRowsClassname}

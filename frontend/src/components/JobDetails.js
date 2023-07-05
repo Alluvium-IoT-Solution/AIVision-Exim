@@ -12,10 +12,7 @@ function JobDetails() {
   const options = Array.from({ length: 25 }, (_, index) => index);
   const [checked, setChecked] = useState(false);
   const { data, detentionFrom, formik } = useFetchJobDetails(params, checked);
-  if (data) {
-    const a = data.container_nos.map((c) => c.size);
-    console.log(a);
-  }
+
   return (
     <>
       <Container>
@@ -359,20 +356,6 @@ function JobDetails() {
                               label=""
                               value={container.arrival_date}
                               onChange={formik.handleChange}
-                              error={
-                                formik.touched.container_nos?.[index]
-                                  ?.arrival_date &&
-                                Boolean(
-                                  formik.errors.container_nos?.[index]
-                                    ?.arrival_date
-                                )
-                              }
-                              helperText={
-                                formik.touched.container_nos?.[index]
-                                  ?.arrival_date &&
-                                formik.errors.container_nos?.[index]
-                                  ?.arrival_date
-                              }
                             />
                           </div>
                         </Col>
@@ -408,8 +391,23 @@ function JobDetails() {
                         {detentionFrom[index]}
                       </Col>
                       <Col style={{ display: "flex", alignItems: "center" }}>
-                        <strong>Size:&nbsp;</strong>
-                        {container.size}
+                        <div className="job-detail-input-container">
+                          <strong>Size:&nbsp;</strong>
+                          <TextField
+                            select
+                            size="large"
+                            margin="normal"
+                            variant="outlined"
+                            id={`size_${index}`}
+                            name={`container_nos[${index}].size`}
+                            label=""
+                            value={container.size}
+                            onChange={formik.handleChange}
+                          >
+                            <MenuItem value="20">20</MenuItem>
+                            <MenuItem value="40">40</MenuItem>
+                          </TextField>
+                        </div>
                       </Col>
                       {checked && <Col></Col>}
                     </Row>

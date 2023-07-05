@@ -13,6 +13,14 @@
   * {
     overflow: visible !important;
   }
+
+  input {
+    padding: 10px;
+    float: right;
+    margin-bottom: 20px;
+    width: 250px;
+    border: 1px solid #ccc;
+  }
 }
 
 .importer-empty,

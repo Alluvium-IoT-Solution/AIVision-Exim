@@ -1,13 +1,25 @@
 import { Container, Row, Col } from "react-bootstrap";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { importerData } from "../assets/data/importerData";
 import { ClientContext } from "../Context/ClientContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/importer.scss";
 
 function Importer() {
+  const [filterImporter, setFilterImporter] = useState("");
   const { setImporter, setImporterName } = React.useContext(ClientContext);
   const navigate = useNavigate();
+
+  const filteredData = importerData.filter((importer) => {
+    if (filterImporter === "") {
+      return true;
+    } else if (
+      importer.name.toLowerCase().includes(filterImporter.toLowerCase())
+    ) {
+      return true;
+    }
+    return false;
+  });
 
   const handleClient = (url, name) => {
     setImporter(url);
@@ -19,8 +31,13 @@ function Importer() {
 
   return (
     <Container className="importer">
+      <input
+        type="text"
+        onChange={(e) => setFilterImporter(e.target.value)}
+        placeholder="Search importer..."
+      />
       <Row className="importer-row">
-        {importerData.map((val) => {
+        {filteredData.map((val) => {
           return (
             <Col key={val.id} xs={12} lg={3} className="importer-col">
               <div

@@ -20,8 +20,6 @@ router.put("/api/:importer/updatejob/:jobNo", async (req, res) => {
     remarks,
   } = req.body;
 
-  console.log(description, checklist, do_validity, remarks);
-
   try {
     const clientDoc = await JobModel.findOne({ importer: importer });
     function addDaysToDate(dateString, days) {

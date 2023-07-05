@@ -22,6 +22,14 @@
   }
 }
 
+.search-job-input {
+  padding: 10px;
+  float: right;
+  margin-bottom: 20px;
+  width: 250px;
+  border: 1px solid #ccc;
+}
+
 .custom-clearance-completed {
   background-color: #ccffff;
 }
@@ -75,4 +83,14 @@
       margin-bottom: 10px;
     }
   }
+}
+
+.MuiDataGrid-cell.MuiDataGrid-cell--textCenter {
+  overflow-y: scroll !important;
+  padding: 10px 0 !important;
+}
+
+.MuiDataGrid-cell--withRenderer.MuiDataGrid-cell.MuiDataGrid-cell--textCenter {
+  overflow-y: scroll !important;
+  padding: 10px 0 !important;
 }

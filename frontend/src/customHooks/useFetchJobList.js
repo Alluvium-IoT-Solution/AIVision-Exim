@@ -5,6 +5,7 @@ import { convertToTimestamp } from "../utils/convertToTimestamp";
 import { apiRoutes } from "../utils/apiRoutes";
 
 function useFetchJobList(detailedStatus) {
+  const [jobFilter, setJobFilter] = useState("");
   const [rows, setRows] = useState([]);
   const params = useParams();
   const { getJobsListAPI } = apiRoutes(params.importer, params.status);
@@ -92,7 +93,10 @@ function useFetchJobList(detailedStatus) {
     }
     getData();
   }, [params.client, params.status, detailedStatus, getJobsListAPI]);
-  return rows;
+
+  const filteredRows = rows.filter((row) => row.job_no.includes(jobFilter));
+
+  return { rows, filteredRows, setJobFilter };
 }
 
 export default useFetchJobList;

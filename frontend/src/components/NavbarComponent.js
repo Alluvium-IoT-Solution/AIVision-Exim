@@ -18,7 +18,7 @@ import MainReport from "./MainReport";
 import useFileUpload from "../customHooks/useFileUpload";
 import Snackbar from "@mui/material/Snackbar";
 import CircularProgress from "@mui/material/CircularProgress";
-import DeleteCollection from "./DeleteCollection";
+// import DeleteCollection from "./DeleteCollection";
 
 const drawerWidth = 250;
 const drawerPaperStyles = {

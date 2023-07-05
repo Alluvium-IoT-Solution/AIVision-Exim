@@ -45,12 +45,12 @@ function useFetchJobDetails(params, checked) {
       checklist: "",
       remarks: "",
       description: "",
-      size: "",
     },
 
     onSubmit: async (values) => {
       const eta = convertDateFormatForDB(values.eta); // convert date to dd.mm.yy
       const do_validity = convertDateFormatForDB(values.do_validity); // convert date to dd.mm.yy
+      console.log(values);
 
       const res = await axios.put(`${updateJobAPI}`, {
         eta,
@@ -65,6 +65,7 @@ function useFetchJobDetails(params, checked) {
         remarks: values.remarks,
         description: values.description,
       });
+      console.log(res);
       navigate(`/${params.importer}/jobs/pending`);
     },
   });
@@ -78,7 +79,7 @@ function useFetchJobDetails(params, checked) {
             ? dateString
             : convertDateFormatForUI(container.arrival_date), // convert date to yyyy-mm-dd
         container_number: container.container_number,
-        size: container.size === undefined ? "" : container.size,
+        size: container.size === undefined ? "20" : container.size,
       }));
 
       formik.setValues({
