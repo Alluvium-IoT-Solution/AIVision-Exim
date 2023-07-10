@@ -14,18 +14,18 @@ export function apiRoutes(importer, arg2, arg3) {
   /////////////////////////////////////////////////////////////////////////////////////////////////
 
   // // server
-  const loginAPI = "http://13.235.49.116:9002/api/login";
-  const getJobsListAPI = `http://13.235.49.116:9002/api/${importer}/jobs/${
+  const loginAPI = "http://65.0.72.99:9002/api/login";
+  const getJobsListAPI = `http://65.0.72.99:9002/api/${importer}/jobs/${
     arg2 || arg3
   }`;
-  const getJobAPI = `http://13.235.49.116:9002/api/${importer}/job/${
+  const getJobAPI = `http://65.0.72.99:9002/api/${importer}/job/${
     arg2 || arg3
   }`;
-  const updateJobAPI = `http://13.235.49.116:9002/api/${importer}/updatejob/${
+  const updateJobAPI = `http://65.0.72.99:9002/api/${importer}/updatejob/${
     arg2 || arg3
   }`;
-  const addJobAPI = "http://13.235.49.116:9002/api/jobs/addJob";
-  const mainReportAPI = "http://13.235.49.116:9002/api/report";
+  const addJobAPI = "http://65.0.72.99:9002/api/jobs/addJob";
+  const mainReportAPI = "http://65.0.72.99:9002/api/report";
 
   /////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -8,6 +8,7 @@ import { getTableRowsClassname } from "../utils/getTableRowsClassname";
 import useFetchJobList from "../customHooks/useFetchJobList";
 import { detailedStatusOptions } from "../assets/data/detailedStatusOptions";
 import { useParams } from "react-router-dom";
+import SelectFieldsModal from "./SelectFieldsModal";
 
 function JobsList() {
   const { importerName } = useContext(ClientContext);
@@ -15,6 +16,11 @@ function JobsList() {
   const columns = useJobColumns(detailedStatus);
   const { rows, filteredRows, setJobFilter } = useFetchJobList(detailedStatus);
   const params = useParams();
+
+  // Modal
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
   return (
     <>
@@ -40,7 +46,10 @@ function JobsList() {
           ))}
         </select>
 
-        <button
+        <button onClick={handleOpenModal} style={{ cursor: "pointer" }}>
+          Export
+        </button>
+        {/* <button
           onClick={() =>
             convertToExcel(rows, importerName, params.status, detailedStatus)
           }
@@ -48,7 +57,7 @@ function JobsList() {
           style={{ cursor: "pointer" }}
         >
           Export
-        </button>
+        </button> */}
       </div>
       <div>
         <input
@@ -77,6 +86,16 @@ function JobsList() {
         disableColumnMenu={true}
         disableSelectionOnClick
         getRowClassName={getTableRowsClassname}
+      />
+
+      <SelectFieldsModal
+        openModal={openModal}
+        handleOpenModal={handleOpenModal}
+        handleCloseModal={handleCloseModal}
+        rows={rows}
+        importerName={importerName}
+        status={params.status}
+        detailedStatus={detailedStatus}
       />
     </>
   );

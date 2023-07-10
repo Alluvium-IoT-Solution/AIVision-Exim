@@ -135,6 +135,17 @@ input[type="number"]::-webkit-outer-spin-button {
   padding-right: 30px;
 }
 
+/* Download Report Button */
+.download-report-btn {
+  background-color: #273041;
+  padding: 10px;
+  color: #fff;
+  border: none;
+  outline: none;
+  float: right;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   .uploadBtn {
     display: none;
