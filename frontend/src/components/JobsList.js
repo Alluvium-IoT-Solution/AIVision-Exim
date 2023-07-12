@@ -3,7 +3,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import { ClientContext } from "../Context/ClientContext";
 import "../styles/job-list.scss";
 import useJobColumns from "../customHooks/useJobColumns";
-import { convertToExcel } from "../utils/convertToExcel";
 import { getTableRowsClassname } from "../utils/getTableRowsClassname";
 import useFetchJobList from "../customHooks/useFetchJobList";
 import { detailedStatusOptions } from "../assets/data/detailedStatusOptions";
@@ -49,15 +48,6 @@ function JobsList() {
         <button onClick={handleOpenModal} style={{ cursor: "pointer" }}>
           Export
         </button>
-        {/* <button
-          onClick={() =>
-            convertToExcel(rows, importerName, params.status, detailedStatus)
-          }
-          aria-label="export"
-          style={{ cursor: "pointer" }}
-        >
-          Export
-        </button> */}
       </div>
       <div>
         <input

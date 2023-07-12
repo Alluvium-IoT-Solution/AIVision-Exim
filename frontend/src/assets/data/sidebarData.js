@@ -1,6 +1,7 @@
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import TableViewIcon from "@mui/icons-material/TableView";
+import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 
 const importer = localStorage.getItem("importer");
 
@@ -18,4 +19,5 @@ export const sidebarData = [
     name: "Main Report",
     url: "main_report",
   },
+  { id: 4, icon: <SpaceDashboardIcon />, name: "Dashboard", url: "dashboard" },
 ];

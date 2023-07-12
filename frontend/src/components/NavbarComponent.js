@@ -18,6 +18,7 @@ import MainReport from "./MainReport";
 import useFileUpload from "../customHooks/useFileUpload";
 import Snackbar from "@mui/material/Snackbar";
 import CircularProgress from "@mui/material/CircularProgress";
+import Dashboard from "./Dashboard";
 // import DeleteCollection from "./DeleteCollection";
 
 const drawerWidth = 250;
@@ -148,6 +149,7 @@ function ResponsiveDrawer() {
 
         <Routes>
           <Route exact path="/" element={<Redirect />} />
+          <Route exact path="/dashboard" element={<Dashboard />} />
           <Route exact path="/importer" element={<Importer />} />
           <Route exact path="/:importer/jobs/:status" element={<JobsList />} />
           <Route exact path="/:importer/job/:jobNo" element={<JobDetails />} />

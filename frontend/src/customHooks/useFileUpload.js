@@ -115,19 +115,17 @@ function useFileUpload(inputRef) {
           for (let i = 0; i < containerNumbers.length; i++) {
             const containerObj = {
               container_number: containerNumbers[i],
-              size:
-                size[i] === undefined
-                  ? onlySize === ""
-                    ? ""
-                    : onlySize.match(/\d+x(\d+)/)[1]
-                  : size[i] === ""
-                  ? ""
-                  : size[i].match(/\d+x(\d+)/)[1],
+              // size:
+              //   size[i] === undefined
+              //     ? onlySize === ""
+              //       ? ""
+              //       : onlySize.match(/\d+x(\d+)/)[1]
+              //     : size[i] === ""
+              //     ? ""
+              //     : size[i].match(/\d+x(\d+)/)[1],
             };
             containerData.push(containerObj);
           }
-
-          console.log(containerData);
 
           return {
             ...item,

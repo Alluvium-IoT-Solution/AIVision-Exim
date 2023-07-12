@@ -8,6 +8,7 @@ import updateJob from "./routes/updateJob.mjs";
 import addJob from "./routes/addJobsFromExcel.js";
 import login from "./routes/login.mjs";
 import getReport from "./routes/getReport.js";
+import register from "./routes/register.mjs";
 import deleteCollection from "./routes/deleteCollection.js";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
@@ -19,6 +20,8 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 dotenv.config();
+
+mongoose.set("strictQuery", true); // Suppress deprecation warning
 
 mongoose
   .connect(
@@ -42,6 +45,8 @@ mongoose
     app.use(login);
 
     app.use(getReport);
+
+    app.use(register);
 
     app.use(deleteCollection);
 

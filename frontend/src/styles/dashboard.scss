@@ -1,0 +1,26 @@
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-info h4 {
+  flex: 1;
+}
+
+.add-user-btn {
+  background-color: #273041;
+  outline: none;
+  border: none;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.register-form button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.MuiInputBase-input.MuiFilledInput-input.MuiInputBase-inputSizeSmall.css-c5v1qu-MuiInputBase-input-MuiFilledInput-input {
+  height: 100%;
+}
