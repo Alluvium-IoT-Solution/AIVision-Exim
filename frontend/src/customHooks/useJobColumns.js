@@ -100,6 +100,13 @@ function useJobColumns(detailedStatus) {
         detailedStatus === ""
           ? false
           : true,
+      renderCell: (cell) => {
+        // console.log(cell.row.eta);
+        return cell.row.eta === "undefined.undefined.d." ||
+          cell.row.eta === undefined
+          ? ""
+          : cell.row.eta;
+      },
     },
 
     {

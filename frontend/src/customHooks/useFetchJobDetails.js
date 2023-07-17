@@ -48,19 +48,36 @@ function useFetchJobDetails(params, checked) {
     },
 
     onSubmit: async (values) => {
-      const eta = convertDateFormatForDB(values.eta); // convert date to dd.mm.yy
-      const do_validity = convertDateFormatForDB(values.do_validity); // convert date to dd.mm.yy
-      console.log(values);
+      console.log({
+        eta: values.eta === "" ? "" : convertDateFormatForDB(values.eta),
+        checked,
+        free_time: values.free_time,
+        status: values.status,
+        detailed_status: values.detailed_status,
+        container_nos: values.container_nos,
+        arrival_date: values.container_nos.map((container) =>
+          container.arrival_date === ""
+            ? ""
+            : convertDateFormatForDB(container.arrival_date)
+        ),
+        do_validity:
+          values.do_validity === ""
+            ? ""
+            : convertDateFormatForDB(values.do_validity),
+        checklist: values.checklist,
+        remarks: values.remarks,
+        description: values.description,
+      });
 
       const res = await axios.put(`${updateJobAPI}`, {
-        eta,
+        eta: values.eta,
         checked,
         free_time: values.free_time,
         status: values.status,
         detailed_status: values.detailed_status,
         container_nos: values.container_nos,
         arrival_date: values.arrival_date,
-        do_validity,
+        do_validity: values.do_validity,
         checklist: values.checklist,
         remarks: values.remarks,
         description: values.description,
@@ -76,7 +93,7 @@ function useFetchJobDetails(params, checked) {
       const container_nos = data.container_nos.map((container) => ({
         arrival_date:
           container.arrival_date === undefined
-            ? dateString
+            ? ""
             : convertDateFormatForUI(container.arrival_date), // convert date to yyyy-mm-dd
         container_number: container.container_number,
         size: container.size === undefined ? "20" : container.size,
@@ -85,10 +102,7 @@ function useFetchJobDetails(params, checked) {
       formik.setValues({
         ...{ container_nos },
         arrival_date: container_nos[0].arrival_date,
-        eta:
-          data.eta === undefined
-            ? dateString
-            : convertDateFormatForUI(data.eta),
+        eta: data.eta === undefined ? "" : convertDateFormatForUI(data.eta),
         free_time: data.free_time === undefined ? 14 : data.free_time,
         status: data.status,
         detailed_status:
@@ -97,7 +111,7 @@ function useFetchJobDetails(params, checked) {
             : data.detailed_status,
         do_validity:
           data.do_validity === undefined
-            ? dateString
+            ? ""
             : convertDateFormatForUI(data.do_validity),
         checklist: data.checklist === undefined ? "" : data.checklist,
         remarks: data.remarks === undefined ? "" : data.remarks,

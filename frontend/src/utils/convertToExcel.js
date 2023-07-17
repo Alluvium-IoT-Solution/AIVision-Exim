@@ -9,9 +9,8 @@ export const convertToExcel = async (
   selectedFields
 ) => {
   selectedFields.sort((a, b) => a.id - b.id);
-
-  if (selectedFields.length === 0) {
-    alert("Please select at least one field to export");
+  if (selectedFields.length < 2) {
+    alert("Please select at least two fields to export");
   }
   localStorage.setItem("selectedFields", JSON.stringify(selectedFields));
   const dateOfReport = new Date().toLocaleDateString();
@@ -114,20 +113,20 @@ export const convertToExcel = async (
 
   ///////////////////////////////////////  Title Row  //////////////////////////////////////
   // Merge cells for the title row
-  const startColumn = "A";
   const endColumnIndex = headers.length - 1;
   const endColumn =
-    String.fromCharCode(65 + Math.floor(endColumnIndex / 26) - 1) +
-    String.fromCharCode(65 + (endColumnIndex % 26));
-  const mergeRange = `${startColumn}1:${endColumn}1`;
-  worksheet.mergeCells(mergeRange);
+    endColumnIndex < 26
+      ? String.fromCharCode(65 + endColumnIndex)
+      : String.fromCharCode(64 + Math.floor(endColumnIndex / 26)) +
+        String.fromCharCode(65 + (endColumnIndex % 26));
+  worksheet.mergeCells(`A1:${endColumn}1`);
 
   // Set the title for title row
   const titleRow = worksheet.getRow(1);
   titleRow.getCell(1).value = `${importer}: Status as of ${dateOfReport}`;
 
   // Apply formatting to the title row
-  titleRow.font = { size: 24, color: { argb: "FFFFFFFF" } };
+  titleRow.font = { size: 12, color: { argb: "FFFFFFFF" } };
   titleRow.fill = {
     type: "pattern",
     pattern: "solid",
@@ -153,7 +152,10 @@ export const convertToExcel = async (
 
   // Apply formatting to the header row
   const headerRow = worksheet.getRow(2);
-  headerRow.font = { size: 14, color: { argb: "FFFFFFFF" } };
+  while (headerRow.cellCount > headers.length) {
+    headerRow.getCell(headerRow.cellCount).value = undefined;
+  }
+  headerRow.font = { size: 12, color: { argb: "FFFFFFFF" } };
   headerRow.fill = {
     type: "pattern",
     pattern: "solid",
@@ -219,12 +221,6 @@ export const convertToExcel = async (
         horizontal: "center",
         vertical: "middle",
         wrapText: true, // Enable text wrapping for all cells
-      };
-      cell.border = {
-        top: { style: "thin" },
-        left: { style: "thin" },
-        bottom: { style: "thin" },
-        right: { style: "thin" },
       };
 
       // Add line breaks after commas in the containerNumbers cell
@@ -328,29 +324,6 @@ export const convertToExcel = async (
       column.width = 15;
     }
   });
-
-  // Apply cell borders for the last column cells
-  const lastColumnIndex = headers.length;
-  worksheet
-    .getColumn(lastColumnIndex)
-    .eachCell({ includeEmpty: true }, (cell) => {
-      cell.border = {
-        top: { style: "thin" },
-        left: { style: "thin" },
-        bottom: { style: "thin" },
-        right: { style: "thin" },
-      };
-    });
-  worksheet
-    .getColumn(lastColumnIndex - 1)
-    .eachCell({ includeEmpty: true }, (cell) => {
-      cell.border = {
-        top: { style: "thin" },
-        left: { style: "thin" },
-        bottom: { style: "thin" },
-        right: { style: "thin" },
-      };
-    });
 
   // Generate Excel file
   const excelBuffer = await workbook.xlsx.writeBuffer();

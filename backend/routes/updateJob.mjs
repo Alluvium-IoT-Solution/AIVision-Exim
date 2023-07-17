@@ -55,7 +55,10 @@ router.put("/api/:importer/updatejob/:jobNo", async (req, res) => {
         return {
           ...container,
           arrival_date: arrival_date,
-          detention_from: addDaysToDate(arrival_date, parseInt(free_time)),
+          detention_from:
+            arrival_date === ""
+              ? ""
+              : addDaysToDate(arrival_date, parseInt(free_time)),
         };
       });
     } else {
@@ -63,7 +66,10 @@ router.put("/api/:importer/updatejob/:jobNo", async (req, res) => {
         const { arrival_date } = container;
         return {
           ...container,
-          detention_from: addDaysToDate(arrival_date, parseInt(free_time)),
+          detention_from:
+            arrival_date === ""
+              ? ""
+              : addDaysToDate(arrival_date, parseInt(free_time)),
         };
       });
     }

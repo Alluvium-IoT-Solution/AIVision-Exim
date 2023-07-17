@@ -22,7 +22,13 @@ export default function SelectFieldsModal(props) {
   const [selectedFields, setSelectedFields] = React.useState(
     localStorage.getItem("selectedFields")
       ? JSON.parse(localStorage.getItem("selectedFields"))
-      : []
+      : [
+          { id: 1, name: "Job No", fieldName: "job_no" },
+          { id: 2, name: "Custom House", fieldName: "custom_house" },
+          { id: 7, name: "Invoice Date", fieldName: "invoice_date" },
+          { id: 6, name: "Invoice Number", fieldName: "invoice_number" },
+          { id: 4, name: "Importer", fieldName: "importer" },
+        ]
   );
 
   return (
@@ -74,8 +80,15 @@ export default function SelectFieldsModal(props) {
                           }
                         }}
                         checked={
-                          selectedFields.filter((item) => item.id === data.id)
-                            .length > 0
+                          data.name === "Job No" ||
+                          data.name === "Importer" ||
+                          data.name === "Invoice Date" ||
+                          data.name === "Invoice Number" ||
+                          data.name === "Custom House"
+                            ? true
+                            : selectedFields.filter(
+                                (item) => item.id === data.id
+                              ).length > 0
                         }
                       />
                       <Typography>{data.name}</Typography>
