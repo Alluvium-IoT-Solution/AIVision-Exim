@@ -20,7 +20,14 @@ router.post("/api/login", (req, res) => {
               },
               "Ngvq7ZjPkxiwhuT"
             );
-            res.json({ message: "Login Successfull", user: token });
+            res.json({
+              message: "Login Successfull",
+              user: token,
+              username: user.username,
+              role: user.role,
+              importer: user.importer,
+              importerURL: user.importerURL,
+            });
           } else {
             res.json({ message: "Password didn't match", user: false });
           }

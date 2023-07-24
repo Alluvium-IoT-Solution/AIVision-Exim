@@ -1,20 +1,31 @@
 import { Container, Row, Col } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import { importerData } from "../assets/data/importerData";
 import { ClientContext } from "../Context/ClientContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/importer.scss";
+import axios from "axios";
+import { apiRoutes } from "../utils/apiRoutes";
 
 function Importer() {
   const [filterImporter, setFilterImporter] = useState("");
   const { setImporter, setImporterName } = React.useContext(ClientContext);
+  const [importerData, setImporterData] = useState([]);
   const navigate = useNavigate();
+  const { importerListAPI } = apiRoutes();
+
+  useEffect(() => {
+    async function getImporterList() {
+      const res = await axios.get(importerListAPI);
+      setImporterData(res.data);
+    }
+    getImporterList();
+  }, []);
 
   const filteredData = importerData.filter((importer) => {
     if (filterImporter === "") {
       return true;
     } else if (
-      importer.name.toLowerCase().includes(filterImporter.toLowerCase())
+      importer.importerName.toLowerCase().includes(filterImporter.toLowerCase())
     ) {
       return true;
     }
@@ -37,14 +48,14 @@ function Importer() {
         placeholder="Search importer..."
       />
       <Row className="importer-row">
-        {filteredData.map((val) => {
+        {filteredData.map((val, id) => {
           return (
-            <Col key={val.id} xs={12} lg={3} className="importer-col">
+            <Col key={id} xs={12} lg={3} className="importer-col">
               <div
                 className="importer-inner-container"
-                onClick={() => handleClient(val.url, val.name)}
+                onClick={() => handleClient(val.importer, val.importerName)}
               >
-                {val.name}
+                {val.importerName}
               </div>
             </Col>
           );

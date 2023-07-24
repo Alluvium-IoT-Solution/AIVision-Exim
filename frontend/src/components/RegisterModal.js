@@ -20,8 +20,8 @@ export default function RegisterModal(props) {
   return (
     <div>
       <Modal
-        open={props.openModal}
-        onClose={props.handleCloseModal}
+        open={props.openRegisterModal}
+        onClose={props.handleCloseRegisterModal}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >

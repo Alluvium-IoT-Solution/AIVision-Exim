@@ -12,10 +12,10 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 800,
+  overflow: "hidden",
   bgcolor: "background.paper",
   boxShadow: 24,
-  p: 3,
+  p: 2,
 };
 
 export default function SelectFieldsModal(props) {
@@ -25,9 +25,9 @@ export default function SelectFieldsModal(props) {
       : [
           { id: 1, name: "Job No", fieldName: "job_no" },
           { id: 2, name: "Custom House", fieldName: "custom_house" },
-          { id: 7, name: "Invoice Date", fieldName: "invoice_date" },
-          { id: 6, name: "Invoice Number", fieldName: "invoice_number" },
           { id: 4, name: "Importer", fieldName: "importer" },
+          { id: 6, name: "Invoice Number", fieldName: "invoice_number" },
+          { id: 7, name: "Invoice Date", fieldName: "invoice_date" },
         ]
   );
 
@@ -44,7 +44,9 @@ export default function SelectFieldsModal(props) {
             Select fields to be displayed in report
           </Typography>
 
-          <Container style={{ margin: "20px 0" }}>
+          <Container
+            style={{ margin: "20px 0", height: "500px", overflow: "scroll" }}
+          >
             <div
               style={{
                 display: "flex",

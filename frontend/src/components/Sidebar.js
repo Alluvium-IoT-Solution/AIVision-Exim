@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/sidebar.scss";
 import { sidebarData } from "../assets/data/sidebarData";
@@ -12,10 +12,12 @@ import Snackbar from "@mui/material/Snackbar";
 
 function Sidebar() {
   const { importer } = useContext(ClientContext);
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const inputRef = useRef();
   const { handleFileUpload, snackbar } = useFileUpload(inputRef);
+  const isUserRoleUser = user.role === "User";
+  const sidebarDataArray = sidebarData(user.role, user.importerURL);
 
   return (
     <div className="sidebar">
@@ -28,21 +30,33 @@ function Sidebar() {
           />
         </div>
 
-        <label htmlFor="uploadBtn" className="uploadBtn-mobile">
-          Upload Party Data (excel file)
-        </label>
-        <input
-          type="file"
-          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-          id="uploadBtn"
-          name="uploadBtn"
-          ref={inputRef}
-          style={{ display: "none" }}
-          onChange={handleFileUpload}
-        />
+        {!isUserRoleUser && (
+          <>
+            <label htmlFor="uploadBtn" className="uploadBtn-mobile">
+              Upload Party Data (excel file)
+            </label>
+            <input
+              type="file"
+              accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+              id="uploadBtn"
+              name="uploadBtn"
+              ref={inputRef}
+              style={{ display: "none" }}
+              onChange={handleFileUpload}
+            />
+          </>
+        )}
 
-        {sidebarData.map((val) => {
+        {sidebarDataArray.map((val) => {
           const { id, icon, name, url } = val;
+
+          if (
+            isUserRoleUser &&
+            (name === "Importer" || name === "Main Report")
+          ) {
+            return null; // Hide Importer and Main Report if user.role === User
+          }
+
           return (
             <div key={id}>
               <ListItem
@@ -66,46 +80,45 @@ function Sidebar() {
                   </ListItemButton>
                 </NavLink>
               </ListItem>
-
               {name === "Jobs" &&
-                jobStatus.map((job) => {
-                  return (
-                    <ListItem
-                      disableGutters={true}
+                jobStatus.map((job) => (
+                  <ListItem
+                    disableGutters={true}
+                    key={job.id}
+                    className="sidebar-listItem"
+                    style={{ padding: "0 20px" }}
+                  >
+                    <NavLink
+                      to={
+                        user.role === "User"
+                          ? `${user.importerURL}/jobs/${job.url}` // Navigate to the importerURL assigned to the user, if user.role=== User
+                          : `${importer}/jobs/${job.url}`
+                      }
                       key={job.id}
-                      className="sidebar-listItem"
-                      style={{ padding: "0 20px" }}
+                      className="sidebar-link"
                     >
-                      <NavLink
-                        to={`${importer}/jobs/${job.url}`}
-                        key={id}
-                        className="sidebar-link"
+                      <ListItemButton
+                        sx={{ textAlign: "left" }}
+                        className="appbar-links"
+                        style={{ padding: "5px 0" }}
+                        aria-label="list-item"
                       >
-                        <ListItemButton
-                          sx={{ textAlign: "left" }}
-                          className="appbar-links"
-                          style={{ padding: "5px 0" }}
-                          aria-label="list-item"
-                        >
-                          <div
-                            style={{ display: "flex", alignItems: "center" }}
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <IconButton
+                            sx={{
+                              color: "#ffffff9f",
+                              border: "none !important",
+                            }}
+                            aria-label="icon"
                           >
-                            <IconButton
-                              sx={{
-                                color: "#ffffff9f",
-                                border: "none !important",
-                              }}
-                              aria-label="icon"
-                            >
-                              {job.icon}
-                            </IconButton>
-                            <p className="sidebar-list-text">{job.name}</p>
-                          </div>
-                        </ListItemButton>
-                      </NavLink>
-                    </ListItem>
-                  );
-                })}
+                            {job.icon}
+                          </IconButton>
+                          <p className="sidebar-list-text">{job.name}</p>
+                        </div>
+                      </ListItemButton>
+                    </NavLink>
+                  </ListItem>
+                ))}
             </div>
           );
         })}

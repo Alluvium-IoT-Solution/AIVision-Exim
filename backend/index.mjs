@@ -3,13 +3,20 @@ import cors from "cors";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 import getJob from "./routes/getJobRoute.mjs";
-import getJobsList from "./routes/getJobList.js";
+import getJobsList from "./routes/getJobList.mjs";
 import updateJob from "./routes/updateJob.mjs";
-import addJob from "./routes/addJobsFromExcel.js";
+import addJob from "./routes/addJobsFromExcel.mjs";
 import login from "./routes/login.mjs";
-import getReport from "./routes/getReport.js";
+import getReport from "./routes/getReport.mjs";
 import register from "./routes/register.mjs";
-import deleteCollection from "./routes/deleteCollection.js";
+import deleteCollection from "./routes/deleteCollection.mjs";
+import getJobsOverview from "./routes/getJobsOverview.mjs";
+import importerJobs from "./routes/importerJobs.mjs";
+import getImporterList from "./routes/getImporterList.mjs";
+import getUsers from "./routes/getUsers.mjs";
+import getAssignedimporter from "./routes/getAssignedImporter.mjs";
+import assignJobs from "./routes/assignJobs.mjs";
+import sendMail from "./routes/sendMail.mjs";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 
@@ -21,13 +28,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 dotenv.config();
 
-mongoose.set("strictQuery", true); // Suppress deprecation warning
+mongoose.set("strictQuery", true);
 
 mongoose
   .connect(
-    // process.env.MONGODB_URI,
-    "mongodb://localhost:27017/exim",
-    // "mongodb+srv://exim:qTT7e4YeE3YSSMiV@aivision.pxmpvlz.mongodb.net/exim?retryWrites=true&w=majority",
+    // "mongodb://localhost:27017/exim",
+    "mongodb+srv://exim:qTT7e4YeE3YSSMiV@aivision.pxmpvlz.mongodb.net/exim?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -47,6 +53,20 @@ mongoose
     app.use(getReport);
 
     app.use(register);
+
+    app.use(getJobsOverview);
+
+    app.use(importerJobs);
+
+    app.use(getImporterList);
+
+    app.use(getUsers);
+
+    app.use(assignJobs);
+
+    app.use(getAssignedimporter);
+
+    app.use(sendMail);
 
     app.use(deleteCollection);
 

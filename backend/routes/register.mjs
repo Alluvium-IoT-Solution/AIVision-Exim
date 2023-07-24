@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post("/api/register", (req, res) => {
   const { username, password, role } = req.body;
+  console.log(username, password, role);
   User.findOne({ username: username })
     .then((user) => {
       if (user) {

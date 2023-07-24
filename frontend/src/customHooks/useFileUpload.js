@@ -59,7 +59,6 @@ function useFileUpload(inputRef) {
     // Combine all data from an importer
     convertedData.forEach((item) => {
       const importerName = item.importer;
-
       // Check if the importer already exists in the importerData array
       const existingImporter = importerData.find(
         (importer) =>
@@ -80,10 +79,14 @@ function useFileUpload(inputRef) {
 
       // If the importer already exists, push the item to its data array
       if (existingImporter) {
-        existingImporter.data.push(item);
+        existingImporter.data.push({
+          ...item,
+          importerName: importerName, // Add the importerName field without regex transformations
+        });
       } else {
         // If the importer doesn't exist, create a new importer object and add it to the importerData array
         const newImporter = {
+          importerName,
           importer: importerName
             .toLowerCase()
             .replace(/ /g, "_") // replace spaces with underscores
@@ -139,7 +142,7 @@ function useFileUpload(inputRef) {
             .replace(/\[/g, "") // replace [ with nothing
             .replace(/\]/g, "") // replace ] with nothing
             .replace(/,/g, ""), // replace , with nothing
-
+          importerName: entry.importerName,
           data: newData,
         };
       });

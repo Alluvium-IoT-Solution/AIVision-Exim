@@ -7,6 +7,11 @@ const jobSchema = new mongoose.Schema({
     trim: true,
     unique: true,
   },
+  importerName: {
+    type: String,
+    trim: true,
+    unique: true,
+  },
   jobs: [
     {
       job_no: { type: String, trim: true },

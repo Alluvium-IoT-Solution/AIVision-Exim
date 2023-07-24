@@ -1,5 +1,6 @@
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
+import axios from "axios";
 
 export const convertToExcel = async (
   rows,
@@ -326,6 +327,21 @@ export const convertToExcel = async (
   });
 
   // Generate Excel file
+  // const excelBuffer = await workbook.xlsx.writeBuffer();
+
+  // const data = new Blob([excelBuffer], {
+  //   type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  // });
+
+  // Save the Excel file
+  // saveAs(
+  //   data,
+  //   detailedStatus === ""
+  //     ? `${importer} - ${status}`
+  //     : `${importer} - ${detailedStatus}`
+  // );
+
+  // Generate Excel file
   const excelBuffer = await workbook.xlsx.writeBuffer();
 
   const data = new Blob([excelBuffer], {
@@ -333,10 +349,36 @@ export const convertToExcel = async (
   });
 
   // Save the Excel file
-  saveAs(
-    data,
+  const filename =
     detailedStatus === ""
       ? `${importer} - ${status}`
-      : `${importer} - ${detailedStatus}`
-  );
+      : `${importer} - ${detailedStatus}`;
+
+  saveAs(data, filename);
+
+  // Send the Excel file to the backend
+  // sendExcelFileToBackend(data, filename);
 };
+
+// const sendExcelFileToBackend = async (file, filename) => {
+//   try {
+//     const formData = new FormData();
+//     formData.append("excelFile", file, filename);
+
+//     await axios.post(
+//       "http://localhost:9002/api/send-mail",
+//       formData,
+//       filename,
+//       {
+//         headers: {
+//           "Content-Type": "multipart/form-data",
+//         },
+//       }
+//     );
+
+//     console.log("Excel file sent successfully!");
+//   } catch (error) {
+//     console.error("Error sending Excel file:", error);
+//     alert("Failed to send Excel file to the backend.");
+//   }
+// };

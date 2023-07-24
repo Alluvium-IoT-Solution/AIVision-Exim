@@ -16,6 +16,8 @@ export const userSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  importer: { type: String, trim: true },
+  importerURL: { type: String, trim: true },
 });
 
 export default userSchema;

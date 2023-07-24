@@ -28,9 +28,14 @@ const LoginForm = () => {
       } else if (res.data.message === "Password didn't match") {
         alert(res.data.message);
       } else if (res.data.message === "Login Successfull") {
-        localStorage.setItem("user", res.data.user);
-        setUser(res.data.user);
-        navigate("/importer");
+        console.log(res.data);
+        localStorage.setItem("user", JSON.stringify(res.data));
+        setUser(res.data);
+        if (res.data.role === "User") {
+          navigate("/dashboard");
+        } else {
+          navigate("/importer");
+        }
       }
     },
   });

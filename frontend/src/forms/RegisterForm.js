@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Button } from "@mui/material";
 import { useFormik } from "formik";
 import { TextField } from "@mui/material";
 import { validationSchema } from "../schema/LoginSchema";
@@ -10,9 +9,8 @@ import { useNavigate } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 
 const RegisterForm = () => {
-  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
-  const { loginAPI } = apiRoutes();
+  const { registerAPI } = apiRoutes();
 
   const formik = useFormik({
     initialValues: {
@@ -23,19 +21,13 @@ const RegisterForm = () => {
 
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const res = await axios.post(
-        "http://localhost:9002/api/register",
-        values
-      );
+      const res = await axios.post(registerAPI, values);
       console.log(res);
-      if (res.data.message === "User not registered") {
+      if (res.data.message === "User already registered") {
         alert(res.data.message);
-      } else if (res.data.message === "Password didn't match") {
+      } else if (res.data.message === "Successfully registered, login now.") {
         alert(res.data.message);
-      } else if (res.data.message === "Login Successfull") {
-        localStorage.setItem("user", res.data.user);
-        setUser(res.data.user);
-        navigate("/importer");
+        navigate("/dashboard");
       }
     },
   });
