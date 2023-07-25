@@ -25,7 +25,7 @@ router.post("/api/register", (req, res) => {
               .save()
               .then(() => {
                 res.send({
-                  message: "Successfully registered, login now.",
+                  message: "Successfully registered",
                 });
               })
               .catch((err) => {

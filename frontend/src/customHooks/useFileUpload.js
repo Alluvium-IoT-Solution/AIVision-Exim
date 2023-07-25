@@ -7,7 +7,7 @@ import { useState } from "react";
 function useFileUpload(inputRef) {
   const [snackbar, setSnackbar] = useState(false);
   const navigate = useNavigate();
-  const { addJobAPI } = apiRoutes();
+  const { addJobAPI, updateJobsDateAPI } = apiRoutes();
   const [loading, setLoading] = useState(false);
 
   const handleFileUpload = (event) => {
@@ -167,10 +167,21 @@ function useFileUpload(inputRef) {
         alert("Something went wrong");
       }
       setLoading(false);
-      navigate("/importer");
+      navigate("/dashboard");
     }
 
     uploadExcelData();
+
+    // update last jobs date in db
+    const date = new Date().toLocaleDateString();
+    async function updateJobsDate() {
+      const res = await axios.post(updateJobsDateAPI, {
+        date,
+      });
+      console.log(res);
+    }
+
+    updateJobsDate();
   };
 
   // Hide snackbar after 2 seconds

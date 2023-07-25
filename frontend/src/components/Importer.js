@@ -22,9 +22,11 @@ function Importer() {
   }, []);
 
   const filteredData = importerData.filter((importer) => {
+    console.log(filterImporter);
     if (filterImporter === "") {
       return true;
     } else if (
+      importer.importerName !== "--" &&
       importer.importerName.toLowerCase().includes(filterImporter.toLowerCase())
     ) {
       return true;

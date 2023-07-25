@@ -17,6 +17,8 @@ import getUsers from "./routes/getUsers.mjs";
 import getAssignedimporter from "./routes/getAssignedImporter.mjs";
 import assignJobs from "./routes/assignJobs.mjs";
 import sendMail from "./routes/sendMail.mjs";
+import updateLastJobsDate from "./routes/addLastJobsDate.mjs";
+import getLastJobsDate from "./routes/getLastJobsDate.mjs";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 
@@ -67,6 +69,10 @@ mongoose
     app.use(getAssignedimporter);
 
     app.use(sendMail);
+
+    app.use(updateLastJobsDate);
+
+    app.use(getLastJobsDate);
 
     app.use(deleteCollection);
 

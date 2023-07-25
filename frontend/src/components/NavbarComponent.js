@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -19,6 +19,8 @@ import useFileUpload from "../customHooks/useFileUpload";
 import Snackbar from "@mui/material/Snackbar";
 import CircularProgress from "@mui/material/CircularProgress";
 import Dashboard from "./dashboardComponents/Dashboard";
+import axios from "axios";
+import { apiRoutes } from "../utils/apiRoutes";
 // import DeleteCollection from "./DeleteCollection";
 
 const drawerWidth = 250;
@@ -42,6 +44,16 @@ function ResponsiveDrawer() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const inputRef = useRef();
   const { handleFileUpload, snackbar, loading } = useFileUpload(inputRef);
+  const [lastJobsDate, setLastJobsDate] = useState();
+  const { getLastJobsDateAPI } = apiRoutes();
+
+  useEffect(() => {
+    async function getLastJobsDate() {
+      const res = await axios(getLastJobsDateAPI);
+      setLastJobsDate(res.data.lastJobsDate);
+    }
+    getLastJobsDate();
+  });
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -66,14 +78,17 @@ function ResponsiveDrawer() {
           >
             <MenuIcon sx={{ color: "#000" }} />
           </IconButton>
-          <div style={{ flex: 1 }}>
+          <div style={{ flex: 1, alignItems: "center" }}>
             <img
               src={require("../assets/images/topbar-logo.png")}
               alt="logo"
               height="30px"
             />
           </div>
-
+          <p style={{ color: "#000", marginBottom: 0, marginRight: "10px" }}>
+            {" "}
+            Jobs last added on {lastJobsDate}
+          </p>
           {loading ? (
             <CircularProgress />
           ) : (
