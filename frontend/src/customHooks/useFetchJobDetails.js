@@ -6,26 +6,18 @@ import { useFormik } from "formik";
 import { convertDateFormatForDB } from "../utils/convertDateFormatForDB";
 import { convertDateFormatForUI } from "../utils/convertDateFormatForUI";
 
-function useFetchJobDetails(params, checked) {
+function useFetchJobDetails(params, checked, selectedYear) {
   const { updateJobAPI, getJobAPI } = apiRoutes(params.importer, params.jobNo);
   const [data, setData] = useState(null);
   const [detentionFrom, setDetentionFrom] = useState([]);
   const navigate = useNavigate();
 
-  // Use today's date if date is not available in db
-  const date = new Date();
-  function formatDate(date) {
-    let year = date.getFullYear();
-    let month = ("0" + (date.getMonth() + 1)).slice(-2);
-    let day = ("0" + date.getDate()).slice(-2);
-    return `${year}-${month}-${day}`;
-  }
-  const dateString = formatDate(date);
-
   // Fetch data
   useEffect(() => {
     async function getJobDetails() {
-      const response = await axios.get(`${getJobAPI}`);
+      const response = await axios.get(
+        `${getJobAPI}/${params.importer}/job/${selectedYear}/${params.jobNo}`
+      );
       setData(response.data);
     }
 
@@ -49,27 +41,6 @@ function useFetchJobDetails(params, checked) {
 
     onSubmit: async (values) => {
       console.log({
-        eta: values.eta === "" ? "" : convertDateFormatForDB(values.eta),
-        checked,
-        free_time: values.free_time,
-        status: values.status,
-        detailed_status: values.detailed_status,
-        container_nos: values.container_nos,
-        arrival_date: values.container_nos.map((container) =>
-          container.arrival_date === ""
-            ? ""
-            : convertDateFormatForDB(container.arrival_date)
-        ),
-        do_validity:
-          values.do_validity === ""
-            ? ""
-            : convertDateFormatForDB(values.do_validity),
-        checklist: values.checklist,
-        remarks: values.remarks,
-        description: values.description,
-      });
-
-      const res = await axios.put(`${updateJobAPI}`, {
         eta: values.eta,
         checked,
         free_time: values.free_time,
@@ -82,6 +53,22 @@ function useFetchJobDetails(params, checked) {
         remarks: values.remarks,
         description: values.description,
       });
+      const res = await axios.put(
+        `${updateJobAPI}/${params.importer}/updatejob/${selectedYear}/${params.jobNo}`,
+        {
+          eta: values.eta,
+          checked,
+          free_time: values.free_time,
+          status: values.status,
+          detailed_status: values.detailed_status,
+          container_nos: values.container_nos,
+          arrival_date: values.arrival_date,
+          do_validity: values.do_validity,
+          checklist: values.checklist,
+          remarks: values.remarks,
+          description: values.description,
+        }
+      );
       console.log(res);
       navigate(`/${params.importer}/jobs/pending`);
     },
@@ -159,6 +146,7 @@ function useFetchJobDetails(params, checked) {
         setDetentionFrom(updatedDate);
       }
     }
+    // eslint-disable-next-line
   }, [
     formik.values.arrival_date,
     formik.values.free_time,

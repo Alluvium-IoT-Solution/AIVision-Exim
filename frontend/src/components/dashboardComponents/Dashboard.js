@@ -8,8 +8,13 @@ import AssignJobsModal from "./AssignJobsModal";
 import { UserContext } from "../../Context/UserContext";
 import Lottie from "lottie-react";
 import notFound from "../../assets/lottie-files/notFound.json";
+import SpeedDial from "@mui/material/SpeedDial";
+import SpeedDialIcon from "@mui/material/SpeedDialIcon";
+import SpeedDialAction from "@mui/material/SpeedDialAction";
+import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
+import AssignmentIndRoundedIcon from "@mui/icons-material/AssignmentIndRounded";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   // Modal
   const [openRegisterModal, setoOpenRegisterModal] = useState(false);
   const [openAssignJobsModal, setOpenAssignJobsModal] = useState(false);
@@ -20,33 +25,27 @@ const Dashboard = () => {
 
   const { user } = useContext(UserContext);
 
+  const actions = [
+    {
+      icon: <PersonAddAltRoundedIcon />,
+      name: "Add User",
+      onClick: handleOpenRegisterModal,
+    },
+    {
+      icon: <AssignmentIndRoundedIcon />,
+      name: "Assign Jobs",
+      onClick: handleOpenAssignJobsModal,
+    },
+  ];
+
   return (
     <>
       <Container fluid className="dashboard-container">
-        <div className="user-info">
-          <h4>Hello, {user.username}</h4>
-          {/* Hide assign jobs and add user button if user role is User */}
-          {user.role !== "User" && (
-            <>
-              <button
-                onClick={handleOpenRegisterModal}
-                className="dashboard-btn"
-              >
-                Add User
-              </button>
-              <button
-                onClick={handleOpenAssignJobsModal}
-                className="dashboard-btn"
-              >
-                Assign Jobs
-              </button>
-            </>
-          )}
-        </div>
+        <h4>Hello, {user.username}</h4>
 
         {/* If user role is not User, show JobsOverview component */}
         {user.role !== "User" ? (
-          <JobsOverview />
+          <JobsOverview selectedYear={props.selectedYear} />
         ) : // If user role is User and importer has been assigned to that user show JobsOverview component
         user.role === "User" && user.importer ? (
           <>
@@ -76,7 +75,9 @@ const Dashboard = () => {
         <>
           <Container fluid className="dashboard-container">
             <Row>
-              {user.role !== "User" && <ImporterWiseDetails />}
+              {user.role !== "User" && (
+                <ImporterWiseDetails selectedYear={props.selectedYear} />
+              )}
               <Col xs={6} className="dashboard-col"></Col>
             </Row>
           </Container>
@@ -92,6 +93,21 @@ const Dashboard = () => {
         openAssignJobsModal={openAssignJobsModal}
         handleCloseAssignJobsModal={handleCloseAssignJobsModal}
       />
+
+      <SpeedDial
+        ariaLabel="SpeedDial basic example"
+        sx={{ position: "absolute", bottom: 16, right: 16 }}
+        icon={<SpeedDialIcon />}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+            onClick={action.onClick}
+          />
+        ))}
+      </SpeedDial>
     </>
   );
 };

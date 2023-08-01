@@ -95,17 +95,6 @@ input[type="number"]::-webkit-outer-spin-button {
 .table {
   background-color: #fff;
   border: none;
-
-  .progress {
-    width: 65%;
-    height: 5px;
-    --bs-progress-bar-bg: $primary-color;
-    color: transparent;
-  }
-
-  .progress-bar {
-    color: transparent;
-  }
 }
 
 .MuiDataGrid-iconSeparator {
@@ -163,11 +152,38 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 0% !important;
 }
 
+// Assign importe text field
+.MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.MuiInputBase-formControl.MuiInputBase-sizeSmall {
+  height: 50px !important;
+}
+
 .css-pnvfe5-MuiFormLabel-root-MuiInputLabel-root {
   padding-right: 5px !important;
   background-color: #fff !important;
 }
 
-.MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.MuiInputBase-formControl.MuiInputBase-sizeSmall {
-  height: 50px !important;
+// DataGrid row min-height
+.MuiDataGrid-row.MuiDataGrid-row--dynamicHeight {
+  min-height: 50px !important;
+}
+
+// Tooltip
+.MuiTooltip-tooltip {
+  background-color: #273041 !important;
+}
+
+// Job list datagrid filter select
+.MuiInputBase-input,
+.MuiNativeSelect-select {
+  height: 30px !important;
+}
+
+// Job details page select tag
+.MuiSelect-select {
+  height: 35px !important;
+}
+
+// Register form fields
+.MuiInputBase-input {
+  height: 40px !important;
 }

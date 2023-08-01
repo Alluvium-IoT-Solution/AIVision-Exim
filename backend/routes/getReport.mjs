@@ -3,21 +3,22 @@ import JobModel from "../models/jobModel.mjs";
 
 const router = express.Router();
 
-router.get("/api/report", async (req, res) => {
+router.get("/api/report/:year", async (req, res) => {
   try {
-    const result = await JobModel.find({}, "jobs");
+    const { year } = req.params;
 
-    if (result.length === 0) {
-      return res.status(404).json({ message: "No jobs found" });
-    }
+    // Find documents with the specified year
+    const matchingDocs = await JobModel.find({ year });
 
-    // Extract the jobs array from each document and combine them into a single array
-    const jobsArray = result.flatMap((document) => document.jobs);
+    // Extract all jobs from the matching documents
+    const allJobs = matchingDocs.reduce((acc, doc) => {
+      const jobsInData = doc.data.flatMap((dataItem) => dataItem.jobs);
+      return acc.concat(jobsInData);
+    }, []);
 
-    res.json(jobsArray);
+    res.json(allJobs);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

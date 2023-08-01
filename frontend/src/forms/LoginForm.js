@@ -31,11 +31,7 @@ const LoginForm = () => {
         console.log(res.data);
         localStorage.setItem("user", JSON.stringify(res.data));
         setUser(res.data);
-        if (res.data.role === "User") {
-          navigate("/dashboard");
-        } else {
-          navigate("/importer");
-        }
+        navigate("/dashboard");
       }
     },
   });
@@ -74,7 +70,7 @@ const LoginForm = () => {
         fullWidth
         type="submit"
         className="submit-form-btn"
-        aria-label="login"
+        aria-label="login-btn"
       >
         Login
       </Button>

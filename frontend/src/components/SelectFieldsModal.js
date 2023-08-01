@@ -111,7 +111,7 @@ export default function SelectFieldsModal(props) {
                 selectedFields
               )
             }
-            aria-label="export"
+            aria-label="export-btn"
             className="download-report-btn"
           >
             Download Now

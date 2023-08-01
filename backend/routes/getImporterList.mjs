@@ -3,16 +3,45 @@ import JobModel from "../models/jobModel.mjs";
 
 const router = express.Router();
 
-router.get("/api/getImporterList", async (req, res) => {
+router.get("/api/getImporterList/:year", async (req, res) => {
   try {
-    const importers = await JobModel.find({}, { importerName: 1, importer: 1 });
+    const selectedYear = req.params.year;
 
-    const importerList = importers.map((importer) => ({
-      importerName: importer.importerName,
-      importer: importer.importer,
-    }));
+    const pipeline = [
+      // Match documents for the specific year
+      { $match: { year: selectedYear } },
 
-    res.status(200).json(importerList);
+      // Unwind the data array to separate individual jobs
+      { $unwind: "$data" },
+
+      // Group by importer to get distinct importers
+      {
+        $group: {
+          _id: "$data.importer",
+          importerURL: { $first: "$data.importerURL" }, // Take the first importerURL for each importer
+        },
+      },
+
+      // Project to shape the output
+      {
+        $project: {
+          _id: 0,
+          importerName: "$_id",
+          importer: "$_id",
+          importerURL: 1, // Include the importerURL field in the output
+        },
+      },
+
+      // Sort the results by importer name in ascending order
+      {
+        $sort: {
+          importerName: 1,
+        },
+      },
+    ];
+
+    const importers = await JobModel.aggregate(pipeline);
+    res.status(200).json(importers);
   } catch (error) {
     console.log(error);
     res.status(500).send("An error occurred while fetching importers.");

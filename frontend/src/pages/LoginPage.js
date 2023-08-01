@@ -9,12 +9,12 @@ function LoginPage() {
       <Row className="login-row">
         <Col className="login-left-col">
           <div className="login-left-col-inner-container">
-            <img src={require("../assets/images/logo.png")} alt="logo" />
+            <img src={require("../assets/images/logo.webp")} alt="logo" />
           </div>
         </Col>
         <Col className="login-right-col">
           <div className="login-right-col-inner-container">
-            <img src={require("../assets/images/Lock.png")} alt="lock" />
+            <img src={require("../assets/images/Lock.webp")} alt="lock" />
             <LoginForm />
           </div>
         </Col>

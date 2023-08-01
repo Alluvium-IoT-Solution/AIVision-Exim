@@ -29,7 +29,7 @@ const MenuProps = {
 const AssignJobsForm = () => {
   const [users, setUsers] = useState([]);
   const [importerData, setImporterData] = useState([]);
-  const { importerListAPI, getUsersAPI, assignJobsAPI } = apiRoutes();
+  const { getUsersAPI, assignJobsAPI, importerListToAssignJobs } = apiRoutes();
 
   useEffect(() => {
     async function getUsers() {
@@ -37,7 +37,7 @@ const AssignJobsForm = () => {
       setUsers(res.data);
     }
     async function getImporterList() {
-      const res = await axios.get(importerListAPI);
+      const res = await axios.get(importerListToAssignJobs);
       setImporterData(res.data);
     }
     getUsers();
@@ -45,9 +45,6 @@ const AssignJobsForm = () => {
   }, []);
 
   const userList = users.map((user) => user.username);
-  const importerNames = importerData.map((importer) => {
-    return importer.importerName;
-  });
 
   const validationSchema = Yup.object().shape({
     user: Yup.string().required("User is required"),
@@ -61,7 +58,6 @@ const AssignJobsForm = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      console.log(values);
       const res = await axios.post(assignJobsAPI, values);
       if (res.status === 200) {
         alert("Jobs assigned successfully");
@@ -114,7 +110,7 @@ const AssignJobsForm = () => {
 
       <Autocomplete
         disablePortal
-        options={importerNames}
+        options={importerData}
         getOptionLabel={(option) => option}
         width="100%"
         renderInput={(params) => (
@@ -161,7 +157,7 @@ const AssignJobsForm = () => {
         fullWidth
         type="submit"
         className="submit-form-btn"
-        aria-label="login"
+        aria-label="assign-jobs-btn"
       >
         Assign
       </Button>

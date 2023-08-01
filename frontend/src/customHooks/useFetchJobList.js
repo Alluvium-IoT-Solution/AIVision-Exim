@@ -4,16 +4,18 @@ import { useParams } from "react-router-dom";
 import { convertToTimestamp } from "../utils/convertToTimestamp";
 import { apiRoutes } from "../utils/apiRoutes";
 
-function useFetchJobList(detailedStatus) {
-  const [jobFilter, setJobFilter] = useState("");
+function useFetchJobList(detailedStatus, selectedYear) {
   const [rows, setRows] = useState([]);
   const params = useParams();
-  const { getJobsListAPI } = apiRoutes(params.importer, params.status);
+  const { getJobsListAPI } = apiRoutes();
 
   useEffect(() => {
     async function getData() {
       setRows([]);
-      const res = await axios.get(`${getJobsListAPI}`);
+      const res = await axios(
+        `${getJobsListAPI}/${selectedYear}/${params.importer}/jobs/${params.status}`
+      );
+
       setRows(res.data);
 
       function sortArrayByPriority(array) {
@@ -91,12 +93,17 @@ function useFetchJobList(detailedStatus) {
         setRows(filteredRows);
       }
     }
+
     getData();
-  }, [params.client, params.status, detailedStatus, getJobsListAPI]);
+  }, [
+    params.client,
+    params.status,
+    detailedStatus,
+    getJobsListAPI,
+    selectedYear,
+  ]);
 
-  const filteredRows = rows.filter((row) => row.job_no.includes(jobFilter));
-
-  return { rows, filteredRows, setJobFilter };
+  return { rows };
 }
 
 export default useFetchJobList;

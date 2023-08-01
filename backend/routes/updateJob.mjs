@@ -3,13 +3,12 @@ import JobModel from "../models/jobModel.mjs";
 
 const router = express.Router();
 
-router.put("/api/:importer/updatejob/:jobNo", async (req, res) => {
-  const importer = req.params.importer;
-  const jobNo = req.params.jobNo;
+router.put("/api/:importer/updatejob/:year/:jobNo", async (req, res) => {
+  const { importer, jobNo, year } = req.params;
+
   const {
     eta,
     checked,
-    arrival_date,
     status,
     detailed_status,
     container_nos,
@@ -19,9 +18,20 @@ router.put("/api/:importer/updatejob/:jobNo", async (req, res) => {
     do_validity,
     remarks,
   } = req.body;
+  console.log({
+    eta,
+    checked,
+    status,
+    detailed_status,
+    container_nos,
+    free_time,
+    description,
+    checklist,
+    do_validity,
+    remarks,
+  });
 
   try {
-    const clientDoc = await JobModel.findOne({ importer: importer });
     function addDaysToDate(dateString, days) {
       var date = new Date(dateString);
       date.setDate(date.getDate() + days);
@@ -31,16 +41,30 @@ router.put("/api/:importer/updatejob/:jobNo", async (req, res) => {
       return year + "-" + month + "-" + day;
     }
 
+    const clientDoc = await JobModel.findOne({
+      year,
+      "data.importerURL": importer,
+    });
+
     if (!clientDoc) {
       return res.status(404).json({ error: "Importer not found" });
     }
 
-    const matchingJob = clientDoc.jobs.find((job) => job.job_no === jobNo);
+    const dataItem = clientDoc.data.find(
+      (item) => item.importerURL === importer
+    );
+
+    if (!dataItem) {
+      return res.status(404).json({ error: "Importer not found" });
+    }
+
+    const matchingJob = dataItem.jobs.find((job) => job.job_no === jobNo);
 
     if (!matchingJob) {
       return res.status(404).json({ error: "Job not found" });
     }
 
+    // Update the matching job with the provided data
     matchingJob.eta = eta;
     matchingJob.status = status;
     matchingJob.detailed_status = detailed_status;
@@ -74,6 +98,10 @@ router.put("/api/:importer/updatejob/:jobNo", async (req, res) => {
       });
     }
 
+    // Mark the matchingJob as modified
+    dataItem.markModified("jobs");
+
+    // Save the parent clientDoc (which contains the updated subdocument) to the database
     const updatedClient = await clientDoc.save();
 
     res.status(200).json(matchingJob);

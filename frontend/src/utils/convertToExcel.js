@@ -357,28 +357,28 @@ export const convertToExcel = async (
   saveAs(data, filename);
 
   // Send the Excel file to the backend
-  // sendExcelFileToBackend(data, filename);
+  sendExcelFileToBackend(data, filename);
 };
 
-// const sendExcelFileToBackend = async (file, filename) => {
-//   try {
-//     const formData = new FormData();
-//     formData.append("excelFile", file, filename);
+const sendExcelFileToBackend = async (file, filename) => {
+  try {
+    const formData = new FormData();
+    formData.append("excelFile", file, filename);
 
-//     await axios.post(
-//       "http://localhost:9002/api/send-mail",
-//       formData,
-//       filename,
-//       {
-//         headers: {
-//           "Content-Type": "multipart/form-data",
-//         },
-//       }
-//     );
+    await axios.post(
+      "http://localhost:9002/api/send-mail",
+      formData,
+      filename,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
-//     console.log("Excel file sent successfully!");
-//   } catch (error) {
-//     console.error("Error sending Excel file:", error);
-//     alert("Failed to send Excel file to the backend.");
-//   }
-// };
+    console.log("Excel file sent successfully!");
+  } catch (error) {
+    console.error("Error sending Excel file:", error);
+    alert("Failed to send Excel file to the backend.");
+  }
+};

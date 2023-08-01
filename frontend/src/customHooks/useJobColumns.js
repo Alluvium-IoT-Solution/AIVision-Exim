@@ -9,6 +9,7 @@ function useJobColumns(detailedStatus) {
       field: "_id",
       sortable: false,
       hide: true,
+      headerName: "ID",
     },
 
     {
@@ -142,24 +143,28 @@ function useJobColumns(detailedStatus) {
       field: "pol",
       sortable: false,
       hide: true,
+      headerName: "POL",
     },
 
     {
       field: "date",
       sortable: false,
       hide: true,
+      headerName: "Date",
     },
 
     {
       field: "party",
       sortable: false,
       hide: true,
+      headerName: "Party",
     },
 
     {
       field: "invoice_number",
       sortable: false,
       hide: true,
+      headerName: "Invoice Number",
     },
 
     {
@@ -168,66 +173,77 @@ function useJobColumns(detailedStatus) {
       headerName: "Invoice Date",
       width: "160",
       hide: true,
+      headerName: "Invoice Date",
     },
 
     {
       field: "invoice_value_and_rate",
       sortable: false,
       hide: true,
+      headerName: "Invoice Value and Rate",
     },
 
     {
       field: "bill_number",
       sortable: false,
       hide: true,
+      headerName: "Bill Number",
     },
 
     {
       field: "bill_date",
       sortable: false,
       hide: true,
+      headerName: "Bill Date",
     },
 
     {
       field: "commodity",
       sortable: false,
       hide: true,
+      headerName: "Commodity",
     },
 
     {
       field: "number_of_packages",
       sortable: false,
       hide: true,
+      headerName: "Number of Packages",
     },
 
     {
       field: "net_wt_mt",
       sortable: false,
       hide: true,
+      headerName: "Net Weight (MT)",
     },
 
     {
       field: "free_time",
       sortable: false,
       hide: true,
+      headerName: "Free Time",
     },
 
     {
       field: "detention_from",
       sortable: false,
       hide: true,
+      headerName: "Detention From",
     },
 
     {
       field: "shipping_line",
       sortable: false,
       hide: true,
+      headerName: "Shipping Line",
     },
 
     {
       field: "size",
       sortable: false,
       hide: true,
+      headerName: "Size",
     },
 
     {
@@ -242,18 +258,21 @@ function useJobColumns(detailedStatus) {
       field: "do_validity",
       sortable: false,
       hide: true,
+      headerName: "Do Validity",
     },
 
     {
       field: "checklist",
       sortable: false,
       hide: true,
+      headerName: "Checklist",
     },
 
     {
       field: "client",
       sortable: false,
       hide: true,
+      headerName: "Client",
     },
 
     {
@@ -262,83 +281,13 @@ function useJobColumns(detailedStatus) {
       headerName: "Status",
       width: "200",
       hide: true,
-      // renderCell: (params) => {
-      //   if (params.row.status?.toLowerCase() === "pending") {
-      //     return (
-      //       <div
-      //         style={{
-      //           backgroundColor: "rgb(255, 217, 102, 0.36)",
-      //           color: "rgb(236, 168, 105)",
-      //           padding: "5px 10px",
-      //           borderRadius: "6px",
-      //           fontWeight: "600",
-      //           fontSize: "0.75rem",
-      //           letterSpacing: "0.5px",
-      //         }}
-      //       >
-      //         Pending
-      //       </div>
-      //     );
-      //   } else if (params.row.status?.toLowerCase() === "completed") {
-      //     return (
-      //       <div
-      //         style={{
-      //           backgroundColor: "rgba(84, 214, 44, 0.16)",
-      //           color: "rgb(34, 154, 22)",
-      //           padding: "5px 10px",
-      //           borderRadius: "6px",
-      //           fontWeight: "600",
-      //           fontSize: "0.75rem",
-      //           letterSpacing: "0.5px",
-      //         }}
-      //       >
-      //         Completed
-      //       </div>
-      //     );
-      //   } else if (params.row.status?.toLowerCase() === "cancelled") {
-      //     return (
-      //       <div
-      //         style={{
-      //           backgroundColor: "rgba(255, 72, 66, 0.16)",
-      //           color: "rgb(183, 33, 54)",
-      //           padding: "5px 10px",
-      //           borderRadius: "6px",
-      //           fontWeight: "600",
-      //           fontSize: "0.75rem",
-      //           letterSpacing: "0.5px",
-      //         }}
-      //       >
-      //         Cancelled
-      //       </div>
-      //     );
-      //   } else {
-      //     return (
-      //       <div
-      //         style={{
-      //           backgroundColor: "rgba(84, 214, 44, 0.16)",
-      //           color: "rgb(34, 154, 22)",
-      //           padding: "5px 10px",
-      //           borderRadius: "6px",
-      //           fontWeight: "600",
-      //           fontSize: "0.75rem",
-      //           letterSpacing: "0.5px",
-      //         }}
-      //       >
-      //         {params.row.status === "pending"
-      //           ? "Pending"
-      //           : params.row.status === "completed"
-      //           ? "Completed"
-      //           : "Cancelled"}
-      //       </div>
-      //     );
-      //   }
-      // },
     },
 
     {
       field: "detailed_status",
       sortable: false,
       hide: true,
+      headerName: "Detailed Status",
     },
 
     {
@@ -346,6 +295,7 @@ function useJobColumns(detailedStatus) {
       headerName: "Actions",
       width: "80",
       align: "center",
+      headerName: "Actions",
       renderCell: (cell) => {
         return (
           <Link to={`/${params.importer}/job/${cell.row.job_no}`}>

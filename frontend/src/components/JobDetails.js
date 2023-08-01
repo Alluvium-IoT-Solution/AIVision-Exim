@@ -1,17 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { TextField } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import "../styles/job-details.scss";
 import useFetchJobDetails from "../customHooks/useFetchJobDetails";
 import Checkbox from "@mui/material/Checkbox";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import Snackbar from "@mui/material/Snackbar";
 
-function JobDetails() {
+function JobDetails(props) {
   const params = useParams();
   const options = Array.from({ length: 25 }, (_, index) => index);
   const [checked, setChecked] = useState(false);
-  const { data, detentionFrom, formik } = useFetchJobDetails(params, checked);
+  const { data, detentionFrom, formik } = useFetchJobDetails(
+    params,
+    checked,
+    props.selectedYear
+  );
+  const bl_no_ref = useRef();
+  const container_number_ref = useRef([]);
+  const [snackbar, setSnackbar] = useState(false);
+
+  const handleCopyClick = () => {
+    if (bl_no_ref.current) {
+      const textToCopy = bl_no_ref.current.innerText;
+      navigator.clipboard
+        .writeText(textToCopy)
+        .then(() => {
+          setSnackbar(true);
+          setTimeout(() => {
+            setSnackbar(false);
+          }, 1000);
+        })
+        .catch((err) => {
+          console.error("Failed to copy text:", err);
+        });
+    }
+  };
+
+  const handleCopyContainerNumber = (container_number) => {
+    let containerNumber = container_number;
+    navigator.clipboard.writeText(containerNumber).then(() => {
+      setSnackbar(true);
+      setTimeout(() => {
+        setSnackbar(false);
+      }, 1000);
+    });
+  };
 
   return (
     <>
@@ -90,7 +126,12 @@ function JobDetails() {
           <Row className="job-detail-row">
             <Col>
               <strong>Bill of Lading Number:&nbsp;</strong>
-              <span className="non-editable-text">{data.awb_bl_no}</span>
+              <span ref={bl_no_ref} className="non-editable-text">
+                {data.awb_bl_no}
+              </span>
+              <IconButton onClick={handleCopyClick} aria-label="copy-btn">
+                <ContentCopyIcon />
+              </IconButton>
             </Col>
             <Col>
               <strong>Bill of Lading Date:&nbsp;</strong>
@@ -335,7 +376,19 @@ function JobDetails() {
                     <h6>
                       <strong>
                         {index + 1}. Container Number:&nbsp;
-                        {container.container_number}
+                        <span ref={container_number_ref[index]}>
+                          {container.container_number}
+                        </span>
+                        <IconButton
+                          onClick={() =>
+                            handleCopyContainerNumber(
+                              container.container_number
+                            )
+                          }
+                          aria-label="copy-btn"
+                        >
+                          <ContentCopyIcon />
+                        </IconButton>
                       </strong>
                     </h6>
 
@@ -422,7 +475,7 @@ function JobDetails() {
               <button
                 type="submit"
                 style={{ float: "right", margin: "0px 20px" }}
-                aria-label="submit"
+                aria-label="submit-btn"
               >
                 Submit
               </button>
@@ -430,6 +483,12 @@ function JobDetails() {
           </Row>
         </form>
       )}
+
+      <Snackbar
+        open={snackbar}
+        message="Copied to clipboard"
+        sx={{ left: "auto !important", right: "24px !important" }}
+      />
     </>
   );
 }

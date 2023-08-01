@@ -7,9 +7,7 @@ import getJobsList from "./routes/getJobList.mjs";
 import updateJob from "./routes/updateJob.mjs";
 import addJob from "./routes/addJobsFromExcel.mjs";
 import login from "./routes/login.mjs";
-import getReport from "./routes/getReport.mjs";
 import register from "./routes/register.mjs";
-import deleteCollection from "./routes/deleteCollection.mjs";
 import getJobsOverview from "./routes/getJobsOverview.mjs";
 import importerJobs from "./routes/importerJobs.mjs";
 import getImporterList from "./routes/getImporterList.mjs";
@@ -19,6 +17,9 @@ import assignJobs from "./routes/assignJobs.mjs";
 import sendMail from "./routes/sendMail.mjs";
 import updateLastJobsDate from "./routes/addLastJobsDate.mjs";
 import getLastJobsDate from "./routes/getLastJobsDate.mjs";
+import importerListToAssignJobs from "./routes/importerListToAssignJobs.mjs";
+import getYears from "./routes/getYears.mjs";
+import getReport from "./routes/getReport.mjs";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 
@@ -34,8 +35,8 @@ mongoose.set("strictQuery", true);
 
 mongoose
   .connect(
-    // "mongodb://localhost:27017/exim",
-    "mongodb+srv://exim:qTT7e4YeE3YSSMiV@aivision.pxmpvlz.mongodb.net/exim?retryWrites=true&w=majority",
+    "mongodb://localhost:27017/exim",
+    // "mongodb+srv://exim:qTT7e4YeE3YSSMiV@aivision.pxmpvlz.mongodb.net/exim?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -51,8 +52,6 @@ mongoose
     app.use(addJob);
 
     app.use(login);
-
-    app.use(getReport);
 
     app.use(register);
 
@@ -74,7 +73,11 @@ mongoose
 
     app.use(getLastJobsDate);
 
-    app.use(deleteCollection);
+    app.use(importerListToAssignJobs);
+
+    app.use(getYears);
+
+    app.use(getReport);
 
     app.listen(9002, () => {
       console.log(`BE started at port 9002`);

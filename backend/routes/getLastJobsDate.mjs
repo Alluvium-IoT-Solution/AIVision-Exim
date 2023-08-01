@@ -1,15 +1,3 @@
-// import express from "express";
-// import LastJobsDate from "../models/jobsLastUpdatedOnModel.mjs";
-
-// const router = express.Router();
-
-// router.get("/api/getLastJobsDate", async (req, res) => {
-//   console.log("ok");
-//   res.json({ ok: "ok" });
-// });
-
-// export default router;
-
 import express from "express";
 import LastJobsDate from "../models/jobsLastUpdatedOnModel.mjs";
 

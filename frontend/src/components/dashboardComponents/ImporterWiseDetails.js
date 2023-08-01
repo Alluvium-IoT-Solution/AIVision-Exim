@@ -6,7 +6,8 @@ import axios from "axios";
 import { Col } from "react-bootstrap";
 import ReactApexChart from "react-apexcharts";
 
-function ImporterWiseDetails() {
+function ImporterWiseDetails(props) {
+  const selectedYear = props.selectedYear;
   const [importerData, setImporterData] = useState([]);
   const [selectedImporter, setSelectedImporter] = useState(
     "LAXCON STEELS LIMITED - IMPORT"
@@ -21,11 +22,11 @@ function ImporterWiseDetails() {
   // Get importer list for MUI autocomplete
   useEffect(() => {
     async function getImporterList() {
-      const res = await axios.get(importerListAPI);
+      const res = await axios.get(`${importerListAPI}/${selectedYear}`);
       setImporterData(res.data);
     }
     getImporterList();
-  }, []);
+  }, [selectedYear]);
 
   // Set selected importer on autocomplete onChange
   const handleImporterChange = (event, selectedImporter) => {
@@ -34,15 +35,23 @@ function ImporterWiseDetails() {
 
   // Fetch the details of the selected importer
   useEffect(() => {
-    async function getImporterData() {
-      const res = await axios.get(`${importerJobsAPI}/${selectedImporter}`);
-      console.log(res.data);
-      setData([
-        res.data.totalJobs,
-        res.data.pendingJobs,
-        res.data.completedJobs,
-        res.data.canceledJobs,
-      ]);
+    async function getImporterData(props) {
+      const res = await axios.get(
+        `${importerJobsAPI}/${selectedImporter
+          .toLowerCase()
+          .replace(/ /g, "_")
+          .replace(/\./g, "")
+          .replace(/\//g, "_")
+          .replace(/-/g, "")
+          .replace(/_+/g, "_")
+          .replace(/\(/g, "")
+          .replace(/\)/g, "")
+          .replace(/\[/g, "")
+          .replace(/\]/g, "")
+          .replace(/,/g, "")}/${selectedYear}`
+      );
+
+      setData(res.data);
     }
     getImporterData();
   }, [selectedImporter]);
@@ -110,7 +119,7 @@ function ImporterWiseDetails() {
           disablePortal
           options={importerNames}
           getOptionLabel={(option) => option}
-          defaultValue={"LAXCON STEELS LIMITED - IMPORT"}
+          value={importerNames.length > 0 ? importerNames[0] : null}
           onChange={handleImporterChange}
           width="100%"
           renderInput={(params) => (

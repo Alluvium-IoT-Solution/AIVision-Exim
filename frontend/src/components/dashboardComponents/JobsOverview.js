@@ -9,7 +9,7 @@ import { apiRoutes } from "../../utils/apiRoutes";
 import { Row, Col } from "react-bootstrap";
 import { UserContext } from "../../Context/UserContext";
 
-function JobsOverview() {
+function JobsOverview(props) {
   const [jobs, setJobs] = useState();
   const { jobsOverviewAPI, importerJobsAPI } = apiRoutes();
   const { user } = useContext(UserContext);
@@ -19,8 +19,9 @@ function JobsOverview() {
       const res = await axios.get(
         user.role === "User"
           ? `${importerJobsAPI}/${user.importer}`
-          : jobsOverviewAPI
+          : `${jobsOverviewAPI}/${props.selectedYear}`
       );
+
       setJobs(res.data);
     }
 
@@ -31,7 +32,7 @@ function JobsOverview() {
     <Row className="jobs-overview">
       <Col xl={6} className="jobs-overview-item">
         <div className="jobs-overview-item-inner">
-          <IconButton>
+          <IconButton aria-label="total-jobs">
             <DensitySmallIcon />
           </IconButton>
           <div>
@@ -43,7 +44,7 @@ function JobsOverview() {
 
       <Col xl={6} className="jobs-overview-item">
         <div className="jobs-overview-item-inner">
-          <IconButton>
+          <IconButton aria-label="pending-jobs">
             <HourglassBottomIcon />
           </IconButton>
           <div>
@@ -55,7 +56,7 @@ function JobsOverview() {
 
       <Col xl={6} className="jobs-overview-item">
         <div className="jobs-overview-item-inner">
-          <IconButton>
+          <IconButton aria-label="completed-jobs">
             <CheckCircleOutlineIcon />
           </IconButton>
           <div>
@@ -67,7 +68,7 @@ function JobsOverview() {
 
       <Col xl={6} className="jobs-overview-item">
         <div className="jobs-overview-item-inner">
-          <IconButton>
+          <IconButton aria-label="canceled-jobs">
             <DoDisturbIcon />
           </IconButton>
           <div>

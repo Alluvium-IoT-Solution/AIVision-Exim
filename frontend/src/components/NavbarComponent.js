@@ -8,9 +8,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Sidebar from "./Sidebar";
 import { Routes, Route } from "react-router-dom";
-import sidebarBg from "../assets/images/sidebar-bg.png";
+import sidebarBg from "../assets/images/sidebar-bg.webp";
 import Redirect from "./Redirect";
-import { SwipeableDrawer } from "@mui/material";
+import { SwipeableDrawer, Tooltip } from "@mui/material";
 import Importer from "../components/Importer";
 import JobsList from "./JobsList";
 import JobDetails from "./JobDetails";
@@ -21,7 +21,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Dashboard from "./dashboardComponents/Dashboard";
 import axios from "axios";
 import { apiRoutes } from "../utils/apiRoutes";
-// import DeleteCollection from "./DeleteCollection";
+import MenuItem from "@mui/material/MenuItem";
+import { TextField } from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
+import { Typography } from "@mui/material";
 
 const drawerWidth = 250;
 const drawerPaperStyles = {
@@ -43,9 +46,19 @@ const drawerStyles = {
 function ResponsiveDrawer() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const inputRef = useRef();
-  const { handleFileUpload, snackbar, loading } = useFileUpload(inputRef);
   const [lastJobsDate, setLastJobsDate] = useState();
-  const { getLastJobsDateAPI } = apiRoutes();
+  const { getLastJobsDateAPI, getYearsAPI } = apiRoutes();
+  const [year, setYear] = useState([]);
+  const currentYear = new Date().getFullYear() % 100;
+  const [selectedYear, setSelectedYear] = useState(
+    `${currentYear}-${currentYear + 1}`
+  );
+  const [alt, setAlt] = useState(false);
+  const { handleFileUpload, snackbar, loading } = useFileUpload(
+    inputRef,
+    alt,
+    setAlt
+  );
 
   useEffect(() => {
     async function getLastJobsDate() {
@@ -53,136 +66,196 @@ function ResponsiveDrawer() {
       setLastJobsDate(res.data.lastJobsDate);
     }
     getLastJobsDate();
-  });
+
+    async function getJobyears() {
+      const res = await axios(getYearsAPI);
+      setYear(res.data);
+    }
+
+    getJobyears();
+    // eslint-disable-next-line
+  }, [alt]);
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{
-          width: { lg: `calc(100% - ${drawerWidth}px)` },
-          ml: { lg: `${drawerWidth}px` },
-          backgroundColor: "rgba(249, 250, 251, 0.3)",
-          backdropFilter: "blur(6px) !important",
-          boxShadow: "none",
-        }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            sx={{ mr: 2, display: { lg: "none" } }}
-          >
-            <MenuIcon sx={{ color: "#000" }} />
-          </IconButton>
-          <div style={{ flex: 1, alignItems: "center" }}>
-            <img
-              src={require("../assets/images/topbar-logo.png")}
-              alt="logo"
-              height="30px"
-            />
-          </div>
-          <p style={{ color: "#000", marginBottom: 0, marginRight: "10px" }}>
-            {" "}
-            Jobs last added on {lastJobsDate}
-          </p>
-          {loading ? (
-            <CircularProgress />
-          ) : (
-            <label htmlFor="uploadBtn" className="uploadBtn">
-              Upload Party Data (excel file)
-            </label>
-          )}
-          <input
-            type="file"
-            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            id="uploadBtn"
-            name="uploadBtn"
-            ref={inputRef}
-            style={{ display: "none" }}
-            onChange={handleFileUpload}
-          />
-        </Toolbar>
-      </AppBar>
-
-      <Box
-        component="nav"
-        sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 } }}
-        aria-label="mailbox folders"
-      >
-        {/* Drawer mobile */}
-        <SwipeableDrawer
-          PaperProps={{
-            sx: drawerPaperStyles,
-          }}
-          variant="temporary"
-          open={mobileOpen}
-          onOpen={() => setMobileOpen(!mobileOpen)}
-          onClose={() => setMobileOpen(!mobileOpen)}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{ ...drawerStyles, display: { xs: "block", lg: "none" } }}
-        >
-          <Sidebar />
-        </SwipeableDrawer>
-
-        {/* Drawer desktop */}
-        <Drawer
-          PaperProps={{
-            sx: drawerPaperStyles,
-          }}
-          variant="permanent"
+    <>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
           sx={{
-            ...drawerStyles,
-            display: { xs: "none", lg: "block" },
+            width: { lg: `calc(100% - ${drawerWidth}px)` },
+            ml: { lg: `${drawerWidth}px` },
+            backgroundColor: "rgba(249, 250, 251, 0.3)",
+            backdropFilter: "blur(6px) !important",
+            boxShadow: "none",
           }}
-          open
         >
-          <Sidebar />
-        </Drawer>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              sx={{ mr: 2, display: { lg: "none" } }}
+            >
+              <MenuIcon sx={{ color: "#000" }} />
+            </IconButton>
+            <div style={{ flex: 1, alignItems: "center" }}>
+              <img
+                src={require("../assets/images/topbar-logo.webp")}
+                alt="logo"
+                height="27.86px"
+                width="200px"
+              />
+            </div>
+
+            {year.length > 0 && (
+              <TextField
+                select
+                size="large"
+                margin="normal"
+                variant="outlined"
+                label="Select Year"
+                value={selectedYear}
+                onChange={(e) => setSelectedYear(e.target.value)}
+                sx={{ width: "100px" }}
+              >
+                {year.map((year) => {
+                  return (
+                    <MenuItem key={year} value={year}>
+                      {year}
+                    </MenuItem>
+                  );
+                })}
+              </TextField>
+            )}
+
+            {loading ? (
+              <CircularProgress />
+            ) : (
+              <label
+                htmlFor="uploadBtn"
+                className="uploadBtn"
+                style={{ marginLeft: "10px" }}
+              >
+                Upload Party Data (excel file)
+              </label>
+            )}
+            <input
+              type="file"
+              accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+              id="uploadBtn"
+              name="upload-btn"
+              ref={inputRef}
+              style={{ display: "none" }}
+              onChange={handleFileUpload}
+            />
+
+            <Tooltip
+              title={
+                <Typography sx={{ fontSize: 16 }}>
+                  Jobs last added on {lastJobsDate}
+                </Typography>
+              }
+            >
+              <IconButton aria-label="jobs-info">
+                <InfoIcon />
+              </IconButton>
+            </Tooltip>
+          </Toolbar>
+        </AppBar>
+
+        <Box
+          component="nav"
+          sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 } }}
+          aria-label="mailbox folders"
+        >
+          {/* Drawer mobile */}
+          <SwipeableDrawer
+            PaperProps={{
+              sx: drawerPaperStyles,
+            }}
+            variant="temporary"
+            open={mobileOpen}
+            onOpen={() => setMobileOpen(!mobileOpen)}
+            onClose={() => setMobileOpen(!mobileOpen)}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{ ...drawerStyles, display: { xs: "block", lg: "none" } }}
+          >
+            <Sidebar />
+          </SwipeableDrawer>
+
+          {/* Drawer desktop */}
+          <Drawer
+            PaperProps={{
+              sx: drawerPaperStyles,
+            }}
+            variant="permanent"
+            sx={{
+              ...drawerStyles,
+              display: { xs: "none", lg: "block" },
+            }}
+            open
+          >
+            <Sidebar />
+          </Drawer>
+        </Box>
+
+        {/* Content */}
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            width: {
+              lg: `calc(100% - ${drawerWidth}px)`,
+              backgroundColor: "rgb(249, 250, 251)",
+              height: "100vh",
+              overflow: "scroll",
+              padding: "0 24px",
+            },
+          }}
+        >
+          <Toolbar />
+
+          <Routes>
+            <Route exact path="/" element={<Redirect />} />
+            <Route
+              exact
+              path="/dashboard"
+              element={<Dashboard selectedYear={selectedYear} />}
+            />
+            <Route
+              exact
+              path="/importer"
+              element={<Importer selectedYear={selectedYear} />}
+            />
+            <Route
+              exact
+              path="/:importer/jobs/:status"
+              element={<JobsList selectedYear={selectedYear} />}
+            />
+            <Route
+              exact
+              path="/:importer/job/:jobNo"
+              element={<JobDetails selectedYear={selectedYear} />}
+            />
+            <Route
+              exact
+              path="/main_report"
+              element={<MainReport selectedYear={selectedYear} />}
+            />
+          </Routes>
+        </Box>
+
+        <Snackbar
+          open={snackbar}
+          message="Jobs added successfully!"
+          sx={{ left: "auto !important", right: "24px !important" }}
+        />
       </Box>
-
-      {/* Content */}
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: {
-            lg: `calc(100% - ${drawerWidth}px)`,
-            backgroundColor: "rgb(249, 250, 251)",
-            height: "100vh",
-            overflow: "scroll",
-          },
-        }}
-      >
-        <Toolbar />
-
-        <Routes>
-          <Route exact path="/" element={<Redirect />} />
-          <Route exact path="/dashboard" element={<Dashboard />} />
-          <Route exact path="/importer" element={<Importer />} />
-          <Route exact path="/:importer/jobs/:status" element={<JobsList />} />
-          <Route exact path="/:importer/job/:jobNo" element={<JobDetails />} />
-          <Route exact path="/main_report" element={<MainReport />} />
-          {/* <Route
-            exact
-            path="/deleteCollection"
-            element={<DeleteCollection />}
-          /> */}
-        </Routes>
-      </Box>
-
-      <Snackbar
-        open={snackbar}
-        message="Jobs added successfully!"
-        sx={{ left: "auto !important", right: "24px !important" }}
-      />
-    </Box>
+    </>
   );
 }
 

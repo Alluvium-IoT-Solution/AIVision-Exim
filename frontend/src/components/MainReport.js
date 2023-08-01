@@ -5,29 +5,19 @@ import { getTableRowsClassname } from "../utils/getTableRowsClassname";
 import axios from "axios";
 import { apiRoutes } from "../utils/apiRoutes";
 
-function MainReport() {
+function MainReport(props) {
   const [rows, setRows] = useState([]);
-  const [jobFilter, setJobFilter] = useState("");
   const { mainReportAPI } = apiRoutes();
 
   useEffect(() => {
     async function getReport() {
-      const res = await axios.get(mainReportAPI);
+      const res = await axios.get(`${mainReportAPI}/${props.selectedYear}`);
       setRows(res.data.sort((a, b) => a.job_no - b.job_no));
     }
 
     getReport();
     // eslint-disable-next-line
   }, []);
-
-  const filteresRows = rows.filter((job) => {
-    if (jobFilter === "") {
-      return job;
-    } else if (job.job_no.includes(jobFilter)) {
-      return job;
-    }
-    return false;
-  });
 
   const columns = [
     {
@@ -242,10 +232,12 @@ function MainReport() {
       renderCell: (cell) => {
         return cell.row.container_nos.map((container, id) => {
           return (
+            // <Tooltip title={container.container_number}>
             <React.Fragment key={id}>
               {container.container_number}
               <br />
             </React.Fragment>
+            // </Tooltip>
           );
         });
       },
@@ -351,36 +343,28 @@ function MainReport() {
   return (
     <>
       <div style={{ display: "flex" }}>
-        <h3 style={{ flex: 1 }}>Main Report</h3>
-        {/* <br /> */}
-
-        <input
-          type="text"
-          placeholder="Search job..."
-          onChange={(e) => setJobFilter(e.target.value)}
-          className="search-job-input"
-        />
+        <h3 style={{ flex: 1, marginBottom: "20px" }}>Main Report</h3>
       </div>
 
       <DataGrid
-        getRowId={(row) => row._id}
+        className="table expense-table"
+        getRowId={(row) => row.job_no}
         sx={{
           padding: "0 30px",
+          height: "700px",
           "& .MuiDataGrid-row:hover": {
             backgroundColor: "#f8f5ff",
           },
         }}
-        className="table expense-table"
         headerAlign="center"
-        rows={filteresRows}
+        rows={rows}
         columns={columns}
         pageSize={50}
         stickyHeader
         rowsPerPageOptions={[50]}
-        rowHeight={150}
-        disableColumnMenu={true}
         disableSelectionOnClick
         getRowClassName={getTableRowsClassname}
+        getRowHeight={() => "auto"}
       />
     </>
   );
