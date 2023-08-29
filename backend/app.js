@@ -39,10 +39,13 @@ app.use(cors());
 mongoose.set("strictQuery", true);
 
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://exim:qTT7e4YeE3YSSMiV@aivision.pxmpvlz.mongodb.net/exim?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     app.use(getJobsList);
 
@@ -90,7 +93,7 @@ mongoose
 
     app.use(sendOtp);
 
-    app.listen(process.env.PORT, () => {
+    app.listen(9002, () => {
       console.log(`BE started at port 9002`);
     });
   })

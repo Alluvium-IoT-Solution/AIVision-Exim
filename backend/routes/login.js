@@ -28,7 +28,7 @@ router.post("/api/login", async (req, res) => {
             {
               email: user.email,
             },
-            process.env.SECRET_KEY
+            "rNgvq7ZjPkxiwhuT"
           );
 
           user.otp = undefined;
