@@ -101,6 +101,7 @@ function useFetchJobList(detailedStatus, selectedYear) {
     detailedStatus,
     getJobsListAPI,
     selectedYear,
+    params.importer,
   ]);
 
   return { rows };

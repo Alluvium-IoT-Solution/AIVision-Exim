@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -25,6 +25,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { TextField } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import { Typography } from "@mui/material";
+import { SelectedYearContext } from "../Context/SelectedYearContext";
 
 const drawerWidth = 250;
 const drawerPaperStyles = {
@@ -49,10 +50,7 @@ function ResponsiveDrawer() {
   const [lastJobsDate, setLastJobsDate] = useState();
   const { getLastJobsDateAPI, getYearsAPI } = apiRoutes();
   const [year, setYear] = useState([]);
-  const currentYear = new Date().getFullYear() % 100;
-  const [selectedYear, setSelectedYear] = useState(
-    `${currentYear}-${currentYear + 1}`
-  );
+  const { selectedYear, setSelectedYear } = useContext(SelectedYearContext);
   const [alt, setAlt] = useState(false);
   const { handleFileUpload, snackbar, loading } = useFileUpload(
     inputRef,
@@ -218,34 +216,23 @@ function ResponsiveDrawer() {
           }}
         >
           <Toolbar />
+          <br />
 
           <Routes>
             <Route exact path="/" element={<Redirect />} />
-            <Route
-              exact
-              path="/dashboard"
-              element={<Dashboard selectedYear={selectedYear} />}
-            />
-            <Route
-              exact
-              path="/importer"
-              element={<Importer selectedYear={selectedYear} />}
-            />
+            <Route exact path="/dashboard" element={<Dashboard />} />
+            <Route exact path="/importer" element={<Importer />} />
             <Route
               exact
               path="/:importer/jobs/:status"
-              element={<JobsList selectedYear={selectedYear} />}
+              element={<JobsList />}
             />
             <Route
               exact
               path="/:importer/job/:jobNo"
-              element={<JobDetails selectedYear={selectedYear} />}
+              element={<JobDetails />}
             />
-            <Route
-              exact
-              path="/main_report"
-              element={<MainReport selectedYear={selectedYear} />}
-            />
+            <Route exact path="/main_report" element={<MainReport />} />
           </Routes>
         </Box>
 

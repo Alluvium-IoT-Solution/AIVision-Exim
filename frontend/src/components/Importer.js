@@ -1,26 +1,28 @@
 import { Container, Row, Col } from "react-bootstrap";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ClientContext } from "../Context/ClientContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/importer.scss";
 import axios from "axios";
 import { apiRoutes } from "../utils/apiRoutes";
+import { SelectedYearContext } from "../Context/SelectedYearContext";
 
-function Importer(props) {
+function Importer() {
   const [filterImporter, setFilterImporter] = useState("");
   const { setImporter, setImporterName } = React.useContext(ClientContext);
   const [importerData, setImporterData] = useState([]);
   const navigate = useNavigate();
   const { importerListAPI } = apiRoutes();
+  const { selectedYear } = useContext(SelectedYearContext);
 
   useEffect(() => {
     async function getImporterList() {
-      const res = await axios.get(`${importerListAPI}/${props.selectedYear}`);
+      const res = await axios.get(`${importerListAPI}/${selectedYear}`);
       setImporterData(res.data);
     }
     getImporterList();
     // eslint-disable-next-line
-  }, [props.selectedYear]);
+  }, [selectedYear]);
 
   const filteredData = importerData.filter((importer) => {
     if (filterImporter === "") {

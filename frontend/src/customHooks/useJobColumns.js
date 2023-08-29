@@ -173,7 +173,6 @@ function useJobColumns(detailedStatus) {
       headerName: "Invoice Date",
       width: "160",
       hide: true,
-      headerName: "Invoice Date",
     },
 
     {
@@ -295,7 +294,7 @@ function useJobColumns(detailedStatus) {
       headerName: "Actions",
       width: "80",
       align: "center",
-      headerName: "Actions",
+
       renderCell: (cell) => {
         return (
           <Link to={`/${params.importer}/job/${cell.row.job_no}`}>

@@ -8,25 +8,62 @@ import axios from "axios";
 import { apiRoutes } from "../../utils/apiRoutes";
 import { Row, Col } from "react-bootstrap";
 import { UserContext } from "../../Context/UserContext";
+import { SelectedImporterContext } from "../../Context/SelectedImporterContext";
 
 function JobsOverview(props) {
-  const [jobs, setJobs] = useState();
+  const [jobs, setJobs] = useState({
+    totalJobs: 0,
+    pendingJobs: 0,
+    completedJobs: 0,
+    canceledJobs: 0,
+  });
+
   const { jobsOverviewAPI, importerJobsAPI } = apiRoutes();
   const { user } = useContext(UserContext);
+  const { selectedImporter } = useContext(SelectedImporterContext);
 
   useEffect(() => {
     async function getJobsOverview() {
-      const res = await axios.get(
-        user.role === "User"
-          ? `${importerJobsAPI}/${user.importer}`
-          : `${jobsOverviewAPI}/${props.selectedYear}`
-      );
-
-      setJobs(res.data);
+      if (user.role === "Executive") {
+        if (selectedImporter) {
+          setJobs({
+            totalJobs: 0,
+            pendingJobs: 0,
+            completedJobs: 0,
+            canceledJobs: 0,
+          });
+          const res = await axios.get(
+            `${importerJobsAPI}/${selectedImporter
+              .toLowerCase()
+              .replace(/ /g, "_")
+              .replace(/\./g, "")
+              .replace(/\//g, "_")
+              .replace(/-/g, "")
+              .replace(/_+/g, "_")
+              .replace(/\(/g, "")
+              .replace(/\)/g, "")
+              .replace(/\[/g, "")
+              .replace(/\]/g, "")
+              .replace(/,/g, "")}/${props.selectedYear}`
+          );
+          const [totalJobs, pendingJobs, completedJobs, canceledJobs] =
+            res.data;
+          setJobs({
+            totalJobs,
+            pendingJobs,
+            completedJobs,
+            canceledJobs,
+          });
+        }
+      } else {
+        const res = await axios.get(`${jobsOverviewAPI}/${props.selectedYear}`);
+        setJobs(res.data);
+      }
     }
 
     getJobsOverview();
-  }, []);
+    // eslint-disable-next-line
+  }, [props.selectedYear, selectedImporter]);
 
   return (
     <Row className="jobs-overview">

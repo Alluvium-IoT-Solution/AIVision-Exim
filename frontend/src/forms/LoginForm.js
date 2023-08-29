@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import { useFormik } from "formik";
 import { TextField } from "@mui/material";
@@ -7,34 +7,69 @@ import axios from "axios";
 import { UserContext } from "../Context/UserContext";
 import { apiRoutes } from "../utils/apiRoutes";
 import { useNavigate } from "react-router-dom";
+import { AssignedImportersContext } from "../Context/AssignedImportersContext";
 
 const LoginForm = () => {
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
-  const { loginAPI } = apiRoutes();
+  const { loginAPI, sendOtpAPI } = apiRoutes();
+  const { setAssignedImporters } = useContext(AssignedImportersContext);
+  const [otpSent, setOtpSent] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(120);
+
+  useEffect(() => {
+    let intervalId;
+
+    if (otpSent && timeRemaining > 0) {
+      intervalId = setInterval(() => {
+        setTimeRemaining((prevTime) => prevTime - 1);
+      }, 1000);
+    }
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [otpSent, timeRemaining]);
 
   const formik = useFormik({
     initialValues: {
-      username: "",
+      email: "",
       password: "",
+      otp: "",
     },
 
-    validationSchema: validationSchema,
     onSubmit: async (values) => {
       const res = await axios.post(loginAPI, values);
-      console.log(res);
-      if (res.data.message === "User not registered") {
+      if (res.data.message === "OTP didn't match") {
         alert(res.data.message);
       } else if (res.data.message === "Password didn't match") {
         alert(res.data.message);
-      } else if (res.data.message === "Login Successfull") {
-        console.log(res.data);
+      } else if (res.data.message === "Login Successful") {
+        setOtpSent(false);
         localStorage.setItem("user", JSON.stringify(res.data));
         setUser(res.data);
+        setAssignedImporters(res.data.importers);
+        localStorage.setItem(
+          "assignedImporters",
+          JSON.stringify(res.data.importers)
+        );
         navigate("/dashboard");
       }
     },
   });
+
+  const sendOtp = async () => {
+    if (formik.values.email === "") {
+      alert("Please enter email");
+    } else {
+      setOtpSent(true);
+      setTimeRemaining(120);
+      const res = await axios.post(sendOtpAPI, {
+        email: formik.values.email,
+      });
+      console.log(res);
+    }
+  };
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -43,13 +78,14 @@ const LoginForm = () => {
         margin="dense"
         variant="filled"
         fullWidth
-        id="username"
-        name="username"
-        label="Username"
-        value={formik.values.username}
+        id="email"
+        name="email"
+        label="Email"
+        value={formik.values.email}
         onChange={formik.handleChange}
-        error={formik.touched.username && Boolean(formik.errors.username)}
-        helperText={formik.touched.username && formik.errors.username}
+        error={formik.touched.email && Boolean(formik.errors.email)}
+        helperText={formik.touched.email && formik.errors.email}
+        className="login-input"
       />
       <TextField
         type="password"
@@ -64,9 +100,42 @@ const LoginForm = () => {
         onChange={formik.handleChange}
         error={formik.touched.password && Boolean(formik.errors.password)}
         helperText={formik.touched.password && formik.errors.password}
+        className="login-input"
       />
 
+      <div onClick={sendOtp}>
+        <p style={{ float: "right", fontWeight: 900, cursor: "pointer" }}>
+          {otpSent === false
+            ? "Send OTP"
+            : timeRemaining === 0 && otpSent
+            ? "Resend OTP"
+            : timeRemaining > 0 && otpSent
+            ? "Resend OTP in "
+            : "Send OTP"}
+          {timeRemaining > 0 && otpSent && timeRemaining}
+        </p>
+      </div>
+
+      {otpSent && (
+        <TextField
+          type="password"
+          size="small"
+          margin="dense"
+          variant="filled"
+          fullWidth
+          id="otp"
+          name="otp"
+          label="OTP"
+          value={formik.values.otp}
+          onChange={formik.handleChange}
+          error={formik.touched.otp && Boolean(formik.errors.otp)}
+          helperText={formik.touched.otp && formik.errors.otp}
+          className="login-input"
+        />
+      )}
+
       <Button
+        disabled={!otpSent}
         fullWidth
         type="submit"
         className="submit-form-btn"

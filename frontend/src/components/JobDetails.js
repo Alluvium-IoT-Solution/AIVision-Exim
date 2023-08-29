@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { IconButton, TextField } from "@mui/material";
@@ -8,19 +8,32 @@ import useFetchJobDetails from "../customHooks/useFetchJobDetails";
 import Checkbox from "@mui/material/Checkbox";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import Snackbar from "@mui/material/Snackbar";
+import { SelectedYearContext } from "../Context/SelectedYearContext";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import InputAdornment from "@mui/material/InputAdornment";
 
-function JobDetails(props) {
+function JobDetails() {
   const params = useParams();
   const options = Array.from({ length: 25 }, (_, index) => index);
   const [checked, setChecked] = useState(false);
+  const { selectedYear } = useContext(SelectedYearContext);
+  const [selectedRegNo, setSelectedRegNo] = useState();
   const { data, detentionFrom, formik } = useFetchJobDetails(
     params,
     checked,
-    props.selectedYear
+    selectedYear,
+    setSelectedRegNo
   );
   const bl_no_ref = useRef();
   const container_number_ref = useRef([]);
   const [snackbar, setSnackbar] = useState(false);
+
+  const handleRadioChange = (event) => {
+    setSelectedRegNo(event.target.value);
+  };
 
   const handleCopyClick = () => {
     if (bl_no_ref.current) {
@@ -63,7 +76,7 @@ function JobDetails(props) {
       {data !== null && (
         <form onSubmit={formik.handleSubmit}>
           <Row className="job-detail-row">
-            <Col>
+            <Col xs={5}>
               <strong>Importer:&nbsp;</strong>
               <span className="non-editable-text">{data.importer}</span>
             </Col>
@@ -78,7 +91,7 @@ function JobDetails(props) {
           </Row>
 
           <Row className="job-detail-row">
-            <Col>
+            <Col xs={5}>
               <strong>Invoice Value and Unit Price:&nbsp;</strong>
               <span className="non-editable-text">
                 &#8377; {data.cif_amount} | FC {data.unit_price}
@@ -95,7 +108,7 @@ function JobDetails(props) {
           </Row>
 
           <Row className="job-detail-row">
-            <Col>
+            <Col xs={5}>
               <strong>POL:&nbsp;</strong>
               <span className="non-editable-text">{data.loading_port}</span>
             </Col>
@@ -112,7 +125,7 @@ function JobDetails(props) {
           </Row>
 
           <Row className="job-detail-row">
-            <Col>
+            <Col xs={5}>
               <strong>Bill of Entry Number:&nbsp;</strong>
               <span className="non-editable-text">{data.be_no}</span>
             </Col>
@@ -124,7 +137,7 @@ function JobDetails(props) {
           </Row>
 
           <Row className="job-detail-row">
-            <Col>
+            <Col xs={5}>
               <strong>Bill of Lading Number:&nbsp;</strong>
               <span ref={bl_no_ref} className="non-editable-text">
                 {data.awb_bl_no}
@@ -133,7 +146,7 @@ function JobDetails(props) {
                 <ContentCopyIcon />
               </IconButton>
             </Col>
-            <Col>
+            <Col xs={7}>
               <strong>Bill of Lading Date:&nbsp;</strong>
               <span className="non-editable-text">{data.awb_bl_date}</span>
             </Col>
@@ -141,7 +154,7 @@ function JobDetails(props) {
           </Row>
 
           <Row className="job-detail-row">
-            <Col>
+            <Col xs={5}>
               <strong>Number of Packages:&nbsp;</strong>
               <span className="non-editable-text">{data.no_of_pkgs}</span>
             </Col>
@@ -275,7 +288,157 @@ function JobDetails(props) {
                 />
               </div>
             </Col>
-            <Col></Col>
+            <Col>
+              <div className="job-detail-input-container">
+                <strong>Goods/Cargo Date:&nbsp;</strong>
+                <TextField
+                  size="large"
+                  type="date"
+                  margin="normal"
+                  variant="outlined"
+                  id="cargo_date"
+                  name="cargo_date"
+                  label=""
+                  value={formik.values.cargo_date}
+                  onChange={formik.handleChange}
+                />
+              </div>
+            </Col>
+          </Row>
+
+          <Row style={{ marginTop: "10px" }}>
+            <Col xs={4}>
+              <FormControl>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  name="radio-buttons-group"
+                  value={setSelectedRegNo}
+                  onChange={handleRadioChange}
+                >
+                  <FormControlLabel
+                    value="sims"
+                    control={<Radio checked={selectedRegNo === "sims"} />}
+                    label="SIMS"
+                  />
+                  <FormControlLabel
+                    value="pims"
+                    control={<Radio checked={selectedRegNo === "pims"} />}
+                    label="PIMS"
+                  />
+                  <FormControlLabel
+                    value="nfmims"
+                    control={<Radio checked={selectedRegNo === "nfmims"} />}
+                    label="NFMIMS"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Col>
+            <Col xs={5}>
+              <div className="job-detail-input-container">
+                {selectedRegNo && (
+                  <>
+                    <strong>
+                      {selectedRegNo === "sims"
+                        ? "SIMS Reg"
+                        : selectedRegNo === "pims"
+                        ? "PIMS Reg"
+                        : selectedRegNo === "nfmims"
+                        ? "NFMIMS Reg"
+                        : ""}
+                      &nbsp;
+                    </strong>
+                    <TextField
+                      id="outlined-start-adornment"
+                      fullWidth={true}
+                      sx={{ m: 1 }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            {selectedRegNo === "sims"
+                              ? "STL"
+                              : selectedRegNo === "pims"
+                              ? "ORIGINAL-DPIIT-PPR"
+                              : selectedRegNo === "nfmims"
+                              ? "MIN"
+                              : ""}
+                          </InputAdornment>
+                        ),
+                      }}
+                      name={
+                        selectedRegNo === "sims"
+                          ? "sims_reg_no"
+                          : selectedRegNo === "pims"
+                          ? "pims_reg_no"
+                          : selectedRegNo === "nfmims"
+                          ? "nfmims_reg_no"
+                          : ""
+                      }
+                      value={
+                        selectedRegNo === "sims"
+                          ? formik.values.sims_reg_no
+                          : selectedRegNo === "pims"
+                          ? formik.values.pims_reg_no
+                          : selectedRegNo === "nfmims"
+                          ? formik.values.nfmims_reg_no
+                          : ""
+                      }
+                      onChange={formik.handleChange}
+                    />
+                  </>
+                )}
+              </div>
+            </Col>
+            <Col xs={3}>
+              {selectedRegNo && (
+                <div className="job-detail-input-container">
+                  <strong>
+                    {selectedRegNo === "sims"
+                      ? "SIMS Date"
+                      : selectedRegNo === "pims"
+                      ? "PIMS Date"
+                      : "NFMIMS Date"}
+                    &nbsp;
+                  </strong>
+                  <TextField
+                    fullWidth={true}
+                    size="large"
+                    type="date"
+                    margin="normal"
+                    variant="outlined"
+                    id={
+                      selectedRegNo === "sims"
+                        ? "sims_date"
+                        : selectedRegNo === "pims"
+                        ? "pims_date"
+                        : "nfmims_date"
+                    }
+                    name={
+                      selectedRegNo === "sims"
+                        ? "sims_date"
+                        : selectedRegNo === "pims"
+                        ? "pims_date"
+                        : "nfmims_date"
+                    }
+                    value={
+                      selectedRegNo === "sims"
+                        ? formik.values.sims_date
+                        : selectedRegNo === "pims"
+                        ? formik.values.pims_date
+                        : formik.values.nfmims_date
+                    }
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.do_validity &&
+                      Boolean(formik.errors.do_validity)
+                    }
+                    helperText={
+                      formik.touched.do_validity && formik.errors.do_validity
+                    }
+                  />
+                </div>
+              )}
+            </Col>
           </Row>
 
           <Row>
@@ -470,7 +633,7 @@ function JobDetails(props) {
               );
             })}
 
-          <Row style={{ marginTop: "20px" }}>
+          <Row style={{ margin: "20px 0" }}>
             <Col>
               <button
                 type="submit"

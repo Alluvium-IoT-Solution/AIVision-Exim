@@ -7,8 +7,12 @@ import useMuiTheme from "./customHooks/useMuiTheme";
 import LoginPage from "./pages/LoginPage";
 import { ClientContext } from "./Context/ClientContext";
 import { UserContext } from "./Context/UserContext";
+import { SelectedYearContext } from "./Context/SelectedYearContext";
+import { AssignedImportersContext } from "./Context/AssignedImportersContext";
+import { SelectedImporterContext } from "./Context/SelectedImporterContext";
+// import io from "socket.io-client";
 import axios from "axios";
-import { apiRoutes } from "./utils/apiRoutes";
+// const socket = io.connect("http://localhost:9002");
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -17,35 +21,59 @@ function App() {
     localStorage.getItem("importerName")
   );
   const muiTheme = useMuiTheme();
-  const { assignedImporterAPI } = apiRoutes();
+  const currentYear = new Date().getFullYear() % 100;
+  const [selectedYear, setSelectedYear] = useState(
+    `${currentYear}-${currentYear + 1}`
+  );
+  const [assignedImporters, setAssignedImporters] = useState(
+    JSON.parse(localStorage.getItem("assignedImporters"))
+  );
+  const [selectedImporter, setSelectedImporter] = useState(
+    localStorage.getItem("selectedImporter")
+  );
 
   useEffect(() => {
-    async function getAssignedImporter() {
-      const res = await axios(`${assignedImporterAPI}/${user.username}`);
-      localStorage.setItem("user", JSON.stringify(res.data));
-      setUser(res.data);
+    async function getAssignedImporters() {
+      if (user?.username) {
+        const res = await axios.get(
+          `http://localhost:9002/api/getAssignedImporter/${user.username}`
+        );
+        setAssignedImporters(res.data);
+        localStorage.setItem("assignedImporters", JSON.stringify(res.data));
+      }
     }
-    getAssignedImporter();
-  }, []);
+    getAssignedImporters();
+    // eslint-disable-next-line
+  }, [selectedImporter, selectedImporter]);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      <ClientContext.Provider
-        value={{ importer, setImporter, importerName, setImporterName }}
-      >
-        <ThemeProvider theme={muiTheme}>
-          <div className="App">
-            {!user ? (
-              <LoginPage />
-            ) : (
-              <Container fluid style={{ padding: 0 }}>
-                <NavbarComponent />
-              </Container>
-            )}
-          </div>
-        </ThemeProvider>
-      </ClientContext.Provider>
-    </UserContext.Provider>
+    <SelectedYearContext.Provider value={{ selectedYear, setSelectedYear }}>
+      <UserContext.Provider value={{ user, setUser }}>
+        <SelectedImporterContext.Provider
+          value={{ selectedImporter, setSelectedImporter }}
+        >
+          <AssignedImportersContext.Provider
+            value={{ assignedImporters, setAssignedImporters }}
+          >
+            <ClientContext.Provider
+              value={{ importer, setImporter, importerName, setImporterName }}
+            >
+              <ThemeProvider theme={muiTheme}>
+                <div className="App">
+                  {!user ? (
+                    <LoginPage />
+                  ) : (
+                    <Container fluid style={{ padding: 0 }}>
+                      <NavbarComponent />
+                    </Container>
+                  )}
+                </div>
+              </ThemeProvider>
+            </ClientContext.Provider>
+          </AssignedImportersContext.Provider>
+        </SelectedImporterContext.Provider>
+      </UserContext.Provider>
+    </SelectedYearContext.Provider>
   );
 }
 

@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { useFormik } from "formik";
 import { TextField } from "@mui/material";
 import axios from "axios";
 import Autocomplete from "@mui/material/Autocomplete";
-import * as Yup from "yup";
 import { apiRoutes } from "../utils/apiRoutes";
-// // ///////////
-// import OutlinedInput from "@mui/material/OutlinedInput";
-// import InputLabel from "@mui/material/InputLabel";
-// import MenuItem from "@mui/material/MenuItem";
-// import FormControl from "@mui/material/FormControl";
-// import ListItemText from "@mui/material/ListItemText";
-// import Select from "@mui/material/Select";
-// import Checkbox from "@mui/material/Checkbox";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import ListItemText from "@mui/material/ListItemText";
+import Select from "@mui/material/Select";
+import Checkbox from "@mui/material/Checkbox";
+import { SelectedYearContext } from "../Context/SelectedYearContext";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -29,11 +28,14 @@ const MenuProps = {
 const AssignJobsForm = () => {
   const [users, setUsers] = useState([]);
   const [importerData, setImporterData] = useState([]);
-  const { getUsersAPI, assignJobsAPI, importerListToAssignJobs } = apiRoutes();
+  const [assignedImporters, setAssignedImporters] = useState([]);
+  const { getUsersWithJobsAPI, assignJobsAPI, importerListToAssignJobs } =
+    apiRoutes();
+  const { selectedYear } = useContext(SelectedYearContext);
 
   useEffect(() => {
     async function getUsers() {
-      const res = await axios(getUsersAPI);
+      const res = await axios(`${getUsersWithJobsAPI}/${selectedYear}`);
       setUsers(res.data);
     }
     async function getImporterList() {
@@ -42,23 +44,39 @@ const AssignJobsForm = () => {
     }
     getUsers();
     getImporterList();
+    // eslint-disable-next-line
   }, []);
 
-  const userList = users.map((user) => user.username);
-
-  const validationSchema = Yup.object().shape({
-    user: Yup.string().required("User is required"),
-    importer: Yup.string().required("Importer is required"),
-  });
+  const userList = users.map(
+    (user) => `${user.username}: Pending Jobs- ${user.jobsCount}`
+  );
 
   const formik = useFormik({
     initialValues: {
       user: null,
-      importer: null,
     },
-    validationSchema,
+    // validationSchema,
     onSubmit: async (values) => {
-      const res = await axios.post(assignJobsAPI, values);
+      const data = {
+        username: values.user.split(":")[0].trim(),
+        importers: assignedImporters.map((importer) => ({
+          importer: importer,
+          importerURL: importer
+            .toLowerCase()
+            .replace(/ /g, "_")
+            .replace(/\./g, "")
+            .replace(/\//g, "_")
+            .replace(/-/g, "")
+            .replace(/_+/g, "_")
+            .replace(/\(/g, "")
+            .replace(/\)/g, "")
+            .replace(/\[/g, "")
+            .replace(/\]/g, "")
+            .replace(/,/g, ""),
+        })),
+      };
+
+      const res = await axios.post(assignJobsAPI, data);
       if (res.status === 200) {
         alert("Jobs assigned successfully");
       }
@@ -66,25 +84,13 @@ const AssignJobsForm = () => {
   });
 
   const handleChangeUserAutocomplete = (event, value) => {
-    formik.setFieldValue("user", value); // Update the 'user' field in Formik
+    formik.setFieldValue("user", value);
   };
 
-  const handleChangeImporterAutocomplete = (event, value) => {
-    formik.setFieldValue("importer", value); // Update the 'importer' field in Formik
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    setAssignedImporters(event.target.value);
   };
-
-  // ////////////////
-  // const [personName, setPersonName] = useState([]);
-
-  // const handleChange = (event) => {
-  //   const {
-  //     target: { value },
-  //   } = event;
-  //   setPersonName(
-  //     // On autofill we get a stringified value.
-  //     typeof value === "string" ? value.split(",") : value
-  //   );
-  // };
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -108,50 +114,34 @@ const AssignJobsForm = () => {
         style={{ marginBottom: "15px" }}
       />
 
-      <Autocomplete
-        disablePortal
-        options={importerData}
-        getOptionLabel={(option) => option}
-        width="100%"
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Select importer"
-            error={formik.touched.importer && Boolean(formik.errors.importer)}
-            helperText={formik.touched.importer && formik.errors.importer}
-          />
-        )}
-        id="importer"
-        name="importer"
-        onChange={handleChangeImporterAutocomplete}
-        value={formik.values.importer}
-        style={{ marginBottom: "5px" }}
-      />
-
-      {/* <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">
+      <FormControl sx={{ width: "100%", height: "55px" }}>
+        <InputLabel
+          id="demo-multiple-checkbox-label"
+          className="assign-jobs-select"
+          sx={{ backgroundColor: "#fff", paddingRight: "10px" }}
+        >
           Select Importer
         </InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"
           multiple
-          value={personName}
-          // onChange={handleChange}
+          value={assignedImporters}
           input={<OutlinedInput label="Tag" />}
           renderValue={(selected) => selected.join(", ")}
           MenuProps={MenuProps}
           id="importer"
           name="importer"
-          onChange={handleChangeImporterAutocomplete}
+          onChange={handleChange}
+          sx={{ height: "55px" }}
         >
-          {importerNames.map((name) => (
+          {importerData.map((name) => (
             <MenuItem key={name} value={name}>
-              <Checkbox checked={personName.indexOf(name) > -1} />
+              <Checkbox checked={assignedImporters.indexOf(name) > -1} />
               <ListItemText primary={name} />
             </MenuItem>
           ))}
         </Select>
-      </FormControl> */}
+      </FormControl>
 
       <Button
         fullWidth

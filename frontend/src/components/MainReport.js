@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import "../styles/job-list.scss";
 import { getTableRowsClassname } from "../utils/getTableRowsClassname";
 import axios from "axios";
 import { apiRoutes } from "../utils/apiRoutes";
+import { SelectedYearContext } from "../Context/SelectedYearContext";
 
-function MainReport(props) {
+function MainReport() {
   const [rows, setRows] = useState([]);
   const { mainReportAPI } = apiRoutes();
+  const { selectedYear } = useContext(SelectedYearContext);
 
   useEffect(() => {
     async function getReport() {
-      const res = await axios.get(`${mainReportAPI}/${props.selectedYear}`);
+      const res = await axios.get(`${mainReportAPI}/${selectedYear}`);
       setRows(res.data.sort((a, b) => a.job_no - b.job_no));
     }
 

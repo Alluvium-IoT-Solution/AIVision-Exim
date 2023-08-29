@@ -26,6 +26,7 @@ function ImporterWiseDetails(props) {
       setImporterData(res.data);
     }
     getImporterList();
+    // eslint-disable-next-line
   }, [selectedYear]);
 
   // Set selected importer on autocomplete onChange
@@ -54,6 +55,7 @@ function ImporterWiseDetails(props) {
       setData(res.data);
     }
     getImporterData();
+    // eslint-disable-next-line
   }, [selectedImporter]);
 
   const donutState = {

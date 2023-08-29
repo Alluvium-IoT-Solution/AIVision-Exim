@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { ClientContext } from "../Context/ClientContext";
 import "../styles/job-list.scss";
@@ -7,29 +7,43 @@ import { getTableRowsClassname } from "../utils/getTableRowsClassname";
 import useFetchJobList from "../customHooks/useFetchJobList";
 import { detailedStatusOptions } from "../assets/data/detailedStatusOptions";
 import { useParams } from "react-router-dom";
-import SelectFieldsModal from "./SelectFieldsModal";
+// import SelectFieldsModal from "./SelectFieldsModal";
 import { UserContext } from "../Context/UserContext";
-import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
+import { SelectedYearContext } from "../Context/SelectedYearContext";
+import { apiRoutes } from "../utils/apiRoutes";
+import axios from "axios";
+import { convertToExcel } from "../utils/convertToExcel";
 
-function JobsList(props) {
+function JobsList() {
   const { importerName } = useContext(ClientContext);
   const { user } = useContext(UserContext);
+  const { selectedYear } = useContext(SelectedYearContext);
+  const [headers, setHeaders] = useState([]);
 
   const [detailedStatus, setDetailedStatus] = useState("");
   const columns = useJobColumns(detailedStatus);
-  const { rows } = useFetchJobList(detailedStatus, props.selectedYear);
+  const { rows } = useFetchJobList(detailedStatus, selectedYear);
   const params = useParams();
+  const { reportFieldsAPI } = apiRoutes();
 
-  // Modal
-  const [openModal, setOpenModal] = React.useState(false);
-  const handleOpenModal = () => setOpenModal(true);
-  const handleCloseModal = () => setOpenModal(false);
+  // // Modal
+  // const [openModal, setOpenModal] = React.useState(false);
+  // const handleOpenModal = () => setOpenModal(true);
+  // const handleCloseModal = () => setOpenModal(false);
+
+  useEffect(() => {
+    async function getReportFields() {
+      const res = await axios(`${reportFieldsAPI}/${params.importer}`);
+      setHeaders(res.data);
+      console.log(res);
+    }
+    getReportFields();
+  }, []);
 
   return (
     <>
       <div className="jobs-list-header">
-        <h5>{user.role !== "User" ? importerName : user.importer}</h5>
+        <h5>{user.role !== "Executive" ? importerName : user.importer}</h5>
         <select
           name="status"
           onChange={(e) => setDetailedStatus(e.target.value)}
@@ -42,7 +56,15 @@ function JobsList(props) {
         </select>
 
         <button
-          onClick={handleOpenModal}
+          onClick={() =>
+            convertToExcel(
+              rows,
+              importerName,
+              params.status,
+              detailedStatus,
+              headers
+            )
+          }
           style={{ cursor: "pointer" }}
           aria-label="export-btn"
         >
@@ -72,7 +94,7 @@ function JobsList(props) {
         getRowClassName={getTableRowsClassname}
       />
 
-      <SelectFieldsModal
+      {/* <SelectFieldsModal
         openModal={openModal}
         handleOpenModal={handleOpenModal}
         handleCloseModal={handleCloseModal}
@@ -80,7 +102,7 @@ function JobsList(props) {
         importerName={user.role !== "User" ? importerName : user.importer}
         status={params.status}
         detailedStatus={detailedStatus}
-      />
+      /> */}
     </>
   );
 }

@@ -5,7 +5,7 @@ import "../styles/login.scss";
 
 function LoginPage() {
   return (
-    <Container fluid className="login-container">
+    <Container fluid className="login-container" style={{ height: "100vh" }}>
       <Row className="login-row">
         <Col className="login-left-col">
           <div className="login-left-col-inner-container">

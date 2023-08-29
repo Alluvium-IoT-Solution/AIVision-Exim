@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiRoutes } from "../utils/apiRoutes";
 import axios from "axios";
 import { useFormik } from "formik";
-import { convertDateFormatForDB } from "../utils/convertDateFormatForDB";
 import { convertDateFormatForUI } from "../utils/convertDateFormatForUI";
+import { UserContext } from "../Context/UserContext";
 
-function useFetchJobDetails(params, checked, selectedYear) {
-  const { updateJobAPI, getJobAPI } = apiRoutes(params.importer, params.jobNo);
+function useFetchJobDetails(params, checked, selectedYear, setSelectedRegNo) {
+  const { updateJobAPI, getJobAPI, updateTasksAPI } = apiRoutes(
+    params.importer,
+    params.jobNo
+  );
   const [data, setData] = useState(null);
   const [detentionFrom, setDetentionFrom] = useState([]);
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
   // Fetch data
   useEffect(() => {
@@ -22,7 +26,7 @@ function useFetchJobDetails(params, checked, selectedYear) {
     }
 
     getJobDetails();
-  }, [params.importer, params.jobNo, getJobAPI]);
+  }, [params.importer, params.jobNo, getJobAPI, selectedYear]);
 
   // Formik
   const formik = useFormik({
@@ -37,22 +41,16 @@ function useFetchJobDetails(params, checked, selectedYear) {
       checklist: "",
       remarks: "",
       description: "",
+      sims_reg_no: "",
+      pims_reg_no: "",
+      nfmims_reg_no: "",
+      sims_date: "",
+      pims_date: "",
+      nfmims_date: "",
+      cargo_date: "",
     },
 
     onSubmit: async (values) => {
-      console.log({
-        eta: values.eta,
-        checked,
-        free_time: values.free_time,
-        status: values.status,
-        detailed_status: values.detailed_status,
-        container_nos: values.container_nos,
-        arrival_date: values.arrival_date,
-        do_validity: values.do_validity,
-        checklist: values.checklist,
-        remarks: values.remarks,
-        description: values.description,
-      });
       const res = await axios.put(
         `${updateJobAPI}/${params.importer}/updatejob/${selectedYear}/${params.jobNo}`,
         {
@@ -67,9 +65,17 @@ function useFetchJobDetails(params, checked, selectedYear) {
           checklist: values.checklist,
           remarks: values.remarks,
           description: values.description,
+          sims_reg_no: values.sims_reg_no,
+          pims_reg_no: values.pims_reg_no,
+          nfmims_reg_no: values.nfmims_reg_no,
+          sims_date: values.sims_date,
+          pims_date: values.pims_date,
+          nfmims_date: values.nfmims_date,
+          cargo_date: values.cargo_date,
         }
       );
-      console.log(res);
+
+      const res2 = await axios(`${updateTasksAPI}/${user.username}`);
       navigate(`/${params.importer}/jobs/pending`);
     },
   });
@@ -77,6 +83,15 @@ function useFetchJobDetails(params, checked, selectedYear) {
   // Update formik intial values when data is fetched from db
   useEffect(() => {
     if (data) {
+      setSelectedRegNo(
+        data.sims_reg_no
+          ? "sims"
+          : data.pims_reg_no
+          ? "pims"
+          : data.nfmims_reg_no
+          ? "nfmims"
+          : ""
+      );
       const container_nos = data.container_nos.map((container) => ({
         arrival_date:
           container.arrival_date === undefined
@@ -103,6 +118,18 @@ function useFetchJobDetails(params, checked, selectedYear) {
         checklist: data.checklist === undefined ? "" : data.checklist,
         remarks: data.remarks === undefined ? "" : data.remarks,
         description: data.description === undefined ? "" : data.description,
+        sims_reg_no:
+          data.sims_reg_no === undefined ? "" : data.sims_reg_no.split("-")[1],
+        pims_reg_no:
+          data.pims_reg_no === undefined ? "" : data.pims_reg_no.split("-")[3],
+        nfmims_reg_no:
+          data.nfmims_reg_no === undefined
+            ? ""
+            : data.nfmims_reg_no.split("-")[1],
+        sims_date: data.sims_date === undefined ? "" : data.sims_date,
+        pims_date: data.pims_date === undefined ? "" : data.pims_date,
+        nfmims_date: data.nfmims_date === undefined ? "" : data.nfmims_date,
+        cargo_date: data.cargo_date === undefined ? "" : data.cargo_date,
       });
     }
     // eslint-disable-next-line

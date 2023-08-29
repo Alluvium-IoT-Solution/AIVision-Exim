@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/sidebar.scss";
 import { sidebarData } from "../assets/data/sidebarData";
-import { IconButton, List, ListItem, ListItemButton } from "@mui/material";
+import { IconButton, ListItemButton } from "@mui/material";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import { jobStatus } from "../assets/data/jobStatus";
 import { ClientContext } from "../Context/ClientContext";
 import { UserContext } from "../Context/UserContext";
 import useFileUpload from "../customHooks/useFileUpload";
 import Snackbar from "@mui/material/Snackbar";
+import { SelectedImporterContext } from "../Context/SelectedImporterContext";
 
 function Sidebar() {
   const { importer } = useContext(ClientContext);
@@ -16,8 +17,9 @@ function Sidebar() {
   const navigate = useNavigate();
   const inputRef = useRef();
   const { handleFileUpload, snackbar } = useFileUpload(inputRef);
-  const isUserRoleUser = user.role === "User";
+  const isUserRoleUser = user.role === "Executive";
   const sidebarDataArray = sidebarData(user.role, user.importerURL);
+  const { selectedImporter } = useContext(SelectedImporterContext);
 
   return (
     <div className="sidebar">
@@ -82,8 +84,19 @@ function Sidebar() {
                 >
                   <NavLink
                     to={
-                      user.role === "User"
-                        ? `${user.importerURL}/jobs/${job.url}` // Navigate to the importerURL assigned to the user, if user.role=== User
+                      user.role === "Executive" && selectedImporter
+                        ? `${selectedImporter
+                            .toLowerCase()
+                            .replace(/ /g, "_")
+                            .replace(/\./g, "")
+                            .replace(/\//g, "_")
+                            .replace(/-/g, "")
+                            .replace(/_+/g, "_")
+                            .replace(/\(/g, "")
+                            .replace(/\)/g, "")
+                            .replace(/\[/g, "")
+                            .replace(/\]/g, "")
+                            .replace(/,/g, "")}/jobs/${job.url}` // Navigate to the importerURL assigned to the user, if user.role=== User
                         : `${importer}/jobs/${job.url}`
                     }
                     key={job.id}

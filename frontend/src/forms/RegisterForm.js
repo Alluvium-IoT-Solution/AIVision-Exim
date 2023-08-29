@@ -15,7 +15,7 @@ const RegisterForm = () => {
     initialValues: {
       username: "",
       password: "",
-      role: "Developer",
+      role: "Director",
     },
 
     validationSchema: validationSchema,
@@ -24,7 +24,7 @@ const RegisterForm = () => {
       console.log(res);
       if (res.data.message === "User already registered") {
         alert(res.data.message);
-      } else if (res.data.message === "Successfully registered, login now.") {
+      } else if (res.data.message === "Successfully registered") {
         alert(res.data.message);
         navigate("/dashboard");
       }
@@ -34,7 +34,6 @@ const RegisterForm = () => {
   return (
     <form onSubmit={formik.handleSubmit} className="register-form">
       <TextField
-        size="small"
         margin="dense"
         variant="outlined"
         fullWidth
@@ -45,12 +44,11 @@ const RegisterForm = () => {
         onChange={formik.handleChange}
         error={formik.touched.username && Boolean(formik.errors.username)}
         helperText={formik.touched.username && formik.errors.username}
-        sx={{ marginBottom: "10px" }}
+        sx={{ marginBottom: "10px", height: "55px" }}
       />
 
       <TextField
         type="password"
-        size="small"
         margin="dense"
         variant="outlined"
         fullWidth
@@ -66,22 +64,21 @@ const RegisterForm = () => {
 
       <TextField
         select
-        size="small"
         margin="dense"
         variant="outlined"
         fullWidth
         id="role"
         name="role"
         label="Role"
-        defaultValue="Developer"
+        defaultValue="Director"
         onChange={formik.handleChange}
         sx={{ marginBottom: "10px" }}
       >
-        <MenuItem value="Developer">Developer</MenuItem>
         <MenuItem value="Director">Director</MenuItem>
         <MenuItem value="General Manager">General Manager</MenuItem>
-        <MenuItem value="Admin">Admin</MenuItem>
-        <MenuItem value="User">User</MenuItem>
+        <MenuItem value="Admin">Senior Manager</MenuItem>
+        <MenuItem value="Admin">Assistant Manager</MenuItem>
+        <MenuItem value="Admin">Executive</MenuItem>
       </TextField>
 
       <button
