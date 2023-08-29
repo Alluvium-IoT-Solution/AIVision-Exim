@@ -25,9 +25,6 @@ const getReport = require("./routes/getReport.js");
 const convertToExcel = require("./routes/convertToExcel.js");
 const updateStatus = require("./routes/updateStatus.js");
 const sendOtp = require("./routes/sendOtp.js");
-const trackTasks = require("./routes/trackTasks.js");
-const updateTasks = require("./routes/updateTasks.js");
-const getPendingJobs = require("./routes/getPendingJobs.js");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 
@@ -92,12 +89,6 @@ mongoose
     app.use(updateStatus);
 
     app.use(sendOtp);
-
-    app.use(trackTasks);
-
-    app.use(updateTasks);
-
-    app.use(getPendingJobs);
 
     app.listen(process.env.PORT, () => {
       console.log(`BE started at port 9002`);
