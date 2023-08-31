@@ -3,10 +3,7 @@ const router = express.Router();
 const sgMail = require("@sendgrid/mail");
 
 // Set your SendGrid API key
-// sgMail.setApiKey(process.env.SENDGRID_API);
-sgMail.setApiKey(
-  "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"
-);
+sgMail.setApiKey(process.env.SENDGRID_API);
 
 router.post("/api/feedback", async (req, res) => {
   try {

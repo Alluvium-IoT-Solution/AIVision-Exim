@@ -4,10 +4,7 @@ const schedule = require("node-schedule");
 const sgMail = require("@sendgrid/mail");
 
 const router = express.Router();
-// sgMail.setApiKey(process.env.SENDGRID_API);
-sgMail.setApiKey(
-  "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"
-);
+sgMail.setApiKey(process.env.SENDGRID_API);
 
 const removeOTP = async (userId) => {
   try {

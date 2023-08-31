@@ -8,10 +8,7 @@ const ReportFieldsModel = require("../models/reportFieldsModel.js");
 const JobModel = require("../models/jobModel.js");
 
 const router = express.Router();
-// sgMail.setApiKey(process.env.SENDGRID_API);
-sgMail.setApiKey(
-  "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"
-);
+sgMail.setApiKey(process.env.SENDGRID_API);
 
 // schedule.scheduleJob("*/10 * * * * *", async () => {
 schedule.scheduleJob("00 22 * * */1", async () => {
