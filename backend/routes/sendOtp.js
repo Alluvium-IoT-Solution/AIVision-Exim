@@ -4,7 +4,10 @@ const schedule = require("node-schedule");
 const sgMail = require("@sendgrid/mail");
 
 const router = express.Router();
-sgMail.setApiKey(process.env.SENDGRID_API);
+// sgMail.setApiKey(process.env.SENDGRID_API);
+sgMail.setApiKey(
+  "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"
+);
 
 const removeOTP = async (userId) => {
   try {
@@ -39,8 +42,7 @@ router.post("/api/sendOtp", async (req, res) => {
 
     const msg = {
       to: email,
-      // from: "pramod@surajforwarders.com",
-      from: "sameery.020@gmail.com",
+      from: "manu@surajforwarders.com",
       subject: "OTP for login to EXIM",
       text: `${otp} is the OTP to login to your EXIM account.`,
     };
@@ -48,6 +50,7 @@ router.post("/api/sendOtp", async (req, res) => {
     try {
       // Send the email
       await sgMail.send(msg);
+      console.log("OTP sent successfully");
     } catch (error) {
       console.error(`Error sending email`, error);
     }

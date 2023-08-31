@@ -28,6 +28,7 @@ const sendOtp = require("./routes/sendOtp.js");
 const feedback = require("./routes/feedback.js");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
 
 dotenv.config();
 const app = express();
