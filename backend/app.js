@@ -25,6 +25,7 @@ const getReport = require("./routes/getReport.js");
 const convertToExcel = require("./routes/convertToExcel.js");
 const updateStatus = require("./routes/updateStatus.js");
 const sendOtp = require("./routes/sendOtp.js");
+const feedback = require("./routes/feedback.js");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 
@@ -41,6 +42,7 @@ mongoose.set("strictQuery", true);
 mongoose
   .connect(
     "mongodb+srv://exim:qTT7e4YeE3YSSMiV@aivision.pxmpvlz.mongodb.net/exim?retryWrites=true&w=majority",
+    // "mongodb://localhost:27017/exim",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -92,6 +94,8 @@ mongoose
     app.use(updateStatus);
 
     app.use(sendOtp);
+
+    app.use(feedback);
 
     app.listen(9002, () => {
       console.log(`BE started at port 9002`);

@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import { TextField } from "@mui/material";
-import { validationSchema } from "../schema/LoginSchema";
+import { validationSchema } from "../schema/RegisterSchema";
 import axios from "axios";
 import { apiRoutes } from "../utils/apiRoutes";
 import { useNavigate } from "react-router-dom";
@@ -14,20 +14,22 @@ const RegisterForm = () => {
   const formik = useFormik({
     initialValues: {
       username: "",
+      email: "",
       password: "",
       role: "Director",
     },
 
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const res = await axios.post(registerAPI, values);
-      console.log(res);
-      if (res.data.message === "User already registered") {
-        alert(res.data.message);
-      } else if (res.data.message === "Successfully registered") {
-        alert(res.data.message);
-        navigate("/dashboard");
-      }
+      console.log(values)
+      // const res = await axios.post(registerAPI, values);
+      // console.log(res);
+      // if (res.data.message === "User already registered") {
+      //   alert(res.data.message);
+      // } else if (res.data.message === "Successfully registered") {
+      //   alert(res.data.message);
+      //   navigate("/dashboard");
+      // }
     },
   });
 
@@ -44,6 +46,20 @@ const RegisterForm = () => {
         onChange={formik.handleChange}
         error={formik.touched.username && Boolean(formik.errors.username)}
         helperText={formik.touched.username && formik.errors.username}
+        sx={{ marginBottom: "10px", height: "55px" }}
+      />
+
+      <TextField
+        margin="dense"
+        variant="outlined"
+        fullWidth
+        id="email"
+        name="email"
+        label="Email"
+        value={formik.values.email}
+        onChange={formik.handleChange}
+        error={formik.touched.email && Boolean(formik.errors.email)}
+        helperText={formik.touched.email && formik.errors.email}
         sx={{ marginBottom: "10px", height: "55px" }}
       />
 
@@ -76,9 +92,9 @@ const RegisterForm = () => {
       >
         <MenuItem value="Director">Director</MenuItem>
         <MenuItem value="General Manager">General Manager</MenuItem>
-        <MenuItem value="Admin">Senior Manager</MenuItem>
-        <MenuItem value="Admin">Assistant Manager</MenuItem>
-        <MenuItem value="Admin">Executive</MenuItem>
+        <MenuItem value="Senior Manager">Senior Manager</MenuItem>
+        <MenuItem value="Assistant Manager">Assistant Manager</MenuItem>
+        <MenuItem value="Executive">Executive</MenuItem>
       </TextField>
 
       <button

@@ -5,9 +5,10 @@ const User = require("../models/userModel.js");
 const router = express.Router();
 
 router.post("/api/register", (req, res) => {
-  const { username, password, role } = req.body;
-  User.findOne({ username: username })
+  const { username, email, password, role } = req.body;
+  User.findOne({ email: email })
     .then((user) => {
+      console.log(user);
       if (user) {
         res.send({ message: "User already registered" });
       } else {
@@ -17,6 +18,7 @@ router.post("/api/register", (req, res) => {
           } else {
             const user = new User({
               username,
+              email,
               password: hashedPassword,
               role,
             });

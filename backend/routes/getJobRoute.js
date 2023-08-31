@@ -3,7 +3,7 @@ const JobModel = require("../models/jobModel.js");
 
 const router = express.Router();
 
-router.get("/api/:importer/job/:year/:jobNo", async (req, res) => {
+router.get("/api/getJob/:importer/job/:year/:jobNo", async (req, res) => {
   try {
     const { importer, jobNo, year } = req.params;
 

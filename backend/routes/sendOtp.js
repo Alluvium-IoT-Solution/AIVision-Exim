@@ -39,7 +39,8 @@ router.post("/api/sendOtp", async (req, res) => {
 
     const msg = {
       to: email,
-      from: "pramod@surajforwarders.com",
+      // from: "pramod@surajforwarders.com",
+      from: "sameery.020@gmail.com",
       subject: "OTP for login to EXIM",
       text: `${otp} is the OTP to login to your EXIM account.`,
     };

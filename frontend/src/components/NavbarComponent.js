@@ -26,6 +26,7 @@ import { TextField } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import { Typography } from "@mui/material";
 import { SelectedYearContext } from "../Context/SelectedYearContext";
+import Feedback from "./Feedback";
 
 const drawerWidth = 250;
 const drawerPaperStyles = {
@@ -233,6 +234,7 @@ function ResponsiveDrawer() {
               element={<JobDetails />}
             />
             <Route exact path="/main_report" element={<MainReport />} />
+            <Route exact path="/feedback" element={<Feedback />} />
           </Routes>
         </Box>
 

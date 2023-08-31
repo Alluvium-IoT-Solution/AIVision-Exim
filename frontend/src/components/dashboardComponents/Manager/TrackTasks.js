@@ -25,7 +25,7 @@ function TrackTasks() {
     series: counts,
     options: {
       chart: {
-        width: 380,
+        width: 350,
         height: 400,
         type: "donut",
       },
@@ -78,13 +78,13 @@ function TrackTasks() {
   };
 
   return (
-    <div className="dashboard-col-inner" style={{ flex:"1 !important" }}>
+    <div className="dashboard-col-inner" style={{ flex: "1 !important" }}>
       <h4 style={{ textAlign: "left" }}>Pending Work</h4>
       <ReactApexChart
         options={donutState.options}
         series={donutState.series}
         type="donut"
-        width={550}
+        width={500}
       />
     </div>
   );

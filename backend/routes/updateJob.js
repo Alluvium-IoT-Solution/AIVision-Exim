@@ -23,7 +23,12 @@ router.put("/api/:importer/updatejob/:year/:jobNo", async (req, res) => {
     sims_date,
     pims_date,
     nfmims_date,
-    cargo_date,
+    delivery_date,
+    discharge_date,
+    assessment_date,
+    examination_date,
+    duty_paid_date,
+    out_of_charge_date,
   } = req.body;
 
   try {
@@ -75,7 +80,12 @@ router.put("/api/:importer/updatejob/:year/:jobNo", async (req, res) => {
     matchingJob.sims_date = sims_date;
     matchingJob.pims_date = pims_date;
     matchingJob.nfmims_date = nfmims_date;
-    matchingJob.cargo_date = cargo_date;
+    matchingJob.delivery_date = delivery_date;
+    matchingJob.discharge_date = discharge_date;
+    matchingJob.assessment_date = assessment_date;
+    matchingJob.examination_date = examination_date;
+    matchingJob.duty_paid_date = duty_paid_date;
+    matchingJob.out_of_charge_date = out_of_charge_date;
 
     if (checked) {
       matchingJob.container_nos = container_nos.map((container) => {

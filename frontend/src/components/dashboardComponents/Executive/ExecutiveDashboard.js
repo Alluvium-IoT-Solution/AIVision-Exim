@@ -46,15 +46,17 @@ const ExecutiveDashboard = () => {
     },
   ];
 
-  const importerList = assignedImporters.map((importer) => importer.importer);
-
+  const importerList =
+    assignedImporters.length !== 0 ?
+    assignedImporters.map((importer) => importer.importer):[];
+console.log(importerList)
   return (
     <>
       <Container fluid className="dashboard-container">
         <div style={{ display: "flex", marginTop: "20px" }}>
           <h4 style={{ flex: 1 }}>Hello, {user.username}</h4>
           <Autocomplete
-            disablePortal
+            // disablePortal
             options={importerList}
             getOptionLabel={(option) => option}
             sx={{ width: "500px !important" }}

@@ -2,6 +2,7 @@ import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import TableViewIcon from "@mui/icons-material/TableView";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
+import FeedbackIcon from '@mui/icons-material/Feedback';
 
 const importer = localStorage.getItem("importer");
 
@@ -28,6 +29,12 @@ export function sidebarData(role, importerURL) {
       icon: <TableViewIcon />,
       name: "Main Report",
       url: "main_report",
+    },
+    {
+      id: 5,
+      icon: <FeedbackIcon />,
+      name: "Feedback",
+      url: "feedback",
     },
   ];
 

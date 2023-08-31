@@ -165,10 +165,30 @@ const jobSchema = new mongoose.Schema(
               trim: true,
             },
             detailed_status: { type: String, trim: true },
-            cargo_date: {
+            delivery_date: {
               type: String,
               trim: true,
             },
+            eta: {
+              type: String,
+            },
+            discharge_date: {
+              type: String,
+            },
+            assessment_date: {
+              type: String,
+            },
+            examination_date: {
+              type: String,
+            },
+            duty_paid_date: {
+              type: String,
+            },
+            out_of_charge_date: {
+              type: String,
+            },
+            ex_rate:{type:String},
+            inv_currency:{type:String},
           },
         ],
       },

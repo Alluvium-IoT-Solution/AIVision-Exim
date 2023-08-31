@@ -9,6 +9,8 @@ export const getTableRowsClassname = (params) => {
     return "arrival-pending";
   } else if (status === "Gateway IGM Filed") {
     return "sea-igm-filed";
+  } else if (status === "Discharged") {
+    return "discharge";
   } else if (status === "Estimated Time of Arrival") {
     return "eta";
   }

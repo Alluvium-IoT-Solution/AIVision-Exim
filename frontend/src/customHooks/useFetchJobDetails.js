@@ -7,10 +7,7 @@ import { convertDateFormatForUI } from "../utils/convertDateFormatForUI";
 import { UserContext } from "../Context/UserContext";
 
 function useFetchJobDetails(params, checked, selectedYear, setSelectedRegNo) {
-  const { updateJobAPI, getJobAPI, updateTasksAPI } = apiRoutes(
-    params.importer,
-    params.jobNo
-  );
+  const { updateJobAPI, getJobAPI } = apiRoutes(params.importer, params.jobNo);
   const [data, setData] = useState(null);
   const [detentionFrom, setDetentionFrom] = useState([]);
   const navigate = useNavigate();
@@ -33,6 +30,7 @@ function useFetchJobDetails(params, checked, selectedYear, setSelectedRegNo) {
     initialValues: {
       container_nos: "",
       eta: "",
+      discharge_date: "",
       status: "",
       detailed_status: "",
       free_time: "",
@@ -47,7 +45,12 @@ function useFetchJobDetails(params, checked, selectedYear, setSelectedRegNo) {
       sims_date: "",
       pims_date: "",
       nfmims_date: "",
-      cargo_date: "",
+      delivery_date: "",
+      discharge_date: "",
+      assessment_date: "",
+      examination_date: "",
+      duty_paid_date: "",
+      out_of_charge_date: "",
     },
 
     onSubmit: async (values) => {
@@ -71,11 +74,15 @@ function useFetchJobDetails(params, checked, selectedYear, setSelectedRegNo) {
           sims_date: values.sims_date,
           pims_date: values.pims_date,
           nfmims_date: values.nfmims_date,
-          cargo_date: values.cargo_date,
+          delivery_date: values.delivery_date,
+          discharge_date: values.discharge_date,
+          assessment_date: values.assessment_date,
+          examination_date: values.examination_date,
+          duty_paid_date: values.duty_paid_date,
+          out_of_charge_date: values.out_of_charge_date,
         }
       );
 
-      const res2 = await axios(`${updateTasksAPI}/${user.username}`);
       navigate(`/${params.importer}/jobs/pending`);
     },
   });
@@ -129,7 +136,18 @@ function useFetchJobDetails(params, checked, selectedYear, setSelectedRegNo) {
         sims_date: data.sims_date === undefined ? "" : data.sims_date,
         pims_date: data.pims_date === undefined ? "" : data.pims_date,
         nfmims_date: data.nfmims_date === undefined ? "" : data.nfmims_date,
-        cargo_date: data.cargo_date === undefined ? "" : data.cargo_date,
+        delivery_date:
+          data.delivery_date === undefined ? "" : data.delivery_date,
+        discharge_date:
+          data.discharge_date === undefined ? "" : data.discharge_date,
+        assessment_date:
+          data.assessment_date === undefined ? "" : data.assessment_date,
+        examination_date:
+          data.examination_date === undefined ? "" : data.examination_date,
+        duty_paid_date:
+          data.duty_paid_date === undefined ? "" : data.duty_paid_date,
+        out_of_charge_date:
+          data.out_of_charge_date === undefined ? "" : data.out_of_charge_date,
       });
     }
     // eslint-disable-next-line

@@ -24,6 +24,7 @@ function useFetchJobList(detailedStatus, selectedYear) {
           "BE Noted, Clearance Pending",
           "BE Noted, Arrival Pending",
           "Gateway IGM Filed",
+          "Discharged",
           "Estimated Time of Arrival",
         ];
 

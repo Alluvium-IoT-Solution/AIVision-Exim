@@ -37,6 +37,7 @@ function useJobColumns(detailedStatus) {
       hide:
         detailedStatus === "Estimated Time of Arrival" ||
         detailedStatus === "Gateway IGM Filed" ||
+        detailedStatus === "Discharged" ||
         detailedStatus === ""
           ? false
           : true,
@@ -101,6 +102,22 @@ function useJobColumns(detailedStatus) {
         detailedStatus === ""
           ? false
           : true,
+      renderCell: (cell) => {
+        // console.log(cell.row.eta);
+        return cell.row.eta === "undefined.undefined.d." ||
+          cell.row.eta === undefined
+          ? ""
+          : cell.row.eta;
+      },
+    },
+
+    {
+      field: "discharge_date",
+      sortable: false,
+      headerName: "Discharge Date",
+      width: 250,
+      align: "center",
+      hide: detailedStatus === "Discharged" ? false : true,
       renderCell: (cell) => {
         // console.log(cell.row.eta);
         return cell.row.eta === "undefined.undefined.d." ||

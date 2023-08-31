@@ -10,9 +10,7 @@ import { UserContext } from "./Context/UserContext";
 import { SelectedYearContext } from "./Context/SelectedYearContext";
 import { AssignedImportersContext } from "./Context/AssignedImportersContext";
 import { SelectedImporterContext } from "./Context/SelectedImporterContext";
-// import io from "socket.io-client";
 import axios from "axios";
-// const socket = io.connect("http://localhost:9002");
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));

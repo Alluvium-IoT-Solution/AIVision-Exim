@@ -3,8 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { apiRoutes } from "../utils/apiRoutes";
 import { useState } from "react";
-import io from "socket.io-client";
-const socket = io.connect("http://localhost:9002");
+
+
 
 function useFileUpload(inputRef, alt, setAlt) {
   const [snackbar, setSnackbar] = useState(false);
@@ -218,7 +218,7 @@ function useFileUpload(inputRef, alt, setAlt) {
     }
 
     updateJobsDate();
-    socket.emit("upload_excel_data", { message: "Successfully uploaded" });
+    
   };
 
   // Hide snackbar after 2 seconds

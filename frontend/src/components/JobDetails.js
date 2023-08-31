@@ -118,10 +118,7 @@ function JobDetails() {
                 {data.shipping_line_airline}
               </span>
             </Col>
-            <Col style={{ display: "flex", alignItems: "center" }}>
-              <strong>Out of Charge:&nbsp;</strong>
-              <span className="non-editable-text">{data.out_of_charge}</span>
-            </Col>
+            <Col style={{ display: "flex", alignItems: "center" }}></Col>
           </Row>
 
           <Row className="job-detail-row">
@@ -226,6 +223,7 @@ function JobDetails() {
                   <MenuItem value="Estimated Time of Arrival">
                     Estimated Time of Arrival
                   </MenuItem>
+                  <MenuItem value="Discharged">Discharged</MenuItem>
                   <MenuItem value="Gateway IGM Filed">
                     Gateway IGM Filed
                   </MenuItem>
@@ -290,16 +288,16 @@ function JobDetails() {
             </Col>
             <Col>
               <div className="job-detail-input-container">
-                <strong>Goods/Cargo Date:&nbsp;</strong>
+                <strong>Delivery Date:&nbsp;</strong>
                 <TextField
                   size="large"
                   type="date"
                   margin="normal"
                   variant="outlined"
-                  id="cargo_date"
-                  name="cargo_date"
+                  id="delivery_date"
+                  name="delivery_date"
                   label=""
-                  value={formik.values.cargo_date}
+                  value={formik.values.delivery_date}
                   onChange={formik.handleChange}
                 />
               </div>
@@ -468,7 +466,107 @@ function JobDetails() {
           <Row>
             <Col xs={4}>
               <div className="job-detail-input-container">
-                <strong>ETA/ Discharge Date:&nbsp;</strong>
+                <strong>Assessment Date:&nbsp;</strong>
+                <TextField
+                  size="large"
+                  margin="normal"
+                  variant="outlined"
+                  type="date"
+                  id="assessment_date"
+                  name="assessment_date"
+                  value={formik.values.assessment_date}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.assessment_date &&
+                    Boolean(formik.errors.assessment_date)
+                  }
+                  helperText={
+                    formik.touched.assessment_date &&
+                    formik.errors.assessment_date
+                  }
+                />
+              </div>
+            </Col>
+            <Col>
+              <div className="job-detail-input-container">
+                <strong>Examination Date:&nbsp;</strong>
+                <TextField
+                  size="large"
+                  margin="normal"
+                  variant="outlined"
+                  type="date"
+                  id="examination_date"
+                  name="examination_date"
+                  value={formik.values.examination_date}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.examination_date &&
+                    Boolean(formik.errors.examination_date)
+                  }
+                  helperText={
+                    formik.touched.examination_date &&
+                    formik.errors.examination_date
+                  }
+                />
+              </div>
+            </Col>
+            <Col>
+              <div className="job-detail-input-container">
+                <strong>Duty Paid Date:&nbsp;</strong>
+                <TextField
+                  size="large"
+                  margin="normal"
+                  variant="outlined"
+                  type="date"
+                  id="duty_paid_date"
+                  name="duty_paid_date"
+                  value={formik.values.duty_paid_date}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.duty_paid_date &&
+                    Boolean(formik.errors.duty_paid_date)
+                  }
+                  helperText={
+                    formik.touched.duty_paid_date &&
+                    formik.errors.duty_paid_date
+                  }
+                />
+              </div>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col xs={4}>
+              <div className="job-detail-input-container">
+                <strong>Out of Charge Date:&nbsp;</strong>
+                <TextField
+                  size="large"
+                  margin="normal"
+                  variant="outlined"
+                  type="date"
+                  id="out_of_charge_date"
+                  name="out_of_charge_date"
+                  value={formik.values.out_of_charge_date}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.out_of_charge_date &&
+                    Boolean(formik.errors.out_of_charge_date)
+                  }
+                  helperText={
+                    formik.touched.out_of_charge_date &&
+                    formik.errors.out_of_charge_date
+                  }
+                />
+              </div>
+            </Col>
+            <Col></Col>
+            <Col></Col>
+          </Row>
+
+          <Row>
+            <Col xs={4}>
+              <div className="job-detail-input-container">
+                <strong>ETA Date:&nbsp;</strong>
                 <TextField
                   size="large"
                   margin="normal"
@@ -481,6 +579,29 @@ function JobDetails() {
                   onChange={formik.handleChange}
                   error={formik.touched.eta && Boolean(formik.errors.eta)}
                   helperText={formik.touched.eta && formik.errors.eta}
+                />
+              </div>
+            </Col>
+            <Col>
+              <div className="job-detail-input-container">
+                <strong>Discharge Date:&nbsp;</strong>
+                <TextField
+                  size="large"
+                  margin="normal"
+                  variant="outlined"
+                  type="date"
+                  id="discharge_date"
+                  name="discharge_date"
+                  value={formik.values.discharge_date}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.discharge_date &&
+                    Boolean(formik.errors.discharge_date)
+                  }
+                  helperText={
+                    formik.touched.discharge_date &&
+                    formik.errors.discharge_date
+                  }
                 />
               </div>
             </Col>

@@ -10,7 +10,7 @@ const JobModel = require("../models/jobModel.js");
 const router = express.Router();
 sgMail.setApiKey(process.env.SENDGRID_API);
 
-// schedule.scheduleJob("*/10 * * * * *", async () => {  
+// schedule.scheduleJob("*/10 * * * * *", async () => {
 schedule.scheduleJob("00 22 * * */1", async () => {
   try {
     // Get the current date
@@ -128,7 +128,9 @@ schedule.scheduleJob("00 22 * * */1", async () => {
               .map((container) => container.size)
               .join(",\n");
 
-            const invoice_value_and_unit_price = `\u20B9 ${job.cif_amount} | FC ${job.unit_price}`;
+            const unit_price = (job.cif_amount / job.ex_rate).toFixed(2);
+
+            const invoice_value_and_unit_price = `\u20B9 ${job.cif_amount} | ${job.inv_currency} ${unit_price}`;
 
             const valueMap = {
               "JOB NO": job.job_no,
@@ -180,6 +182,10 @@ schedule.scheduleJob("00 22 * * */1", async () => {
               "FREE TIME": job.free_time,
               "INVOICE VALUE AND UNIT PRICE": invoice_value_and_unit_price,
               REMARKS: job.remarks,
+              "ASSESSMENT DATE": job.assessment_date,
+              "EXAMINATION DATE": job.examination_date,
+              "DUTY PAID DATE": job.duty_paid_date,
+              "OUT OF CHARGE DATE": job.out_of_charge_date,
             };
 
             const selectedValues = reportField.field.map((val) => {
@@ -572,28 +578,28 @@ schedule.scheduleJob("00 22 * * */1", async () => {
 
         ///////////////////////////////////////////
         // Save the workbook to the specified path
-        // const __filename = fileURLToPath(import.meta.url);
-        // const outputPath = path.join(
-        //   path.dirname(__filename),
-        //   `../reports/${worksheetName}.xlsx`
-        // );
+        const outputPath = path.join(
+          __dirname,
+          "../reports",
+          `${worksheetName}.xlsx`
+        );
 
-        // await workbook.xlsx.writeFile(outputPath);
+        // Save the workbook to the specified path
+        workbook.xlsx.writeFile(outputPath);
 
         const buffer = await workbook.xlsx.writeBuffer();
 
         // Construct the email content
-        console.log(reportField.email);
         const msg = {
-          to: reportField.email, // Importer's email address
+          to: "manu@surajforwarders.com",
           from: reportField.senderEmail,
           subject: "Your Excel Report",
           text: "Your Excel Report",
           html: "<p>Your Excel Report</p>",
           attachments: [
             {
-              content: buffer.toString("base64"), // Convert buffer to base64
-              filename: `${worksheetName}.xlsx`, // Filename for the attachment
+              content: buffer.toString("base64"),
+              filename: `${worksheetName}.xlsx`,
               type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // MIME type for Excel files
               disposition: "attachment", // Specify that it's an attachment
             },
@@ -603,7 +609,7 @@ schedule.scheduleJob("00 22 * * */1", async () => {
         try {
           // Send the email
           await sgMail.send(msg);
-          console.log(`Email sent to ${reportField.email}`);
+          console.log(`Email sent`);
         } catch (error) {
           console.error(`Error sending email to ${reportField.email}:`, error);
         }
