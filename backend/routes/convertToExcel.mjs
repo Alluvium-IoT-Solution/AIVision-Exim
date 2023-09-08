@@ -627,7 +627,6 @@
 
 import express from "express";
 import schedule from "node-schedule";
-import path from "path";
 import ExcelJS from "exceljs";
 import sgMail from "@sendgrid/mail";
 import ReportFieldsModel from "../models/reportFieldsModel.mjs";
@@ -731,6 +730,7 @@ schedule.scheduleJob("00 22 * * */1", async () => {
         headerRow.height = 35;
 
         /////////////////////////////////////  Data Row  //////////////////////////////////////
+        console.log(matchingJobData);
         matchingJobData
           .filter((job) => job.status.toLowerCase() === "pending")
           .forEach((job) => {
@@ -1217,11 +1217,16 @@ schedule.scheduleJob("00 22 * * */1", async () => {
           ],
         };
 
-        try {
-          await sgMail.send(msg);
-          console.log(`Email sent`);
-        } catch (error) {
-          console.error(`Error sending email to ${reportField.email}:`, error);
+        if (matchingJobData.length > 0) {
+          try {
+            await sgMail.send(msg);
+            console.log(`Email sent`);
+          } catch (error) {
+            console.error(
+              `Error sending email to ${reportField.email}:`,
+              error
+            );
+          }
         }
       }
     }

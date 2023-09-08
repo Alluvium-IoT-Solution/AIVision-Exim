@@ -389,6 +389,7 @@ function MainReport() {
         }}
         autoHeight={false}
         disableSelectionOnClick
+        disableColumnMenu
       />
     </>
   );

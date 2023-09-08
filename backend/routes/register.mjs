@@ -24,7 +24,6 @@ router.post("/api/register", async (req, res) => {
             user
               .save()
               .then(() => {
-                console.log("reg");
                 res.send({
                   message: "Successfully registered",
                 });

@@ -19,10 +19,9 @@ const FeedbackForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
+      alert("Thanks for your feedback");
       const data = { ...values, email };
-
       const res = await axios.post(feedbackAPI, { data });
-      console.log(res);
     },
   });
 

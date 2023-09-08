@@ -10,8 +10,9 @@ function ImporterWiseDetails(props) {
   const selectedYear = props.selectedYear;
   const [importerData, setImporterData] = useState([]);
   const [selectedImporter, setSelectedImporter] = useState(
-    "LAXCON STEELS LIMITED - IMPORT"
+    "ADARSH STAINLESS PRIVATE LIMITED"
   );
+  console.log(selectedImporter);
   const [data, setData] = useState([]);
   const { importerListAPI, importerJobsAPI } = apiRoutes();
 

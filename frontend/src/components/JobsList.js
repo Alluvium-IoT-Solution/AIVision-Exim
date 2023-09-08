@@ -104,7 +104,7 @@ function JobsList() {
         getRowId={(row) => row.job_no}
         sx={{
           padding: "0 30px",
-          height: "680px",
+          height: "600px",
           "& .MuiDataGrid-row:hover": {
             backgroundColor: "#f8f5ff",
           },
@@ -128,6 +128,7 @@ function JobsList() {
         autoHeight={false}
         disableSelectionOnClick
         getRowClassName={getTableRowsClassname}
+        disableColumnMenu
       />
 
       {/* <SelectFieldsModal

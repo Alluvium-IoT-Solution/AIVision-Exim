@@ -27,6 +27,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import { Typography } from "@mui/material";
 import { SelectedYearContext } from "../Context/SelectedYearContext";
 import Feedback from "./Feedback";
+import { UserContext } from "../Context/UserContext";
 
 const drawerWidth = 250;
 const drawerPaperStyles = {
@@ -58,6 +59,7 @@ function ResponsiveDrawer() {
     alt,
     setAlt
   );
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     async function getLastJobsDate() {
@@ -129,7 +131,7 @@ function ResponsiveDrawer() {
               </TextField>
             )}
 
-            {loading ? (
+            {user.role === "Director" && loading ? (
               <CircularProgress />
             ) : (
               <label
