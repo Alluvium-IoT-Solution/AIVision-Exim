@@ -1,7 +1,5 @@
-
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
-import axios from "axios";
 
 export const convertToExcel = async (
   rows,
@@ -10,6 +8,10 @@ export const convertToExcel = async (
   detailedStatus,
   headers
 ) => {
+  if (rows.length === 0) {
+    alert("No Data to export");
+    return;
+  }
   const dateOfReport = new Date().toLocaleDateString();
 
   // Row headers
@@ -30,7 +32,7 @@ export const convertToExcel = async (
       .map((container) => container.size)
       .join(",\n");
 
-      const unit_price=(item.cif_amount/item.ex_rate).toFixed(2)
+    const unit_price = (item.cif_amount / item.ex_rate).toFixed(2);
 
     const invoice_value_and_unit_price = `\u20B9 ${item.cif_amount} | ${item.inv_currency} ${unit_price}`;
 
@@ -84,10 +86,10 @@ export const convertToExcel = async (
       "FREE TIME": item.free_time,
       "INVOICE VALUE AND UNIT PRICE": invoice_value_and_unit_price,
       REMARKS: item.remarks,
-      "ASSESSMENT DATE":item.assessment_date,
-      "EXAMINATION DATE":item.examination_date,
-      "DUTY PAID DATE":item.duty_paid_date,
-      "OUT OF CHARGE DATE":item.out_of_charge_date
+      "ASSESSMENT DATE": item.assessment_date,
+      "EXAMINATION DATE": item.examination_date,
+      "DUTY PAID DATE": item.duty_paid_date,
+      "OUT OF CHARGE DATE": item.out_of_charge_date,
     };
 
     // eslint-disable-next-line
@@ -181,7 +183,6 @@ export const convertToExcel = async (
 
   ///////////////////////////////////////  Data Row  //////////////////////////////////////
   // Add the data rows
-  console.log(JSON.stringify(dataWithHeaders));
   for (const row of dataWithHeaders) {
     const dataRow = worksheet.addRow(row);
     const detailedStatus = row[row.length - 1]; // Get the Detailed Status from the last column

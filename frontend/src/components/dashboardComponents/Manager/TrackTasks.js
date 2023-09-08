@@ -1,35 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
-import { apiRoutes } from "../../../utils/apiRoutes";
-import axios from "axios";
+import React from "react";
 import ReactApexChart from "react-apexcharts";
-import { SelectedYearContext } from "../../../Context/SelectedYearContext";
 
-function TrackTasks() {
-  const [usernames, setUsernames] = useState([]);
-  const [counts, setCounts] = useState([]);
-  const { getUsersWithJobsAPI } = apiRoutes();
-  const { selectedYear } = useContext(SelectedYearContext);
-
-  useEffect(() => {
-    async function getData() {
-      const res = await axios.get(`${getUsersWithJobsAPI}/${selectedYear}`);
-
-      setUsernames(res.data.map((item) => item.username));
-      setCounts(res.data.map((item) => item.jobsCount));
-    }
-
-    getData();
-  }, []);
-
+function TrackTasks(props) {
   const donutState = {
-    series: counts,
+    series: props.counts,
     options: {
       chart: {
         width: 350,
         height: 400,
         type: "donut",
       },
-      labels: usernames,
+      labels: props.usernames,
       plotOptions: {
         pie: {
           startAngle: -90,

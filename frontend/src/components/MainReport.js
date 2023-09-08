@@ -8,18 +8,32 @@ import { SelectedYearContext } from "../Context/SelectedYearContext";
 
 function MainReport() {
   const [rows, setRows] = useState([]);
+  const [total, setTotal] = useState(0);
   const { mainReportAPI } = apiRoutes();
   const { selectedYear } = useContext(SelectedYearContext);
+  const [pageState, setPageState] = useState({
+    isLoading: false,
+    page: 1,
+  });
 
   useEffect(() => {
     async function getReport() {
-      const res = await axios.get(`${mainReportAPI}/${selectedYear}`);
-      setRows(res.data.sort((a, b) => a.job_no - b.job_no));
+      setPageState((old) => ({ ...old, isLoading: true }));
+      const res = await axios.get(
+        `${mainReportAPI}/${selectedYear}/${pageState.page}`
+      );
+
+      setRows(res.data.data.sort((a, b) => a.job_no - b.job_no));
+      setTotal(res.data.total);
+      setPageState((old) => ({
+        ...old,
+        isLoading: false,
+      }));
     }
 
     getReport();
     // eslint-disable-next-line
-  }, []);
+  }, [pageState.page, pageState.pageSize]);
 
   const columns = [
     {
@@ -349,24 +363,32 @@ function MainReport() {
       </div>
 
       <DataGrid
-        className="table expense-table"
         getRowId={(row) => row.job_no}
         sx={{
           padding: "0 30px",
-          height: "700px",
+          height: "680px",
           "& .MuiDataGrid-row:hover": {
             backgroundColor: "#f8f5ff",
           },
         }}
+        className="table expense-table"
         headerAlign="center"
         rows={rows}
         columns={columns}
-        pageSize={50}
         stickyHeader
-        rowsPerPageOptions={[50]}
-        disableSelectionOnClick
-        getRowClassName={getTableRowsClassname}
+        rowCount={total}
+        loading={pageState.isLoading}
+        rowsPerPageOptions={[25]}
         getRowHeight={() => "auto"}
+        pagination
+        page={pageState.page - 1}
+        pageSize={25}
+        paginationMode="server"
+        onPageChange={(newPage) => {
+          setPageState((old) => ({ ...old, page: newPage + 1 }));
+        }}
+        autoHeight={false}
+        disableSelectionOnClick
       />
     </>
   );

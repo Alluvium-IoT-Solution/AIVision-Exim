@@ -22,7 +22,8 @@ function JobsList() {
 
   const [detailedStatus, setDetailedStatus] = useState("");
   const columns = useJobColumns(detailedStatus);
-  const { rows } = useFetchJobList(detailedStatus, selectedYear);
+  const { rows, total, pageState, setPageState, setFilterText } =
+    useFetchJobList(detailedStatus, selectedYear);
   const params = useParams();
   const { reportFieldsAPI } = apiRoutes();
 
@@ -35,15 +36,20 @@ function JobsList() {
     async function getReportFields() {
       const res = await axios(`${reportFieldsAPI}/${params.importer}`);
       setHeaders(res.data);
-      console.log(res);
     }
     getReportFields();
-  }, []);
+    // eslint-disable-next-line
+  }, [params.importer]);
 
   return (
     <>
       <div className="jobs-list-header">
         <h5>{user.role !== "Executive" ? importerName : user.importer}</h5>
+        <input
+          type="text"
+          placeholder="Search Jobs"
+          onChange={(e) => setFilterText(e.target.value)}
+        />
         <select
           name="status"
           onChange={(e) => setDetailedStatus(e.target.value)}
@@ -72,7 +78,7 @@ function JobsList() {
         </button>
       </div>
 
-      <DataGrid
+      {/* <DataGrid
         getRowId={(row) => row.job_no}
         sx={{
           padding: "0 30px",
@@ -89,6 +95,36 @@ function JobsList() {
         stickyHeader
         rowsPerPageOptions={[50]}
         getRowHeight={() => "auto"}
+        autoHeight={false}
+        disableSelectionOnClick
+        getRowClassName={getTableRowsClassname}
+      /> */}
+
+      <DataGrid
+        getRowId={(row) => row.job_no}
+        sx={{
+          padding: "0 30px",
+          height: "680px",
+          "& .MuiDataGrid-row:hover": {
+            backgroundColor: "#f8f5ff",
+          },
+        }}
+        className="table expense-table"
+        headerAlign="center"
+        rows={rows}
+        columns={columns}
+        stickyHeader
+        rowCount={total}
+        loading={pageState.isLoading}
+        rowsPerPageOptions={[25]}
+        getRowHeight={() => "auto"}
+        pagination
+        page={pageState.page - 1}
+        pageSize={25}
+        paginationMode="server"
+        onPageChange={(newPage) => {
+          setPageState((old) => ({ ...old, page: newPage + 1 }));
+        }}
         autoHeight={false}
         disableSelectionOnClick
         getRowClassName={getTableRowsClassname}

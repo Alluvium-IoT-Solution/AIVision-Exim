@@ -16,7 +16,7 @@ function ImporterWiseDetails(props) {
   const { importerListAPI, importerJobsAPI } = apiRoutes();
 
   const importerNames = importerData.map((importer) => {
-    return importer.importerName;
+    return importer.importer;
   });
 
   // Get importer list for MUI autocomplete
@@ -56,7 +56,7 @@ function ImporterWiseDetails(props) {
     }
     getImporterData();
     // eslint-disable-next-line
-  }, [selectedImporter]);
+  }, [selectedImporter, selectedYear]);
 
   const donutState = {
     series: data,

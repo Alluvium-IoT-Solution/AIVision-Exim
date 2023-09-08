@@ -17,7 +17,7 @@ function useFetchJobDetails(params, checked, selectedYear, setSelectedRegNo) {
   useEffect(() => {
     async function getJobDetails() {
       const response = await axios.get(
-        `${getJobAPI}/${params.importer}/job/${selectedYear}/${params.jobNo}`
+        `${getJobAPI}/job/${selectedYear}/${params.jobNo}`
       );
       setData(response.data);
     }
@@ -55,7 +55,7 @@ function useFetchJobDetails(params, checked, selectedYear, setSelectedRegNo) {
 
     onSubmit: async (values) => {
       const res = await axios.put(
-        `${updateJobAPI}/${params.importer}/updatejob/${selectedYear}/${params.jobNo}`,
+        `${updateJobAPI}/updatejob/${selectedYear}/${params.jobNo}`,
         {
           eta: values.eta,
           checked,
@@ -82,6 +82,7 @@ function useFetchJobDetails(params, checked, selectedYear, setSelectedRegNo) {
           out_of_charge_date: values.out_of_charge_date,
         }
       );
+      console.log(res);
 
       navigate(`/${params.importer}/jobs/pending`);
     },

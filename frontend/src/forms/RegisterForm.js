@@ -21,15 +21,14 @@ const RegisterForm = () => {
 
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      console.log(values)
-      // const res = await axios.post(registerAPI, values);
-      // console.log(res);
-      // if (res.data.message === "User already registered") {
-      //   alert(res.data.message);
-      // } else if (res.data.message === "Successfully registered") {
-      //   alert(res.data.message);
-      //   navigate("/dashboard");
-      // }
+      const res = await axios.post(registerAPI, values);
+      console.log(res);
+      if (res.data.message === "User already registered") {
+        alert(res.data.message);
+      } else if (res.data.message === "Successfully registered") {
+        alert(res.data.message);
+        navigate("/dashboard");
+      }
     },
   });
 

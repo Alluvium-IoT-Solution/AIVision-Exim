@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../../../styles/dashboard.scss";
 import RegisterModal from "../RegisterModal";
 import JobsOverview from "../JobsOverview";
@@ -15,6 +15,8 @@ import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { SelectedYearContext } from "../../../Context/SelectedYearContext";
 import RemoveUserModal from "../RemoveUserModal";
 import TrackTasks from "./TrackTasks";
+import axios from "axios";
+import { apiRoutes } from "../../../utils/apiRoutes";
 
 const ManagerDashboard = () => {
   // Register Modal
@@ -31,8 +33,10 @@ const ManagerDashboard = () => {
   const handleCloseAssignJobsModal = () => setOpenAssignJobsModal(false);
 
   const { selectedYear } = useContext(SelectedYearContext);
-
   const { user } = useContext(UserContext);
+  const { getUsersWithJobsAPI } = apiRoutes();
+  const [usernames, setUsernames] = useState([]);
+  const [counts, setCounts] = useState([]);
 
   const actions = [
     {
@@ -52,6 +56,17 @@ const ManagerDashboard = () => {
     },
   ];
 
+  useEffect(() => {
+    async function getData() {
+      const res = await axios.get(`${getUsersWithJobsAPI}/${selectedYear}`);
+      setUsernames(res.data.map((item) => item.username));
+      setCounts(res.data.map((item) => item.jobsCount));
+    }
+
+    getData();
+    // eslint-disable-next-line
+  }, [selectedYear]);
+
   return (
     <>
       <Container fluid className="dashboard-container">
@@ -66,9 +81,9 @@ const ManagerDashboard = () => {
             <Col
               xs={6}
               className="dashboard-col"
-              style={{ display:"flex !important" }}
+              style={{ display: "flex !important" }}
             >
-              <TrackTasks />
+              <TrackTasks usernames={usernames} counts={counts} />
             </Col>
           </Row>
         </Container>
@@ -80,6 +95,8 @@ const ManagerDashboard = () => {
       <AssignJobsModal
         openAssignJobsModal={openAssignJobsModal}
         handleCloseAssignJobsModal={handleCloseAssignJobsModal}
+        usernames={usernames}
+        counts={counts}
       />
       <RemoveUserModal
         openRemoveUserModal={openRemoveUserModal}

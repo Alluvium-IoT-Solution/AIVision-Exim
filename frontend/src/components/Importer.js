@@ -28,8 +28,8 @@ function Importer() {
     if (filterImporter === "") {
       return true;
     } else if (
-      importer.importerName !== "--" &&
-      importer.importerName.toLowerCase().includes(filterImporter.toLowerCase())
+      importer.importer !== "--" &&
+      importer.importer.toLowerCase().includes(filterImporter.toLowerCase())
     ) {
       return true;
     }
@@ -57,9 +57,9 @@ function Importer() {
             <Col key={id} xs={12} lg={3} className="importer-col">
               <div
                 className="importer-inner-container"
-                onClick={() => handleClient(val.importerURL, val.importerName)}
+                onClick={() => handleClient(val.importerURL, val.importer)}
               >
-                {val.importerName}
+                {val.importer}
               </div>
             </Col>
           );

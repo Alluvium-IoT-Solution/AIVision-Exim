@@ -7,7 +7,8 @@
     flex: 1;
   }
 
-  select {
+  select,
+  input {
     margin-right: 10px;
     padding: 5px;
   }
@@ -48,6 +49,10 @@
 
 .discharge {
   background-color: #f4b183;
+}
+
+.discharge:hover {
+  background-color: #f4b183 !important;
 }
 
 .eta {

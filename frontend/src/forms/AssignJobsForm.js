@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { useFormik } from "formik";
 import { TextField } from "@mui/material";
@@ -12,7 +12,6 @@ import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
-import { SelectedYearContext } from "../Context/SelectedYearContext";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -25,24 +24,22 @@ const MenuProps = {
   },
 };
 
-const AssignJobsForm = () => {
-  const [users, setUsers] = useState([]);
+const AssignJobsForm = (props) => {
+  const users = props.usernames.map((username, index) => ({
+    username,
+    jobsCount: props.counts[index],
+  }));
+
   const [importerData, setImporterData] = useState([]);
   const [assignedImporters, setAssignedImporters] = useState([]);
-  const { getUsersWithJobsAPI, assignJobsAPI, importerListToAssignJobs } =
-    apiRoutes();
-  const { selectedYear } = useContext(SelectedYearContext);
+  const { assignJobsAPI, importerListToAssignJobs } = apiRoutes();
 
   useEffect(() => {
-    async function getUsers() {
-      const res = await axios(`${getUsersWithJobsAPI}/${selectedYear}`);
-      setUsers(res.data);
-    }
     async function getImporterList() {
       const res = await axios.get(importerListToAssignJobs);
       setImporterData(res.data);
     }
-    getUsers();
+
     getImporterList();
     // eslint-disable-next-line
   }, []);
@@ -88,7 +85,6 @@ const AssignJobsForm = () => {
   };
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     setAssignedImporters(event.target.value);
   };
 
