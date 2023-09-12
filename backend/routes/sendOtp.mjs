@@ -32,8 +32,8 @@ router.post("/api/sendOtp", async (req, res) => {
     user.otp = otp;
     await user.save();
 
-    // Schedule OTP removal after 2 minutes
-    schedule.scheduleJob(`*/2 * * * *`, () => {
+    // Schedule OTP removal after 5 minutes
+    schedule.scheduleJob(`*/5 * * * *`, () => {
       removeOTP(user._id);
     });
 

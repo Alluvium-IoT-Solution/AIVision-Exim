@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import "../../../styles/dashboard.scss";
-import RegisterModal from "../RegisterModal";
+import RegisterModal from "../../modals/RegisterModal";
 import JobsOverview from "../JobsOverview";
 import ImporterWiseDetails from "../ImporterWiseDetails";
 import { Container, Row, Col } from "react-bootstrap";
@@ -47,9 +47,10 @@ const ExecutiveDashboard = () => {
   ];
 
   const importerList =
-    assignedImporters.length !== 0 ?
-    assignedImporters.map((importer) => importer.importer):[];
-console.log(importerList)
+    assignedImporters.length !== 0
+      ? assignedImporters.map((importer) => importer.importer)
+      : [];
+  console.log(importerList);
   return (
     <>
       <Container fluid className="dashboard-container">

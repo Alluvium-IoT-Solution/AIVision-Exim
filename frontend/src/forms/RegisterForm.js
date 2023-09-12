@@ -7,7 +7,7 @@ import { apiRoutes } from "../utils/apiRoutes";
 import { useNavigate } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 
-const RegisterForm = () => {
+const RegisterForm = (props) => {
   const navigate = useNavigate();
   const { registerAPI } = apiRoutes();
 
@@ -29,6 +29,8 @@ const RegisterForm = () => {
         alert(res.data.message);
         navigate("/dashboard");
       }
+
+      props.handleCloseRegisterModal();
     },
   });
 

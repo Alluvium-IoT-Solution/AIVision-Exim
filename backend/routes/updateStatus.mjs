@@ -10,7 +10,7 @@ schedule.scheduleJob("*/10 * * * * *", async () => {
   try {
     // Get the current date
     const currentDate = new Date();
-    // Calculate the date for comparison (cargo_date + 1 day)
+    // Calculate the date for comparison (delivery_date + 1 day)
     const comparisonDate = new Date(currentDate);
     comparisonDate.setDate(comparisonDate.getDate() + 1);
     // Find the documents with the given year range

@@ -2,7 +2,7 @@ import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import TableViewIcon from "@mui/icons-material/TableView";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
-import FeedbackIcon from '@mui/icons-material/Feedback';
+import FeedbackIcon from "@mui/icons-material/Feedback";
 
 const importer = localStorage.getItem("importer");
 
@@ -20,7 +20,9 @@ export function sidebarData(role, importerURL) {
       icon: <TaskAltIcon />,
       name: "Jobs",
       url:
-        role === "User"
+        role !== "Director" ||
+        role !== "General Manager" ||
+        role !== "Senior Manager"
           ? `${importerURL}/jobs/pending`
           : `${importer}/jobs/pending`,
     },

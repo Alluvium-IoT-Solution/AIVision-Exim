@@ -11,6 +11,7 @@ import { SelectedYearContext } from "./Context/SelectedYearContext";
 import { AssignedImportersContext } from "./Context/AssignedImportersContext";
 import { SelectedImporterContext } from "./Context/SelectedImporterContext";
 import axios from "axios";
+import { apiRoutes } from "./utils/apiRoutes";
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -29,12 +30,13 @@ function App() {
   const [selectedImporter, setSelectedImporter] = useState(
     localStorage.getItem("selectedImporter")
   );
+  const { getAssignedImporterAPI } = apiRoutes();
 
   useEffect(() => {
     async function getAssignedImporters() {
       if (user?.username) {
         const res = await axios.get(
-          `http://localhost:9002/api/getAssignedImporter/${user.username}`
+          `${getAssignedImporterAPI}/${user.username}`
         );
         setAssignedImporters(res.data);
         localStorage.setItem("assignedImporters", JSON.stringify(res.data));

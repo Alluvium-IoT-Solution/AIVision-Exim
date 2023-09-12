@@ -17,7 +17,11 @@ function Sidebar() {
   const navigate = useNavigate();
   const inputRef = useRef();
   const { handleFileUpload, snackbar } = useFileUpload(inputRef);
-  const isUserRoleUser = user.role === "Executive";
+  const isUserRoleUser =
+    user.role !== "Director" ||
+    user.role !== "General Manager" ||
+    user.role !== "Senior Manager";
+
   const sidebarDataArray = sidebarData(user.role, user.importerURL);
   const { selectedImporter } = useContext(SelectedImporterContext);
 
@@ -32,7 +36,9 @@ function Sidebar() {
         />
       </div>
 
-      {!isUserRoleUser && (
+      {!isUserRoleUser ? (
+        ""
+      ) : (
         <>
           <label htmlFor="uploadBtn" className="uploadBtn-mobile">
             Upload Party Data (excel file)
@@ -52,7 +58,12 @@ function Sidebar() {
       {sidebarDataArray.map((val) => {
         const { id, icon, name, url } = val;
 
-        if (isUserRoleUser && (name === "Importer" || name === "Main Report")) {
+        if (
+          user.role !== "Director" &&
+          user.role !== "General Manager" &&
+          user.role !== "Senior Manager" &&
+          (name === "Importer" || name === "Main Report")
+        ) {
           return null; // Hide Importer and Main Report if user.role === User
         }
 

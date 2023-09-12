@@ -2,6 +2,7 @@ import React from "react";
 import ReactApexChart from "react-apexcharts";
 
 function TrackTasks(props) {
+  const areAllZeros = props.counts.every((number) => number === 0);
   const donutState = {
     series: props.counts,
     options: {
@@ -59,14 +60,21 @@ function TrackTasks(props) {
   };
 
   return (
-    <div className="dashboard-col-inner" style={{ flex: "1 !important" }}>
+    <div
+      className="dashboard-col-inner"
+      style={{ flex: "1 !important", minHeight: "445px" }}
+    >
       <h4 style={{ textAlign: "left" }}>Pending Work</h4>
-      <ReactApexChart
-        options={donutState.options}
-        series={donutState.series}
-        type="donut"
-        width={500}
-      />
+      {areAllZeros ? (
+        <p style={{ textAlign: "left" }}>No Pending Jobs</p>
+      ) : (
+        <ReactApexChart
+          options={donutState.options}
+          series={donutState.series}
+          type="donut"
+          width={500}
+        />
+      )}
     </div>
   );
 }

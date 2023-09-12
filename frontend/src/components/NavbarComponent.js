@@ -131,9 +131,11 @@ function ResponsiveDrawer() {
               </TextField>
             )}
 
-            {user.role === "Director" && loading ? (
+            {loading ? (
               <CircularProgress />
-            ) : (
+            ) : user.role === "Director" ||
+              user.role === "General Manager" ||
+              user.role === "Senior Manager" ? (
               <label
                 htmlFor="uploadBtn"
                 className="uploadBtn"
@@ -141,7 +143,8 @@ function ResponsiveDrawer() {
               >
                 Upload Party Data (excel file)
               </label>
-            )}
+            ) : null}
+
             <input
               type="file"
               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"

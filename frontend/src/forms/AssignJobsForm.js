@@ -77,6 +77,8 @@ const AssignJobsForm = (props) => {
       if (res.status === 200) {
         alert("Jobs assigned successfully");
       }
+
+      props.handleClose();
     },
   });
 

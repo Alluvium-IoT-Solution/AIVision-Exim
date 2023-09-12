@@ -10,9 +10,9 @@ function ImporterWiseDetails(props) {
   const selectedYear = props.selectedYear;
   const [importerData, setImporterData] = useState([]);
   const [selectedImporter, setSelectedImporter] = useState(
-    "ADARSH STAINLESS PRIVATE LIMITED"
+    importerData[0]?.importer
   );
-  console.log(selectedImporter);
+
   const [data, setData] = useState([]);
   const { importerListAPI, importerJobsAPI } = apiRoutes();
 
@@ -25,6 +25,10 @@ function ImporterWiseDetails(props) {
     async function getImporterList() {
       const res = await axios.get(`${importerListAPI}/${selectedYear}`);
       setImporterData(res.data);
+      // Check if importerData is not empty before setting the selectedImporter
+      if (res.data.length > 0) {
+        setSelectedImporter(res.data[0].importer);
+      }
     }
     getImporterList();
     // eslint-disable-next-line
@@ -37,23 +41,25 @@ function ImporterWiseDetails(props) {
 
   // Fetch the details of the selected importer
   useEffect(() => {
-    async function getImporterData(props) {
-      const res = await axios.get(
-        `${importerJobsAPI}/${selectedImporter
-          .toLowerCase()
-          .replace(/ /g, "_")
-          .replace(/\./g, "")
-          .replace(/\//g, "_")
-          .replace(/-/g, "")
-          .replace(/_+/g, "_")
-          .replace(/\(/g, "")
-          .replace(/\)/g, "")
-          .replace(/\[/g, "")
-          .replace(/\]/g, "")
-          .replace(/,/g, "")}/${selectedYear}`
-      );
+    async function getImporterData() {
+      if (selectedImporter) {
+        const res = await axios.get(
+          `${importerJobsAPI}/${selectedImporter
+            .toLowerCase()
+            .replace(/ /g, "_")
+            .replace(/\./g, "")
+            .replace(/\//g, "_")
+            .replace(/-/g, "")
+            .replace(/_+/g, "_")
+            .replace(/\(/g, "")
+            .replace(/\)/g, "")
+            .replace(/\[/g, "")
+            .replace(/\]/g, "")
+            .replace(/,/g, "")}/${selectedYear}`
+        );
 
-      setData(res.data);
+        setData(res.data);
+      }
     }
     getImporterData();
     // eslint-disable-next-line
@@ -122,7 +128,7 @@ function ImporterWiseDetails(props) {
           disablePortal
           options={importerNames}
           getOptionLabel={(option) => option}
-          value={importerNames.length > 0 ? importerNames[0] : null}
+          value={selectedImporter}
           onChange={handleImporterChange}
           width="100%"
           renderInput={(params) => (

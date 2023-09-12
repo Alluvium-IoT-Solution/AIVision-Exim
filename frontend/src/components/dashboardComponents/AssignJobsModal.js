@@ -31,7 +31,11 @@ export default function AssignJobsModal(props) {
           </Typography>
 
           <Container style={{ margin: "20px 0" }}>
-            <AssignJobsForm usernames={props.usernames} counts={props.counts} />
+            <AssignJobsForm
+              usernames={props.usernames}
+              counts={props.counts}
+              handleClose={props.handleCloseAssignJobsModal}
+            />
           </Container>
         </Box>
       </Modal>

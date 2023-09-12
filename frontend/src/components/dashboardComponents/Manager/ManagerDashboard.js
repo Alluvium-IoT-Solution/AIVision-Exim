@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import "../../../styles/dashboard.scss";
-import RegisterModal from "../RegisterModal";
+import RegisterModal from "../../modals/RegisterModal";
 import JobsOverview from "../JobsOverview";
 import ImporterWiseDetails from "../ImporterWiseDetails";
 import { Container, Row, Col } from "react-bootstrap";
@@ -11,18 +11,20 @@ import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 import AssignmentIndRoundedIcon from "@mui/icons-material/AssignmentIndRounded";
+import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { SelectedYearContext } from "../../../Context/SelectedYearContext";
-import RemoveUserModal from "../RemoveUserModal";
+import RemoveUserModal from "../../modals/RemoveUserModal";
+import RemoveJobsModal from "../../modals/RemoveJobsModal";
 import TrackTasks from "./TrackTasks";
 import axios from "axios";
 import { apiRoutes } from "../../../utils/apiRoutes";
 
 const ManagerDashboard = () => {
   // Register Modal
-  const [openRegisterModal, setoOpenRegisterModal] = useState(false);
-  const handleOpenRegisterModal = () => setoOpenRegisterModal(true);
-  const handleCloseRegisterModal = () => setoOpenRegisterModal(false);
+  const [openRegisterModal, setOpenRegisterModal] = useState(false);
+  const handleOpenRegisterModal = () => setOpenRegisterModal(true);
+  const handleCloseRegisterModal = () => setOpenRegisterModal(false);
   // Remove User Modal
   const [openRemoveUserModal, setOpenRemoveUserModal] = useState(false);
   const handleOpenRemoveUserModal = () => setOpenRemoveUserModal(true);
@@ -31,6 +33,10 @@ const ManagerDashboard = () => {
   const [openAssignJobsModal, setOpenAssignJobsModal] = useState(false);
   const handleOpenAssignJobsModal = () => setOpenAssignJobsModal(true);
   const handleCloseAssignJobsModal = () => setOpenAssignJobsModal(false);
+  // Remove Jobs Modal
+  const [openRemoveJobsModal, setOpenRemoveJobsModal] = useState(false);
+  const handleOpenRemoveJobsModal = () => setOpenRemoveJobsModal(true);
+  const handleCloseRemoveJobsModal = () => setOpenRemoveJobsModal(false);
 
   const { selectedYear } = useContext(SelectedYearContext);
   const { user } = useContext(UserContext);
@@ -54,11 +60,19 @@ const ManagerDashboard = () => {
       name: "Assign Jobs",
       onClick: handleOpenAssignJobsModal,
     },
+    {
+      icon: <BookmarkRemoveIcon />,
+      name: "Remove Jobs",
+      onClick: handleOpenRemoveJobsModal,
+    },
   ];
+
+  console.log(`${getUsersWithJobsAPI}/${selectedYear}`);
 
   useEffect(() => {
     async function getData() {
       const res = await axios.get(`${getUsersWithJobsAPI}/${selectedYear}`);
+      console.log(res);
       setUsernames(res.data.map((item) => item.username));
       setCounts(res.data.map((item) => item.jobsCount));
     }
@@ -101,6 +115,12 @@ const ManagerDashboard = () => {
       <RemoveUserModal
         openRemoveUserModal={openRemoveUserModal}
         handleCloseRemoveUserModal={handleCloseRemoveUserModal}
+      />
+      <RemoveJobsModal
+        openRemoveJobsModal={openRemoveJobsModal}
+        handleCloseRemoveJobsModal={handleCloseRemoveJobsModal}
+        usernames={usernames}
+        counts={counts}
       />
 
       <SpeedDial
