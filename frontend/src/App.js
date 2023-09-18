@@ -61,7 +61,9 @@ function App() {
               <ThemeProvider theme={muiTheme}>
                 <div className="App">
                   {!user ? (
-                    <LoginPage />
+                    <>
+                      <LoginPage />
+                    </>
                   ) : (
                     <Container fluid style={{ padding: 0 }}>
                       <NavbarComponent />

@@ -75,6 +75,7 @@ function JobDetails() {
 
       {data !== null && (
         <form onSubmit={formik.handleSubmit}>
+          {/*************************** Row 1 ****************************/}
           <Row className="job-detail-row">
             <Col xs={5}>
               <strong>Importer:&nbsp;</strong>
@@ -90,6 +91,7 @@ function JobDetails() {
             </Col>
           </Row>
 
+          {/*************************** Row 2 ****************************/}
           <Row className="job-detail-row">
             <Col xs={5}>
               <strong>Invoice Value and Unit Price:&nbsp;</strong>
@@ -107,6 +109,7 @@ function JobDetails() {
             </Col>
           </Row>
 
+          {/*************************** Row 3 ****************************/}
           <Row className="job-detail-row">
             <Col xs={5}>
               <strong>POL:&nbsp;</strong>
@@ -121,6 +124,7 @@ function JobDetails() {
             <Col style={{ display: "flex", alignItems: "center" }}></Col>
           </Row>
 
+          {/*************************** Row 4 ****************************/}
           <Row className="job-detail-row">
             <Col xs={5}>
               <strong>Bill of Entry Number:&nbsp;</strong>
@@ -133,6 +137,7 @@ function JobDetails() {
             <Col></Col>
           </Row>
 
+          {/*************************** Row 5 ****************************/}
           <Row className="job-detail-row">
             <Col xs={5}>
               <strong>Bill of Lading Number:&nbsp;</strong>
@@ -150,6 +155,7 @@ function JobDetails() {
             <Col></Col>
           </Row>
 
+          {/*************************** Row 6 ****************************/}
           <Row className="job-detail-row">
             <Col xs={5}>
               <strong>Number of Packages:&nbsp;</strong>
@@ -162,6 +168,7 @@ function JobDetails() {
             <Col></Col>
           </Row>
 
+          {/*************************** Row 7 ****************************/}
           <Row className="job-detail-row">
             <Col xs={5}>
               <div className="job-detail-input-container">
@@ -241,6 +248,7 @@ function JobDetails() {
             </Col>
           </Row>
 
+          {/*************************** Row 8 ****************************/}
           <Row>
             <Col>
               <div className="job-detail-input-container">
@@ -304,6 +312,7 @@ function JobDetails() {
             </Col>
           </Row>
 
+          {/*************************** Row 9 ****************************/}
           <Row style={{ marginTop: "10px" }}>
             <Col xs={4}>
               <FormControl>
@@ -439,6 +448,7 @@ function JobDetails() {
             </Col>
           </Row>
 
+          {/*************************** Row 10 ****************************/}
           <Row>
             <Col>
               <div className="job-detail-input-container">
@@ -463,106 +473,7 @@ function JobDetails() {
             </Col>
           </Row>
 
-          <Row>
-            <Col xs={4}>
-              <div className="job-detail-input-container">
-                <strong>Assessment Date:&nbsp;</strong>
-                <TextField
-                  size="large"
-                  margin="normal"
-                  variant="outlined"
-                  type="date"
-                  id="assessment_date"
-                  name="assessment_date"
-                  value={formik.values.assessment_date}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.assessment_date &&
-                    Boolean(formik.errors.assessment_date)
-                  }
-                  helperText={
-                    formik.touched.assessment_date &&
-                    formik.errors.assessment_date
-                  }
-                />
-              </div>
-            </Col>
-            <Col>
-              <div className="job-detail-input-container">
-                <strong>Examination Date:&nbsp;</strong>
-                <TextField
-                  size="large"
-                  margin="normal"
-                  variant="outlined"
-                  type="date"
-                  id="examination_date"
-                  name="examination_date"
-                  value={formik.values.examination_date}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.examination_date &&
-                    Boolean(formik.errors.examination_date)
-                  }
-                  helperText={
-                    formik.touched.examination_date &&
-                    formik.errors.examination_date
-                  }
-                />
-              </div>
-            </Col>
-            <Col>
-              <div className="job-detail-input-container">
-                <strong>Duty Paid Date:&nbsp;</strong>
-                <TextField
-                  size="large"
-                  margin="normal"
-                  variant="outlined"
-                  type="date"
-                  id="duty_paid_date"
-                  name="duty_paid_date"
-                  value={formik.values.duty_paid_date}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.duty_paid_date &&
-                    Boolean(formik.errors.duty_paid_date)
-                  }
-                  helperText={
-                    formik.touched.duty_paid_date &&
-                    formik.errors.duty_paid_date
-                  }
-                />
-              </div>
-            </Col>
-          </Row>
-
-          <Row>
-            <Col xs={4}>
-              <div className="job-detail-input-container">
-                <strong>Out of Charge Date:&nbsp;</strong>
-                <TextField
-                  size="large"
-                  margin="normal"
-                  variant="outlined"
-                  type="date"
-                  id="out_of_charge_date"
-                  name="out_of_charge_date"
-                  value={formik.values.out_of_charge_date}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.out_of_charge_date &&
-                    Boolean(formik.errors.out_of_charge_date)
-                  }
-                  helperText={
-                    formik.touched.out_of_charge_date &&
-                    formik.errors.out_of_charge_date
-                  }
-                />
-              </div>
-            </Col>
-            <Col></Col>
-            <Col></Col>
-          </Row>
-
+          {/*************************** Row 11 ****************************/}
           <Row>
             <Col xs={4}>
               <div className="job-detail-input-container">
@@ -646,6 +557,108 @@ function JobDetails() {
                     />
                   </>
                 )}
+              </div>
+            </Col>
+          </Row>
+
+          {/*************************** Row 12 ****************************/}
+          <Row>
+            <Col xs={4}>
+              <div className="job-detail-input-container">
+                <strong>Out of Charge Date:&nbsp;</strong>
+                <TextField
+                  size="large"
+                  margin="normal"
+                  variant="outlined"
+                  type="date"
+                  id="out_of_charge_date"
+                  name="out_of_charge_date"
+                  value={formik.values.out_of_charge_date}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.out_of_charge_date &&
+                    Boolean(formik.errors.out_of_charge_date)
+                  }
+                  helperText={
+                    formik.touched.out_of_charge_date &&
+                    formik.errors.out_of_charge_date
+                  }
+                />
+              </div>
+            </Col>
+            <Col></Col>
+            <Col></Col>
+          </Row>
+
+          {/*************************** Row 13 ****************************/}
+          <Row>
+            <Col xs={4}>
+              <div className="job-detail-input-container">
+                <strong>Assessment Date:&nbsp;</strong>
+                <TextField
+                  size="large"
+                  margin="normal"
+                  variant="outlined"
+                  type="date"
+                  id="assessment_date"
+                  name="assessment_date"
+                  value={formik.values.assessment_date}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.assessment_date &&
+                    Boolean(formik.errors.assessment_date)
+                  }
+                  helperText={
+                    formik.touched.assessment_date &&
+                    formik.errors.assessment_date
+                  }
+                />
+              </div>
+            </Col>
+            <Col>
+              <div className="job-detail-input-container">
+                <strong>Examination Date:&nbsp;</strong>
+                <TextField
+                  size="large"
+                  margin="normal"
+                  variant="outlined"
+                  type="date"
+                  id="examination_date"
+                  name="examination_date"
+                  value={formik.values.examination_date}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.examination_date &&
+                    Boolean(formik.errors.examination_date)
+                  }
+                  helperText={
+                    formik.touched.examination_date &&
+                    formik.errors.examination_date
+                  }
+                />
+              </div>
+            </Col>
+            <Col>
+              <div className="job-detail-input-container">
+                <strong>Duty Paid Date:&nbsp;</strong>
+                <TextField
+                  size="large"
+                  margin="normal"
+                  variant="outlined"
+                  type="date"
+                  id="duty_paid_date"
+                  name="duty_paid_date"
+                  value={formik.values.duty_paid_date}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.duty_paid_date &&
+                    Boolean(formik.errors.duty_paid_date)
+                  }
+                  helperText={
+                    formik.touched.duty_paid_date &&
+                    formik.errors.duty_paid_date
+                  }
+                />
               </div>
             </Col>
           </Row>

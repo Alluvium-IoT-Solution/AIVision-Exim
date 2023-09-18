@@ -6,11 +6,6 @@ import ImporterWiseDetails from "../ImporterWiseDetails";
 import { Container, Row, Col } from "react-bootstrap";
 import AssignJobsModal from "../AssignJobsModal";
 import { UserContext } from "../../../Context/UserContext";
-import SpeedDial from "@mui/material/SpeedDial";
-import SpeedDialIcon from "@mui/material/SpeedDialIcon";
-import SpeedDialAction from "@mui/material/SpeedDialAction";
-import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
-import AssignmentIndRoundedIcon from "@mui/icons-material/AssignmentIndRounded";
 import { SelectedYearContext } from "../../../Context/SelectedYearContext";
 import { SelectedImporterContext } from "../../../Context/SelectedImporterContext";
 import { TextField } from "@mui/material";
@@ -21,9 +16,7 @@ const ExecutiveDashboard = () => {
   // Modal
   const [openRegisterModal, setoOpenRegisterModal] = useState(false);
   const [openAssignJobsModal, setOpenAssignJobsModal] = useState(false);
-  const handleOpenRegisterModal = () => setoOpenRegisterModal(true);
   const handleCloseRegisterModal = () => setoOpenRegisterModal(false);
-  const handleOpenAssignJobsModal = () => setOpenAssignJobsModal(true);
   const handleCloseAssignJobsModal = () => setOpenAssignJobsModal(false);
   const { selectedYear } = useContext(SelectedYearContext);
   const { assignedImporters } = useContext(AssignedImportersContext);
@@ -32,19 +25,6 @@ const ExecutiveDashboard = () => {
   );
 
   const { user } = useContext(UserContext);
-
-  const actions = [
-    {
-      icon: <PersonAddAltRoundedIcon />,
-      name: "Add User",
-      onClick: handleOpenRegisterModal,
-    },
-    {
-      icon: <AssignmentIndRoundedIcon />,
-      name: "Assign Jobs",
-      onClick: handleOpenAssignJobsModal,
-    },
-  ];
 
   const importerList =
     assignedImporters.length !== 0
@@ -57,7 +37,6 @@ const ExecutiveDashboard = () => {
         <div style={{ display: "flex", marginTop: "20px" }}>
           <h4 style={{ flex: 1 }}>Hello, {user.username}</h4>
           <Autocomplete
-            // disablePortal
             options={importerList}
             getOptionLabel={(option) => option}
             sx={{ width: "500px !important" }}
@@ -96,21 +75,6 @@ const ExecutiveDashboard = () => {
         openAssignJobsModal={openAssignJobsModal}
         handleCloseAssignJobsModal={handleCloseAssignJobsModal}
       />
-
-      <SpeedDial
-        ariaLabel="SpeedDial basic example"
-        sx={{ position: "absolute", bottom: 16, right: 16 }}
-        icon={<SpeedDialIcon />}
-      >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-            onClick={action.onClick}
-          />
-        ))}
-      </SpeedDial>
     </>
   );
 };
