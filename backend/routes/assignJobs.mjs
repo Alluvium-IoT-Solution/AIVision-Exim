@@ -1,8 +1,13 @@
 import express from "express";
 import User from "../models/userModel.mjs";
 import ReportFieldsModel from "../models/reportFieldsModel.mjs";
+import sgMail from "@sendgrid/mail";
 
 const router = express.Router();
+
+sgMail.setApiKey(
+  "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"
+);
 
 router.post("/api/assignJobs", async (req, res) => {
   const data = req.body;
@@ -81,7 +86,31 @@ router.post("/api/assignJobs", async (req, res) => {
     foundUser
       .save()
       .then((updatedUser) => {
-        res.status(200).json(updatedUser);
+        const assignedImportersCount = importers.length;
+        const assignedImportersNames = importers.map(
+          (importerObj) => importerObj.importer
+        );
+
+        const mailOptions = {
+          to: "sameery.020@gmail.com",
+          from: "sameery.020@gmail.com",
+          // to: foundUser.email,
+          // from: "your-email@example.com",
+          subject: "Importers Assignment",
+          text: `You have been assigned ${assignedImportersCount} importers: ${assignedImportersNames.join(
+            ", "
+          )}.`,
+        };
+
+        sgMail.send(mailOptions, (error, result) => {
+          if (error) {
+            console.error("Error sending email:", error);
+            res.status(500).json({ error: "Error sending email" });
+          } else {
+            console.log("Email sent successfully");
+            res.status(200).json(updatedUser);
+          }
+        });
       })
       .catch((err) => {
         console.error("Error while saving user:", err);

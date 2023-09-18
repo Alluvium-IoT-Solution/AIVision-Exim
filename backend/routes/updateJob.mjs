@@ -4,7 +4,7 @@ import JobModel from "../models/jobModel.mjs";
 const router = express.Router();
 
 router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
-  const { importer, jobNo, year } = req.params;
+  const { jobNo, year } = req.params;
 
   const {
     eta,

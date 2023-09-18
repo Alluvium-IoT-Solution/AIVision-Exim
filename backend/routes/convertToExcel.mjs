@@ -103,7 +103,6 @@ schedule.scheduleJob("00 22 * * */1", async () => {
         headerRow.height = 35;
 
         /////////////////////////////////////  Data Row  //////////////////////////////////////
-        console.log(matchingJobData);
         matchingJobData
           .filter((job) => job.status.toLowerCase() === "pending")
           .forEach((job) => {
@@ -123,9 +122,9 @@ schedule.scheduleJob("00 22 * * */1", async () => {
               .map((container) => container.size)
               .join(",\n");
 
-            const unit_price = (job.cif_amount / job.ex_rate).toFixed(2);
+            const inv_value = (item.cif_amount / item.ex_rate).toFixed(2);
 
-            const invoice_value_and_unit_price = `\u20B9 ${job.cif_amount} | ${job.inv_currency} ${unit_price}`;
+            const invoice_value_and_unit_price = `${item.inv_currency} ${inv_value} | ${item.unit_price}`;
 
             const valueMap = {
               "JOB NO": job.job_no,

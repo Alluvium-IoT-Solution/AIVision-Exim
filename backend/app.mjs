@@ -25,8 +25,10 @@ import getReport from "./routes/getReport.mjs";
 import convertToExcel from "./routes/convertToExcel.mjs";
 import updateStatus from "./routes/updateStatus.mjs";
 import sendOtp from "./routes/sendOtp.mjs";
+import sendChangePasswordOtp from "./routes/sendChangePasswordOtp.mjs";
 import feedback from "./routes/feedback.mjs";
 import removeJobs from "./routes/removeJobs.mjs";
+import changePassword from "./routes/changePassword.mjs";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 
@@ -98,9 +100,13 @@ mongoose
 
     app.use(sendOtp);
 
+    app.use(sendChangePasswordOtp);
+
     app.use(feedback);
 
     app.use(removeJobs);
+
+    app.use(changePassword);
 
     app.listen(9002, () => {
       console.log(`BE started at port 9002`);

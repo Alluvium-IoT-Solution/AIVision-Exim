@@ -1,12 +1,13 @@
 import express from "express";
 import User from "../models/userModel.mjs";
+import ReportFieldsModel from "../models/reportFieldsModel.mjs";
 
 const router = express.Router();
 
 router.post("/api/removeJobs", async (req, res) => {
   try {
     const data = req.body;
-    const { username, importers } = data; // Assuming importers is an array of importer objects.
+    const { username, importers } = data;
 
     const user = await User.findOne({ username });
 
@@ -30,6 +31,14 @@ router.post("/api/removeJobs", async (req, res) => {
       // Save the updated user document
       await user.save();
     }
+
+    // Delete documents from the reportFields collection
+    const deletedReportFields = await ReportFieldsModel.deleteMany({
+      senderEmail: user.email,
+      importerURL: {
+        $in: importers.map((importerObj) => importerObj.importerURL),
+      },
+    });
 
     // Successfully updated, you can send back the updated user or a success message.
     res.status(200).json({ message: "Importers removed successfully", user });

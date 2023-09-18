@@ -9,6 +9,7 @@ const reportFieldsSchema = new mongoose.Schema(
     importerURL: { type: String, trim: true },
     email: { type: String, trim: true },
     senderEmail: { type: String, trim: true },
+    time: { type: String, trim: true },
     field: [
       {
         type: String,

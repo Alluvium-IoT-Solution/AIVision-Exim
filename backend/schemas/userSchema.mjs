@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  changePasswordOtp: {
+    type: String,
+    trim: true,
+  },
   importers: [
     {
       importer: { type: String, trim: true },

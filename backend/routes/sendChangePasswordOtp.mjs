@@ -10,7 +10,7 @@ const removeOTP = async (userId) => {
   try {
     const user = await User.findById(userId);
     if (user) {
-      user.otp = null; // Remove OTP
+      user.changePasswordOtp = null; // Remove OTP
       await user.save();
     }
   } catch (error) {
@@ -18,7 +18,7 @@ const removeOTP = async (userId) => {
   }
 };
 
-router.post("/api/sendOtp", async (req, res) => {
+router.post("/api/sendChangePasswordOtp", async (req, res) => {
   try {
     const { email } = req.body;
     const user = await User.findOne({ email });
@@ -29,8 +29,7 @@ router.post("/api/sendOtp", async (req, res) => {
 
     // Generate OTP
     const otp = Math.floor(100000 + Math.random() * 900000);
-    console.log(otp);
-    user.otp = otp;
+    user.changePasswordOtp = otp;
     await user.save();
 
     // Schedule OTP removal after 5 minutes
@@ -41,8 +40,8 @@ router.post("/api/sendOtp", async (req, res) => {
     const msg = {
       to: email,
       from: "manu@surajforwarders.com",
-      subject: "OTP for login to EXIM",
-      text: `${otp} is the OTP to login to your EXIM account.`,
+      subject: "OTP to change password for EXIM",
+      text: `${otp} is the OTP to change password for your EXIM account.`,
     };
 
     try {
