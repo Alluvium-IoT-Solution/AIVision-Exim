@@ -213,6 +213,12 @@ schedule.scheduleJob("00 22 * * */1", async () => {
                 pattern: "solid",
                 fgColor: { argb: "FFCCFFFF" },
               };
+            } else if (job.detailed_status === "Discharged") {
+              dataRow.fill = {
+                type: "pattern",
+                pattern: "solid",
+                fgColor: { argb: "FFF4B183" },
+              };
             } else if (job.detailed_status === "BE Noted, Arrival Pending") {
               dataRow.fill = {
                 type: "pattern",

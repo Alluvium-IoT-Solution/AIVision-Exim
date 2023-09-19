@@ -28,6 +28,8 @@ const jobSchema = new mongoose.Schema({
   origin_country: { type: String, trim: true },
   port_of_reporting: { type: String, trim: true },
   shipping_line_airline: { type: String, trim: true },
+  free_time: { type: Number, trim: true },
+  remarks: { type: String, trim: true },
   container_nos: [
     {
       container_number: { type: String, trim: true },
