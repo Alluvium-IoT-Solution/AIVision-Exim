@@ -58,6 +58,7 @@ router.post("/api/assignJobs", async (req, res) => {
             "EXAMINATION DATE",
             "DUTY PAID DATE",
             "OUT OF CHARGE DATE",
+            "DETAILED STATUS",
           ],
           email: "manu@surajforwarders.com",
           senderEmail: foundUser.email,
