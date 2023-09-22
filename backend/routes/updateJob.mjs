@@ -29,9 +29,8 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     examination_date,
     duty_paid_date,
     out_of_charge_date,
+    arrival_date,
   } = req.body;
-
-  console.log(free_time);
 
   try {
     function addDaysToDate(dateString, days) {
@@ -76,6 +75,7 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     matchingJob.free_time = free_time;
 
     if (checked) {
+      console.log(container_nos);
       matchingJob.container_nos = container_nos.map((container) => {
         return {
           ...container,
@@ -87,10 +87,11 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
         };
       });
     } else {
+      console.log(container_nos);
       matchingJob.container_nos = container_nos.map((container) => {
-        const { arrival_date } = container;
         return {
           ...container,
+          arrival_date: container.arrival_date,
           detention_from:
             arrival_date === ""
               ? ""

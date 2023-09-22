@@ -29,6 +29,7 @@ import sendChangePasswordOtp from "./routes/sendChangePasswordOtp.mjs";
 import feedback from "./routes/feedback.mjs";
 import removeJobs from "./routes/removeJobs.mjs";
 import changePassword from "./routes/changePassword.mjs";
+import downloadReport from "./routes/downloadReport.mjs";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 
@@ -106,6 +107,8 @@ mongoose
     app.use(removeJobs);
 
     app.use(changePassword);
+
+    app.use(downloadReport);
 
     app.listen(9002, () => {
       console.log(`BE started at port 9002`);
