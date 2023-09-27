@@ -6,10 +6,10 @@ import ReportFieldsModel from "../models/reportFieldsModel.mjs";
 import JobModel from "../models/jobModel.mjs";
 
 const router = express.Router();
-// sgMail.setApiKey(process.env.SENDGRID_API);
+sgMail.setApiKey(process.env.SENDGRID_API);
 
-schedule.scheduleJob("*/10 * * * * *", async () => {
-  // schedule.scheduleJob("00 22 * * */1", async () => {
+// schedule.scheduleJob("*/10 * * * * *", async () => {
+schedule.scheduleJob("00 22 * * */1", async () => {
   try {
     // Get the current date
     const currentDate = new Date();
@@ -651,7 +651,7 @@ schedule.scheduleJob("*/10 * * * * *", async () => {
 
         if (matchingJobData.length > 0) {
           try {
-            // await sgMail.send(msg);
+            await sgMail.send(msg);
             console.log(`Email sent`);
           } catch (error) {
             console.error(
