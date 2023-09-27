@@ -6,10 +6,10 @@ import ReportFieldsModel from "../models/reportFieldsModel.mjs";
 import JobModel from "../models/jobModel.mjs";
 
 const router = express.Router();
-sgMail.setApiKey(process.env.SENDGRID_API);
+// sgMail.setApiKey(process.env.SENDGRID_API);
 
-// schedule.scheduleJob("*/10 * * * * *", async () => {
-schedule.scheduleJob("00 22 * * */1", async () => {
+schedule.scheduleJob("*/10 * * * * *", async () => {
+  // schedule.scheduleJob("00 22 * * */1", async () => {
   try {
     // Get the current date
     const currentDate = new Date();
@@ -103,7 +103,60 @@ schedule.scheduleJob("00 22 * * */1", async () => {
         headerRow.height = 35;
 
         /////////////////////////////////////  Data Row  //////////////////////////////////////
-        matchingJobData
+        function customSort(a, b) {
+          // Helper function to parse date strings into Date objects
+          function parseDate(dateString) {
+            const parts = dateString.split("-");
+            return new Date(parts[0], parts[1] - 1, parts[2]);
+          }
+
+          // Extract the arrival dates from each job item
+          const arrivalDatesA = a.container_nos.map(
+            (container) => container.arrival_date
+          );
+          const arrivalDatesB = b.container_nos.map(
+            (container) => container.arrival_date
+          );
+
+          // Filter out empty arrival dates
+          const validArrivalDatesA = arrivalDatesA.filter((date) => date);
+          const validArrivalDatesB = arrivalDatesB.filter((date) => date);
+
+          // If there are valid arrival dates in both job items, compare the earliest dates
+          if (validArrivalDatesA.length > 0 && validArrivalDatesB.length > 0) {
+            const earliestDateA = new Date(
+              Math.min(...validArrivalDatesA.map(parseDate))
+            );
+            const earliestDateB = new Date(
+              Math.min(...validArrivalDatesB.map(parseDate))
+            );
+
+            // Compare the dates as Date objects
+            if (earliestDateA < earliestDateB) {
+              return -1;
+            } else if (earliestDateA > earliestDateB) {
+              return 1;
+            } else {
+              return 0;
+            }
+          }
+
+          // If only one job item has valid arrival dates, it comes first
+          if (validArrivalDatesA.length > 0) {
+            return -1;
+          }
+          if (validArrivalDatesB.length > 0) {
+            return 1;
+          }
+
+          // If neither job item has valid arrival dates, leave them in their original order
+          return 0;
+        }
+
+        const sortesJobs = matchingJobData.sort(customSort);
+        console.log(sortesJobs);
+
+        sortesJobs
           .filter((job) => job.status.toLowerCase() === "pending")
           .forEach((job) => {
             const arrivalDates = job.container_nos
@@ -122,10 +175,10 @@ schedule.scheduleJob("00 22 * * */1", async () => {
               .map((container) => container.size)
               .join(",\n");
 
-            const inv_value = (
-              item.cif_amount / parseInt(item.ex_rate)
-            ).toFixed(2);
-            const invoice_value_and_unit_price = `${item.inv_currency} ${inv_value} | ${item.unit_price}`;
+            const inv_value = (job.cif_amount / parseInt(job.ex_rate)).toFixed(
+              2
+            );
+            const invoice_value_and_unit_price = `${job.inv_currency} ${inv_value} | ${job.unit_price}`;
 
             const valueMap = {
               "JOB NO": job.job_no,
@@ -598,7 +651,7 @@ schedule.scheduleJob("00 22 * * */1", async () => {
 
         if (matchingJobData.length > 0) {
           try {
-            await sgMail.send(msg);
+            // await sgMail.send(msg);
             console.log(`Email sent`);
           } catch (error) {
             console.error(
