@@ -105,7 +105,7 @@ const jobSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  ex_rate: { type: String, trim: true },
+  exrate: { type: String, trim: true },
   inv_currency: { type: String, trim: true },
 });
 

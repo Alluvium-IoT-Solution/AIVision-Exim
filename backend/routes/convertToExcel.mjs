@@ -175,7 +175,7 @@ schedule.scheduleJob("00 22 * * */1", async () => {
               .map((container) => container.size)
               .join(",\n");
 
-            const inv_value = (job.cif_amount / parseInt(job.ex_rate)).toFixed(
+            const inv_value = (job.cif_amount / parseInt(job.exrate)).toFixed(
               2
             );
             const invoice_value_and_unit_price = `${job.inv_currency} ${inv_value} | ${job.unit_price}`;
