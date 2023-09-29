@@ -4,12 +4,20 @@ import JobModel from "../models/jobModel.mjs";
 const router = express.Router();
 
 router.get(
-  "/api/:year/:importerURL/jobs/:status/:pageNo/:filterText",
+  "/api/:year/:importerURL/jobs/:status/:pageNo/:filterJobNumber/:detailedStatus",
   async (req, res) => {
     try {
-      const { year, importerURL, status, pageNo, filterText } = req.params;
+      const {
+        year,
+        importerURL,
+        status,
+        pageNo,
+        filterJobNumber,
+        detailedStatus,
+      } = req.params;
       const itemsPerPage = 25; // Number of items to show per page
       const skip = (pageNo - 1) * itemsPerPage;
+      console.log(detailedStatus);
 
       // Create a query object with year and importerURL criteria
       const query = {
@@ -29,74 +37,50 @@ router.get(
         query.status = formattedStatus; // Filter by specific status
       }
 
-      // Check if filterText is provided and not empty
-      if (filterText && filterText.trim() !== "all") {
-        // Add a condition to filter by job_no containing filterText
-        query.job_no = { $regex: filterText, $options: "i" }; // Case-insensitive matching
+      if (detailedStatus !== "all") {
+        if (detailedStatus === "estimated_time_of_arrival") {
+          query.detailedStatus = "Estimated Time of Arrival";
+        }
+        if (detailedStatus === "discharged") {
+          query.detailedStatus = "Discharged";
+        }
+        if (detailedStatus === "gateway_igm_filed") {
+          query.detailedStatus = "Gateway IGM Filed";
+        }
+        if (detailedStatus === "be_noted_arrival_pending") {
+          query.detailedStatus = "BE Noted, Arrival Pending";
+        }
+        if (detailedStatus === "be_noted_clearance_pending") {
+          query.detailedStatus = "BE Noted, Clearance Pending";
+        }
+        if (detailedStatus === "custom_clearance_completed") {
+          query.detailedStatus = "Custom Clearance Completed";
+        }
+      }
+
+      // Check if filterJobNumber is provided and not empty
+      if (filterJobNumber.trim() !== "all" && filterJobNumber.trim() !== "") {
+        // Add a condition to filter by job_no containing filterJobNumber
+        query.job_no = { $regex: filterJobNumber, $options: "i" }; // Case-insensitive matching
       }
 
       // Query the database based on the criteria in the query object
-      // const jobs = await JobModel.find(query).skip(skip).limit(itemsPerPage);
       let jobs = await JobModel.find(query);
 
-      // Sort the jobs by arrival date using the custom sorting function
-      jobs = jobs.sort(sortArrivalDate);
+      if (detailedStatus === "estimated_time_of_arrival") {
+        // Sort the sorted jobs by ETA using the custom sorting function
+        jobs = jobs.sort(sortETA);
+      }
+      if (detailedStatus === "discharged") {
+        // Sort the sorted jobs by discharge date using the custom sorting function
+        jobs = jobs.sort(sortDischargeDate);
+      }
 
-      // Sort the sorted jobs by ETA using the custom sorting function
-      jobs = jobs.sort(sortETA);
+      // Limit the results to 25 items after sorting
+      jobs = jobs.slice(skip, skip + itemsPerPage);
 
       // Calculate the total count of matching documents
       const total = await JobModel.countDocuments(query);
-
-      function sortArrivalDate(a, b) {
-        // Helper function to parse date strings into Date objects
-        function parseDate(dateString) {
-          const parts = dateString.split("-");
-          return new Date(parts[0], parts[1] - 1, parts[2]);
-        }
-
-        // Extract the arrival dates from each job item
-        const arrivalDatesA = a.container_nos.map(
-          (container) => container.arrival_date
-        );
-        const arrivalDatesB = b.container_nos.map(
-          (container) => container.arrival_date
-        );
-
-        // Filter out empty arrival dates
-        const validArrivalDatesA = arrivalDatesA.filter((date) => date);
-        const validArrivalDatesB = arrivalDatesB.filter((date) => date);
-
-        // If there are valid arrival dates in both job items, compare the earliest dates
-        if (validArrivalDatesA.length > 0 && validArrivalDatesB.length > 0) {
-          const earliestDateA = new Date(
-            Math.min(...validArrivalDatesA.map(parseDate))
-          );
-          const earliestDateB = new Date(
-            Math.min(...validArrivalDatesB.map(parseDate))
-          );
-
-          // Compare the dates as Date objects
-          if (earliestDateA < earliestDateB) {
-            return -1;
-          } else if (earliestDateA > earliestDateB) {
-            return 1;
-          } else {
-            return 0;
-          }
-        }
-
-        // If only one job item has valid arrival dates, it comes first
-        if (validArrivalDatesA.length > 0) {
-          return -1;
-        }
-        if (validArrivalDatesB.length > 0) {
-          return 1;
-        }
-
-        // If neither job item has valid arrival dates, leave them in their original order
-        return 0;
-      }
 
       function sortETA(a, b) {
         // Helper function to parse date strings into Date objects
@@ -105,38 +89,72 @@ router.get(
           return new Date(parts[0], parts[1] - 1, parts[2]);
         }
 
-        // Extract the arrival dates from each job item
-        const etaA = a.container_nos.map((container) => container.arrival_date);
-        const etaB = b.container_nos.map((container) => container.arrival_date);
+        // Extract the eta field from each job item
+        const etaA = a.eta;
+        const etaB = b.eta;
 
-        // Filter out empty arrival dates
-        const validEtaA = etaA.filter((date) => date);
-        const validEtaB = etaB.filter((date) => date);
-
-        // If there are valid arrival dates in both job items, compare the earliest dates
-        if (validEtaA.length > 0 && validEtaB.length > 0) {
-          const earliestDateA = new Date(Math.min(...validEtaA.map(parseDate)));
-          const earliestDateB = new Date(Math.min(...validEtaB.map(parseDate)));
+        // If both job items have valid eta values, compare them as Date objects
+        if (etaA && etaB) {
+          const dateA = parseDate(etaA);
+          const dateB = parseDate(etaB);
 
           // Compare the dates as Date objects
-          if (earliestDateA < earliestDateB) {
+          if (dateA < dateB) {
             return -1;
-          } else if (earliestDateA > earliestDateB) {
+          } else if (dateA > dateB) {
             return 1;
           } else {
             return 0;
           }
         }
 
-        // If only one job item has valid arrival dates, it comes first
-        if (validEtaA.length > 0) {
+        // If only one job item has a valid eta value, it comes first
+        if (etaA) {
           return -1;
         }
-        if (validEtaB.length > 0) {
+        if (etaB) {
           return 1;
         }
 
-        // If neither job item has valid arrival dates, leave them in their original order
+        // If neither job item has a valid eta value, leave them in their original order
+        return 0;
+      }
+
+      function sortDischargeDate(a, b) {
+        // Helper function to parse date strings into Date objects
+        function parseDate(dateString) {
+          const parts = dateString.split("-");
+          return new Date(parts[0], parts[1] - 1, parts[2]);
+        }
+
+        // Extract the eta field from each job item
+        const discharge_date_A = a.discharge_date;
+        const discharge_date_B = b.discharge_date;
+
+        // If both job items have valid eta values, compare them as Date objects
+        if (discharge_date_A && discharge_date_B) {
+          const dateA = parseDate(discharge_date_A);
+          const dateB = parseDate(discharge_date_B);
+
+          // Compare the dates as Date objects
+          if (dateA < dateB) {
+            return -1;
+          } else if (dateA > dateB) {
+            return 1;
+          } else {
+            return 0;
+          }
+        }
+
+        // If only one job item has a valid eta value, it comes first
+        if (discharge_date_A) {
+          return -1;
+        }
+        if (discharge_date_B) {
+          return 1;
+        }
+
+        // If neither job item has a valid eta value, leave them in their original order
         return 0;
       }
 

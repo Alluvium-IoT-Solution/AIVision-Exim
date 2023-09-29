@@ -21,30 +21,26 @@ router.post("/api/login", async (req, res) => {
       }
 
       if (passwordResult) {
-        // Password matched, now compare OTP
-        if (otp === user.otp) {
-          // OTP matched as well
-          const token = jwt.sign(
-            {
-              email: user.email,
-            },
-            "rNgvq7ZjPkxiwhuT"
-          );
-
-          user.otp = undefined;
-          user.save();
-
-          return res.json({
-            message: "Login Successful",
-            user: token,
-            username: user.username,
+        const token = jwt.sign(
+          {
             email: user.email,
-            role: user.role,
-            importers: user.importers,
-          });
-        } else {
-          return res.json({ message: "OTP didn't match" });
-        }
+          },
+          "rNgvq7ZjPkxiwhuT"
+        );
+
+        user.otp = undefined;
+        user.save();
+
+        return res.json({
+          message: "Login Successful",
+          user: token,
+          username: user.username,
+          email: user.email,
+          role: user.role,
+          importers: user.importers,
+        });
+
+        return res.json({ message: "OTP didn't match" });
       } else {
         return res.json({ message: "Password didn't match" });
       }
