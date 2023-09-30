@@ -5,9 +5,7 @@ import sgMail from "@sendgrid/mail";
 
 const router = express.Router();
 
-sgMail.setApiKey(
-  "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"
-);
+sgMail.setApiKey(process.env.SENDGRID_API);
 
 router.post("/api/assignJobs", async (req, res) => {
   const data = req.body;
@@ -93,10 +91,8 @@ router.post("/api/assignJobs", async (req, res) => {
         );
 
         const mailOptions = {
-          to: "sameery.020@gmail.com",
-          from: "sameery.020@gmail.com",
-          // to: foundUser.email,
-          // from: "your-email@example.com",
+          to: foundUser.email,
+          from: "manu@surajforwarders.com",
           subject: "Importers Assignment",
           text: `You have been assigned ${assignedImportersCount} importers: ${assignedImportersNames.join(
             ", "

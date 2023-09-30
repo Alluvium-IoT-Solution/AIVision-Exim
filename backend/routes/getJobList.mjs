@@ -17,7 +17,6 @@ router.get(
       } = req.params;
       const itemsPerPage = 25; // Number of items to show per page
       const skip = (pageNo - 1) * itemsPerPage;
-      console.log(detailedStatus);
 
       // Create a query object with year and importerURL criteria
       const query = {

@@ -538,34 +538,28 @@ schedule.scheduleJob("00 22 * * */1", async () => {
 
         worksheet.mergeCells(`A${summaryRow.number}:E${summaryRow.number}`); // Merge cells for the "Summary" row
 
-        const countArrivalDateSize20 = matchingJobData.filter(
-          (job) =>
-            job.status.toLowerCase() === "pending" &&
-            job.container_nos.some(
-              (container) => container.size === "20" && container.arrival_date
-            )
+        const countArrivalDateSize20 = matchingJobData.filter((job) =>
+          job.container_nos.some(
+            (container) => container.size === "20" && container.arrival_date
+          )
         ).length;
 
-        const countArrivalDateSize40 = matchingJobData.filter(
-          (job) =>
-            job.status.toLowerCase() === "pending" &&
-            job.container_nos.some(
-              (container) => container.size === 40 && container.arrival_date
-            )
+        const countArrivalDateSize40 = matchingJobData.filter((job) =>
+          job.container_nos.some(
+            (container) => container.size === "40" && container.arrival_date
+          )
         ).length;
 
-        const countNoArrivalDateSize20 = matchingJobData.filter(
-          (job) =>
-            job.status.toLowerCase() === "pending" &&
-            job.container_nos.some((container) => container.size === 20) &&
-            !job.arrival_date
+        const countNoArrivalDateSize20 = matchingJobData.filter((job) =>
+          job.container_nos.some(
+            (container) => container.size === "20" && !container.arrival_date
+          )
         ).length;
 
-        const countNoArrivalDateSize40 = matchingJobData.filter(
-          (job) =>
-            job.status.toLowerCase() === "pending" &&
-            job.container_nos.some((container) => container.size === 40) &&
-            !job.arrival_date
+        const countNoArrivalDateSize40 = matchingJobData.filter((job) =>
+          job.container_nos.some(
+            (container) => container.size === "40" && !container.arrival_date
+          )
         ).length;
 
         const totalCount =
@@ -585,6 +579,14 @@ schedule.scheduleJob("00 22 * * */1", async () => {
             totalCount,
           ],
         ];
+
+        console.log(
+          countArrivalDateSize20,
+          countArrivalDateSize40,
+          countNoArrivalDateSize20,
+          countNoArrivalDateSize40,
+          totalCount
+        );
 
         // Get the starting row number for the new table
         const startRow = summaryRow.number + 1; // Adjusted to remove the extra rows
