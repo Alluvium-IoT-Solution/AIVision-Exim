@@ -19,23 +19,33 @@ router.get(
       // Query the database based on the criteria in the query object
       const jobs = await JobModel.find(query);
 
-      // Sort the jobs in ascending order based on the eta field (if available)
+      // Sort jobs based on detailed_status priority or move empty detailed_status to the end
       jobs.sort((a, b) => {
-        // Handle cases where one or both documents don't have an eta field
-        if (!a.eta && !b.eta) {
-          return 0; // Both documents don't have an eta field, no preference
-        }
-        if (!a.eta) {
-          return 1; // Put b before a because a doesn't have an eta
-        }
-        if (!b.eta) {
-          return -1; // Put a before b because b doesn't have an eta
-        }
+        const statusPriority = {
+          "Custom Clearance Completed": 1,
+          "BE Noted, Clearance Pending": 2,
+          "BE Noted, Arrival Pending": 3,
+          Discharged: 4,
+          "Gateway IGM Filed": 5,
+          "Estimated Time of Arrival": 6,
+        };
 
-        // Both documents have an eta field, compare them as Date objects
-        const etaA = new Date(a.eta);
-        const etaB = new Date(b.eta);
-        return etaA - etaB;
+        const statusA = a.detailed_status;
+        const statusB = b.detailed_status;
+
+        if (statusA === "" && statusB === "") {
+          // If both have empty detailed_status, keep their relative order
+          return 0;
+        } else if (statusA === "") {
+          // Put empty detailed_status at the end
+          return 1;
+        } else if (statusB === "") {
+          // Put empty detailed_status at the end
+          return -1;
+        } else {
+          // Use the priority values for sorting non-empty detailed_status
+          return statusPriority[statusA] - statusPriority[statusB];
+        }
       });
 
       res.send(jobs);

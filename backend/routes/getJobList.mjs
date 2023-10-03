@@ -36,24 +36,25 @@ router.get(
         query.status = formattedStatus; // Filter by specific status
       }
 
+      // Match the detailed status stored in db
       if (detailedStatus !== "all") {
         if (detailedStatus === "estimated_time_of_arrival") {
-          query.detailedStatus = "Estimated Time of Arrival";
+          query.detailed_status = "Estimated Time of Arrival";
         }
         if (detailedStatus === "discharged") {
-          query.detailedStatus = "Discharged";
+          query.detailed_status = "Discharged";
         }
         if (detailedStatus === "gateway_igm_filed") {
-          query.detailedStatus = "Gateway IGM Filed";
+          query.detailed_status = "Gateway IGM Filed";
         }
         if (detailedStatus === "be_noted_arrival_pending") {
-          query.detailedStatus = "BE Noted, Arrival Pending";
+          query.detailed_status = "BE Noted, Arrival Pending";
         }
         if (detailedStatus === "be_noted_clearance_pending") {
-          query.detailedStatus = "BE Noted, Clearance Pending";
+          query.detailed_status = "BE Noted, Clearance Pending";
         }
         if (detailedStatus === "custom_clearance_completed") {
-          query.detailedStatus = "Custom Clearance Completed";
+          query.detailed_status = "Custom Clearance Completed";
         }
       }
 
@@ -63,9 +64,46 @@ router.get(
         query.job_no = { $regex: filterJobNumber, $options: "i" }; // Case-insensitive matching
       }
 
-      // Query the database based on the criteria in the query object
-      let jobs = await JobModel.find(query);
+      // Query the database and select relevant field as per detailed status
+      let jobs;
 
+      if (detailedStatus === "estimated_time_of_arrival") {
+        console.log(query);
+        jobs = await JobModel.find(query).select(
+          "job_no custom_house awb_bl_no container_nos eta remarks detailed_status"
+        );
+      } else if (detailedStatus === "discharged") {
+        // For other detailedStatus values, select all fields
+        jobs = await JobModel.find(query).select(
+          "job_no custom_house awb_bl_no container_nos discharge_date remarks detailed_status"
+        );
+      } else if (detailedStatus === "gateway_igm_filed") {
+        // For other detailedStatus values, select all fields
+        jobs = await JobModel.find(query).select(
+          "job_no custom_house awb_bl_no container_nos eta remarks detailed_status"
+        );
+      } else if (detailedStatus === "be_noted_arrival_pending") {
+        // For other detailedStatus values, select all fields
+        jobs = await JobModel.find(query).select(
+          "job_no custom_house be_no be_date container_nos eta remarks detailed_status"
+        );
+      } else if (detailedStatus === "be_noted_clearance_pending") {
+        // For other detailedStatus values, select all fields
+        jobs = await JobModel.find(query).select(
+          "job_no custom_house be_no be_date container_nos remarks detailed_status"
+        );
+      } else if (detailedStatus === "custom_clearance_completed") {
+        // For other detailedStatus values, select all fields
+        jobs = await JobModel.find(query).select(
+          "job_no custom_house be_no be_date container_nos out_of_charge_date remarks detailed_status"
+        );
+      } else {
+        jobs = await JobModel.find(query).select(
+          "job_no custom_house awb_bl_no container_nos eta remarks detailed_status"
+        );
+      }
+
+      // Sort the jobs as per detailed status
       if (detailedStatus === "estimated_time_of_arrival") {
         // Sort the sorted jobs by ETA using the custom sorting function
         jobs = jobs.sort(sortETA);

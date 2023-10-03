@@ -5,7 +5,6 @@ const router = express.Router();
 
 router.get("/api/getReportFields/:importerURL", async (req, res) => {
   const importerURL = req.params.importerURL;
-  console.log(importerURL);
 
   try {
     const reportFields = await ReportFieldsModel.findOne({ importerURL });

@@ -103,107 +103,36 @@ schedule.scheduleJob("00 22 * * */1", async () => {
         headerRow.height = 35;
 
         /////////////////////////////////////  Data Row  //////////////////////////////////////
-        function sortArrivalDates(a, b) {
-          // Helper function to parse date strings into Date objects
-          function parseDate(dateString) {
-            const parts = dateString.split("-");
-            return new Date(parts[0], parts[1] - 1, parts[2]);
-          }
+        // Sort jobs based on detailed_status priority or move empty detailed_status to the end
+        matchingJobData.sort((a, b) => {
+          const statusPriority = {
+            "Custom Clearance Completed": 1,
+            "BE Noted, Clearance Pending": 2,
+            "BE Noted, Arrival Pending": 3,
+            Discharged: 4,
+            "Gateway IGM Filed": 5,
+            "Estimated Time of Arrival": 6,
+          };
 
-          // Extract the arrival dates from each job item
-          const arrivalDatesA = a.container_nos.map(
-            (container) => container.arrival_date
-          );
-          const arrivalDatesB = b.container_nos.map(
-            (container) => container.arrival_date
-          );
+          const statusA = a.detailed_status;
+          const statusB = b.detailed_status;
 
-          // Filter out empty arrival dates
-          const validArrivalDatesA = arrivalDatesA.filter((date) => date);
-          const validArrivalDatesB = arrivalDatesB.filter((date) => date);
-
-          // If there are valid arrival dates in both job items, compare the earliest dates
-          if (validArrivalDatesA.length > 0 && validArrivalDatesB.length > 0) {
-            const earliestDateA = new Date(
-              Math.min(...validArrivalDatesA.map(parseDate))
-            );
-            const earliestDateB = new Date(
-              Math.min(...validArrivalDatesB.map(parseDate))
-            );
-
-            // Compare the dates as Date objects
-            if (earliestDateA < earliestDateB) {
-              return -1;
-            } else if (earliestDateA > earliestDateB) {
-              return 1;
-            } else {
-              return 0;
-            }
-          }
-
-          // If only one job item has valid arrival dates, it comes first
-          if (validArrivalDatesA.length > 0) {
-            return -1;
-          }
-          if (validArrivalDatesB.length > 0) {
+          if (statusA === "" && statusB === "") {
+            // If both have empty detailed_status, keep their relative order
+            return 0;
+          } else if (statusA === "") {
+            // Put empty detailed_status at the end
             return 1;
-          }
-
-          // If neither job item has valid arrival dates, leave them in their original order
-          return 0;
-        }
-
-        const sortedArrivalDates = matchingJobData.sort(sortArrivalDates);
-
-        function sortEta(a, b) {
-          // Helper function to parse date strings into Date objects
-          function parseDate(dateString) {
-            const parts = dateString.split("-");
-            return new Date(parts[0], parts[1] - 1, parts[2]);
-          }
-
-          // Extract the arrival dates from each job item
-          const etaA = a.container_nos.map((container) => container.eta);
-          const etaB = b.container_nos.map((container) => container.eta);
-
-          // Filter out empty arrival dates
-          const validEtaA = etaA.filter((date) => date);
-          const validEtaB = etaB.filter((date) => date);
-
-          // If there are valid arrival dates in both job items, compare the earliest dates
-          if (validEtaB.length > 0 && validEtaB.length > 0) {
-            const earliestDateA = new Date(
-              Math.min(...validEtaA.map(parseDate))
-            );
-            const earliestDateB = new Date(
-              Math.min(...validEtaB.map(parseDate))
-            );
-
-            // Compare the dates as Date objects
-            if (earliestDateA < earliestDateB) {
-              return -1;
-            } else if (earliestDateA > earliestDateB) {
-              return 1;
-            } else {
-              return 0;
-            }
-          }
-
-          // If only one job item has valid arrival dates, it comes first
-          if (validEtaA.length > 0) {
+          } else if (statusB === "") {
+            // Put empty detailed_status at the end
             return -1;
+          } else {
+            // Use the priority values for sorting non-empty detailed_status
+            return statusPriority[statusA] - statusPriority[statusB];
           }
-          if (validEtaB.length > 0) {
-            return 1;
-          }
+        });
 
-          // If neither job item has valid arrival dates, leave them in their original order
-          return 0;
-        }
-
-        const sortedJobs = sortedArrivalDates.sort(sortEta);
-
-        sortedJobs
+        matchingJobData
           .filter((job) => job.status.toLowerCase() === "pending")
           .forEach((job) => {
             const arrivalDates = job.container_nos
@@ -579,14 +508,6 @@ schedule.scheduleJob("00 22 * * */1", async () => {
             totalCount,
           ],
         ];
-
-        console.log(
-          countArrivalDateSize20,
-          countArrivalDateSize40,
-          countNoArrivalDateSize20,
-          countNoArrivalDateSize40,
-          totalCount
-        );
 
         // Get the starting row number for the new table
         const startRow = summaryRow.number + 1; // Adjusted to remove the extra rows

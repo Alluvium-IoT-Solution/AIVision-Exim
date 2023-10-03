@@ -23,6 +23,8 @@ router.post("/api/jobs/addJob", async (req, res) => {
           ? "Pending"
           : "Completed";
 
+      const vessel_berthing_date = dataToUpdate.vessel_berthing_date;
+
       return {
         updateOne: {
           filter: identifier,
@@ -30,6 +32,7 @@ router.post("/api/jobs/addJob", async (req, res) => {
             $set: {
               ...dataToUpdate,
               status: status,
+              eta: vessel_berthing_date,
             },
           },
           upsert: true, // Create if it doesn't exist

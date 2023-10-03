@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import compression from "compression";
 import getJobsList from "./routes/getJobList.mjs";
 import getJob from "./routes/getJobRoute.mjs";
 import updateJob from "./routes/updateJob.mjs";
@@ -32,6 +33,7 @@ import changePassword from "./routes/changePassword.mjs";
 import downloadReport from "./routes/downloadReport.mjs";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import JobModel from "./models/jobModel.mjs";
 
 dotenv.config();
 const app = express();
@@ -40,6 +42,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(compression());
 
 mongoose.set("strictQuery", true);
 
@@ -54,6 +57,12 @@ mongoose
     }
   )
   .then(() => {
+    app.get("/", async (req, res) => {
+      const jobs = await JobModel.find({}).select(
+        "job_no custom_house awb_bl_no container_nos eta remarks detailed_status"
+      );
+      res.send(jobs);
+    });
     app.use(getJobsList);
 
     app.use(getJob);

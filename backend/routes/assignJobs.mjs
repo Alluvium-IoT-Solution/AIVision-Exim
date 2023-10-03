@@ -9,6 +9,7 @@ sgMail.setApiKey(process.env.SENDGRID_API);
 
 router.post("/api/assignJobs", async (req, res) => {
   const data = req.body;
+  console.log(data);
   const { username, importers } = data;
 
   try {
