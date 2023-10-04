@@ -38,6 +38,7 @@ const jobSchema = new mongoose.Schema({
       detention_from: { type: String, trim: true },
       size: { type: String, trim: true },
       container_images: [{ url: { type: String, trim: true } }],
+      weighment_slip_images: [{ url: { type: String, trim: true } }],
     },
   ],
   container_count: { type: String, trim: true },
@@ -112,7 +113,6 @@ const jobSchema = new mongoose.Schema({
   tare_weight: { type: String, trim: true },
   actual_weight: { type: String, trim: true },
   weight_shortage: { type: String, trim: true },
-  weightment_slip_image: { type: String, trim: true },
 });
 
 jobSchema.index({ importerURL: 1, year: 1, status: 1 });
