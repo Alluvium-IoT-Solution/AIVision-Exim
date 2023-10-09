@@ -33,7 +33,6 @@ import changePassword from "./routes/changePassword.mjs";
 import downloadReport from "./routes/downloadReport.mjs";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
-import JobModel from "./models/jobModel.mjs";
 
 dotenv.config();
 const app = express();
@@ -54,15 +53,11 @@ mongoose
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      minPoolSize: 10,
+      maxPoolSize: 1000,
     }
   )
   .then(() => {
-    app.get("/", async (req, res) => {
-      const jobs = await JobModel.find({}).select(
-        "job_no custom_house awb_bl_no container_nos eta remarks detailed_status"
-      );
-      res.send(jobs);
-    });
     app.use(getJobsList);
 
     app.use(getJob);

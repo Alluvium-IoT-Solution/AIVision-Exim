@@ -2,6 +2,8 @@ import express from "express";
 import User from "../models/userModel.mjs";
 import ReportFieldsModel from "../models/reportFieldsModel.mjs";
 import sgMail from "@sendgrid/mail";
+import dotenv from "dotenv";
+dotenv.config();
 
 const router = express.Router();
 

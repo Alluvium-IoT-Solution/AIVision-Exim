@@ -4,8 +4,11 @@ import ExcelJS from "exceljs";
 import sgMail from "@sendgrid/mail";
 import ReportFieldsModel from "../models/reportFieldsModel.mjs";
 import JobModel from "../models/jobModel.mjs";
+import dotenv from "dotenv";
+dotenv.config();
 
 const router = express.Router();
+
 sgMail.setApiKey(process.env.SENDGRID_API);
 
 // schedule.scheduleJob("*/10 * * * * *", async () => {
