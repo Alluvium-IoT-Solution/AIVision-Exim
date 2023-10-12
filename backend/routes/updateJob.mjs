@@ -32,6 +32,7 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     arrival_date,
     physical_weight,
     tare_weight,
+    transporter,
   } = req.body;
 
   try {
@@ -78,6 +79,7 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     matchingJob.free_time = free_time;
     matchingJob.physical_weight = physical_weight;
     matchingJob.tare_weight = tare_weight;
+    matchingJob.transporter = transporter;
     matchingJob.actual_weight =
       parseInt(physical_weight) - parseInt(tare_weight);
 

@@ -113,6 +113,10 @@ const jobSchema = new mongoose.Schema({
   tare_weight: { type: String, trim: true },
   actual_weight: { type: String, trim: true },
   weight_shortage: { type: String, trim: true },
+  transporter: {
+    type: String,
+    trim: true,
+  },
 });
 
 jobSchema.index({ importerURL: 1, year: 1, status: 1 });

@@ -70,36 +70,36 @@ router.get(
       if (detailedStatus === "estimated_time_of_arrival") {
         console.log(query);
         jobs = await JobModel.find(query).select(
-          "job_no custom_house awb_bl_no container_nos eta remarks detailed_status"
+          "job_no custom_house awb_bl_no container_nos eta remarks detailed_status be_no be_date transporter"
         );
       } else if (detailedStatus === "discharged") {
         // For other detailedStatus values, select all fields
         jobs = await JobModel.find(query).select(
-          "job_no custom_house awb_bl_no container_nos discharge_date remarks detailed_status"
+          "job_no custom_house awb_bl_no container_nos discharge_date remarks detailed_status be_no be_date transporter"
         );
       } else if (detailedStatus === "gateway_igm_filed") {
         // For other detailedStatus values, select all fields
         jobs = await JobModel.find(query).select(
-          "job_no custom_house awb_bl_no container_nos eta remarks detailed_status"
+          "job_no custom_house awb_bl_no container_nos eta remarks detailed_status be_no be_date transporter"
         );
       } else if (detailedStatus === "be_noted_arrival_pending") {
         // For other detailedStatus values, select all fields
         jobs = await JobModel.find(query).select(
-          "job_no custom_house be_no be_date container_nos eta remarks detailed_status"
+          "job_no custom_house be_no be_date transporter container_nos eta remarks detailed_status be_no be_date transporter"
         );
       } else if (detailedStatus === "be_noted_clearance_pending") {
         // For other detailedStatus values, select all fields
         jobs = await JobModel.find(query).select(
-          "job_no custom_house be_no be_date container_nos remarks detailed_status"
+          "job_no custom_house be_no be_date transporter container_nos remarks detailed_status be_no be_date transporter"
         );
       } else if (detailedStatus === "custom_clearance_completed") {
         // For other detailedStatus values, select all fields
         jobs = await JobModel.find(query).select(
-          "job_no custom_house be_no be_date container_nos out_of_charge_date remarks detailed_status"
+          "job_no custom_house be_no be_date transporter container_nos out_of_charge_date remarks detailed_status be_no be_date transporter"
         );
       } else {
         jobs = await JobModel.find(query).select(
-          "job_no custom_house awb_bl_no container_nos eta remarks detailed_status"
+          "job_no custom_house awb_bl_no container_nos eta remarks detailed_status be_no be_date transporter"
         );
       }
 
