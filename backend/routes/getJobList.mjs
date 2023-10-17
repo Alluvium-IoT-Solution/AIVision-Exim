@@ -4,7 +4,7 @@ import JobModel from "../models/jobModel.mjs";
 const router = express.Router();
 
 router.get(
-  "/api/:year/:importerURL/jobs/:status/:pageNo/:filterJobNumber/:detailedStatus",
+  "/api/:year/:importerURL/jobs/:status/:pageNo/:detailedStatus",
   async (req, res) => {
     try {
       const {
@@ -12,11 +12,12 @@ router.get(
         importerURL,
         status,
         pageNo,
-        filterJobNumber,
+        // filterJobNumber,
         detailedStatus,
       } = req.params;
-      const itemsPerPage = 25; // Number of items to show per page
-      const skip = (pageNo - 1) * itemsPerPage;
+
+      // const itemsPerPage = 25; // Number of items to show per page
+      // const skip = (pageNo - 1) * itemsPerPage;
 
       // Create a query object with year and importerURL criteria
       const query = {
@@ -59,10 +60,10 @@ router.get(
       }
 
       // Check if filterJobNumber is provided and not empty
-      if (filterJobNumber.trim() !== "all" && filterJobNumber.trim() !== "") {
-        // Add a condition to filter by job_no containing filterJobNumber
-        query.job_no = { $regex: filterJobNumber, $options: "i" }; // Case-insensitive matching
-      }
+      // if (filterJobNumber.trim() !== "all" && filterJobNumber.trim() !== "") {
+      //   // Add a condition to filter by job_no containing filterJobNumber
+      //   query.job_no = { $regex: filterJobNumber, $options: "i" }; // Case-insensitive matching
+      // }
 
       // Query the database and select relevant field as per detailed status
       let jobs;
@@ -70,7 +71,7 @@ router.get(
       if (detailedStatus === "estimated_time_of_arrival") {
         console.log(query);
         jobs = await JobModel.find(query).select(
-          "job_no custom_house awb_bl_no container_nos eta remarks detailed_status be_no be_date transporter"
+          "job_no custom_house awb_bl_no container_nos vessel_berthing_date remarks detailed_status be_no be_date transporter"
         );
       } else if (detailedStatus === "discharged") {
         // For other detailedStatus values, select all fields
@@ -80,12 +81,12 @@ router.get(
       } else if (detailedStatus === "gateway_igm_filed") {
         // For other detailedStatus values, select all fields
         jobs = await JobModel.find(query).select(
-          "job_no custom_house awb_bl_no container_nos eta remarks detailed_status be_no be_date transporter"
+          "job_no custom_house awb_bl_no container_nos vessel_berthing_date remarks detailed_status be_no be_date transporter"
         );
       } else if (detailedStatus === "be_noted_arrival_pending") {
         // For other detailedStatus values, select all fields
         jobs = await JobModel.find(query).select(
-          "job_no custom_house be_no be_date transporter container_nos eta remarks detailed_status be_no be_date transporter"
+          "job_no custom_house be_no be_date transporter container_nos vessel_berthing_date remarks detailed_status be_no be_date transporter"
         );
       } else if (detailedStatus === "be_noted_clearance_pending") {
         // For other detailedStatus values, select all fields
@@ -99,13 +100,13 @@ router.get(
         );
       } else {
         jobs = await JobModel.find(query).select(
-          "job_no custom_house awb_bl_no container_nos eta remarks detailed_status be_no be_date transporter"
+          "job_no custom_house awb_bl_no container_nos vessel_berthing_date remarks detailed_status be_no be_date transporter"
         );
       }
 
       // Sort the jobs as per detailed status
       if (detailedStatus === "estimated_time_of_arrival") {
-        // Sort the sorted jobs by ETA using the custom sorting function
+        // Sort the sorted jobs by vessel_berthing_date using the custom sorting function
         jobs = jobs.sort(sortETA);
       }
       if (detailedStatus === "discharged") {
@@ -114,7 +115,7 @@ router.get(
       }
 
       // Limit the results to 25 items after sorting
-      jobs = jobs.slice(skip, skip + itemsPerPage);
+      // jobs = jobs.slice(skip, skip + itemsPerPage);
 
       // Calculate the total count of matching documents
       const total = await JobModel.countDocuments(query);
@@ -126,11 +127,11 @@ router.get(
           return new Date(parts[0], parts[1] - 1, parts[2]);
         }
 
-        // Extract the eta field from each job item
-        const etaA = a.eta;
-        const etaB = b.eta;
+        // Extract the vessel_berthing_date field from each job item
+        const etaA = a.vessel_berthing_date;
+        const etaB = b.vessel_berthing_date;
 
-        // If both job items have valid eta values, compare them as Date objects
+        // If both job items have valid vessel_berthing_date values, compare them as Date objects
         if (etaA && etaB) {
           const dateA = parseDate(etaA);
           const dateB = parseDate(etaB);
@@ -145,7 +146,7 @@ router.get(
           }
         }
 
-        // If only one job item has a valid eta value, it comes first
+        // If only one job item has a valid vessel_berthing_date value, it comes first
         if (etaA) {
           return -1;
         }
@@ -153,7 +154,7 @@ router.get(
           return 1;
         }
 
-        // If neither job item has a valid eta value, leave them in their original order
+        // If neither job item has a valid vessel_berthing_date value, leave them in their original order
         return 0;
       }
 
@@ -164,11 +165,11 @@ router.get(
           return new Date(parts[0], parts[1] - 1, parts[2]);
         }
 
-        // Extract the eta field from each job item
+        // Extract the vessel_berthing_date field from each job item
         const discharge_date_A = a.discharge_date;
         const discharge_date_B = b.discharge_date;
 
-        // If both job items have valid eta values, compare them as Date objects
+        // If both job items have valid vessel_berthing_date values, compare them as Date objects
         if (discharge_date_A && discharge_date_B) {
           const dateA = parseDate(discharge_date_A);
           const dateB = parseDate(discharge_date_B);
@@ -183,7 +184,7 @@ router.get(
           }
         }
 
-        // If only one job item has a valid eta value, it comes first
+        // If only one job item has a valid vessel_berthing_date value, it comes first
         if (discharge_date_A) {
           return -1;
         }
@@ -191,7 +192,7 @@ router.get(
           return 1;
         }
 
-        // If neither job item has a valid eta value, leave them in their original order
+        // If neither job item has a valid vessel_berthing_date value, leave them in their original order
         return 0;
       }
 

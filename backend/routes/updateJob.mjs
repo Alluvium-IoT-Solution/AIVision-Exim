@@ -7,7 +7,7 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
   const { jobNo, year } = req.params;
 
   const {
-    eta,
+    vessel_berthing_date,
     checked,
     status,
     detailed_status,
@@ -55,7 +55,7 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     }
 
     // Update the matching job with the provided data
-    matchingJob.eta = eta;
+    matchingJob.vessel_berthing_date = vessel_berthing_date;
     matchingJob.status = status;
     matchingJob.detailed_status = detailed_status;
     matchingJob.description = description;

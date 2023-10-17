@@ -83,10 +83,6 @@ const jobSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  eta: {
-    type: String,
-    trim: true,
-  },
   discharge_date: {
     type: String,
     trim: true,
@@ -114,6 +110,10 @@ const jobSchema = new mongoose.Schema({
   actual_weight: { type: String, trim: true },
   weight_shortage: { type: String, trim: true },
   transporter: {
+    type: String,
+    trim: true,
+  },
+  vessel_berthing_date: {
     type: String,
     trim: true,
   },

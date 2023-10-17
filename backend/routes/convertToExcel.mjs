@@ -205,7 +205,7 @@ schedule.scheduleJob("00 22 * * */1", async () => {
               "DETAILED STATUS": job.detailed_status,
               CHECKLIST: job.checklist,
               "DO VALIDITY": job.do_validity,
-              ETA: job.eta,
+              ETA: job.vessel_berthing_date,
               "FREE TIME": job.free_time,
               "INVOICE VALUE AND UNIT PRICE": invoice_value_and_unit_price,
               REMARKS: job.remarks,
