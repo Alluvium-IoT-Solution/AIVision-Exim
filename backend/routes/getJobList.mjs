@@ -4,20 +4,10 @@ import JobModel from "../models/jobModel.mjs";
 const router = express.Router();
 
 router.get(
-  "/api/:year/:importerURL/jobs/:status/:pageNo/:detailedStatus",
+  "/api/:year/:importerURL/jobs/:status/:detailedStatus",
   async (req, res) => {
     try {
-      const {
-        year,
-        importerURL,
-        status,
-        pageNo,
-        // filterJobNumber,
-        detailedStatus,
-      } = req.params;
-
-      // const itemsPerPage = 25; // Number of items to show per page
-      // const skip = (pageNo - 1) * itemsPerPage;
+      const { year, importerURL, status, detailedStatus } = req.params;
 
       // Create a query object with year and importerURL criteria
       const query = {
@@ -113,9 +103,6 @@ router.get(
         // Sort the sorted jobs by discharge date using the custom sorting function
         jobs = jobs.sort(sortDischargeDate);
       }
-
-      // Limit the results to 25 items after sorting
-      // jobs = jobs.slice(skip, skip + itemsPerPage);
 
       // Calculate the total count of matching documents
       const total = await JobModel.countDocuments(query);

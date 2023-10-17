@@ -31,6 +31,7 @@ import feedback from "./routes/feedback.mjs";
 import removeJobs from "./routes/removeJobs.mjs";
 import changePassword from "./routes/changePassword.mjs";
 import downloadReport from "./routes/downloadReport.mjs";
+import dsr from "./routes/dsr.mjs";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import * as v8 from "v8";
@@ -65,8 +66,8 @@ mongoose.set("strictQuery", true);
 
 mongoose
   .connect(
-    "mongodb+srv://exim:qTT7e4YeE3YSSMiV@aivision.pxmpvlz.mongodb.net/exim?retryWrites=true&w=majority",
-    // "mongodb://localhost:27017/exim",
+    // "mongodb+srv://exim:qTT7e4YeE3YSSMiV@aivision.pxmpvlz.mongodb.net/exim?retryWrites=true&w=majority",
+    "mongodb://localhost:27017/exim",
 
     {
       useNewUrlParser: true,
@@ -76,6 +77,9 @@ mongoose
     }
   )
   .then(() => {
+    app.get("/", (req, res) => {
+      res.send("Hello World!");
+    });
     app.use(getJobsList);
 
     app.use(getJob);
@@ -131,6 +135,8 @@ mongoose
     app.use(changePassword);
 
     app.use(downloadReport);
+
+    app.use(dsr);
 
     app.listen(9002, () => {
       console.log(`BE started at port 9002`);
