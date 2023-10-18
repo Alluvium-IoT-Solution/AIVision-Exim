@@ -117,6 +117,7 @@ const jobSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  checklist: { type: String, trim: true },
 });
 
 jobSchema.index({ importerURL: 1, year: 1, status: 1 });

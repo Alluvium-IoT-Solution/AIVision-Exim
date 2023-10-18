@@ -55,7 +55,10 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     }
 
     // Update the matching job with the provided data
-    matchingJob.vessel_berthing_date = vessel_berthing_date;
+    matchingJob.vessel_berthing_date = vessel_berthing_date
+      .split("-")
+      .reverse()
+      .join("-");
     matchingJob.status = status;
     matchingJob.detailed_status = detailed_status;
     matchingJob.description = description;

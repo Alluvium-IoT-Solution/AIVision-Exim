@@ -5,8 +5,8 @@ import express from "express";
 const router = express.Router();
 
 // Schedule to run at every 10 seconds
-schedule.scheduleJob("*/10 * * * * *", async () => {
-  // schedule.scheduleJob("0 21 * * *", async () => {
+// schedule.scheduleJob("*/10 * * * * *", async () => {
+schedule.scheduleJob("0 21 * * *", async () => {
   try {
     // Get the current date
     const currentDate = new Date();
@@ -17,6 +17,7 @@ schedule.scheduleJob("*/10 * * * * *", async () => {
     const yearLastTwoDigits = currentDate.getFullYear() % 100;
     const year = yearLastTwoDigits;
     const nextYear = yearLastTwoDigits + 1;
+    
     const documents = await JobModel.find({
       year: `${year}-${nextYear}`,
     });

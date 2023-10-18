@@ -25,7 +25,6 @@ import getReportFields from "./routes/getReportFields.mjs";
 import getReport from "./routes/getReport.mjs";
 import convertToExcel from "./routes/convertToExcel.mjs";
 import updateStatus from "./routes/updateStatus.mjs";
-// import sendOtp from "./routes/sendOtp.mjs";
 import sendChangePasswordOtp from "./routes/sendChangePasswordOtp.mjs";
 import feedback from "./routes/feedback.mjs";
 import removeJobs from "./routes/removeJobs.mjs";
@@ -77,9 +76,12 @@ mongoose
     }
   )
   .then(() => {
+    var arr = [];
+
     app.get("/", (req, res) => {
       res.send("Hello World!");
     });
+
     app.use(getJobsList);
 
     app.use(getJob);
@@ -102,6 +104,8 @@ mongoose
 
     app.use(getUsersWithJobs);
 
+    ///////////////////////////////////////////////////////////////////////////////
+
     app.use(assignJobs);
 
     app.use(getAssignedimporter);
@@ -123,8 +127,6 @@ mongoose
     app.use(convertToExcel);
 
     app.use(updateStatus);
-
-    // app.use(sendOtp);
 
     app.use(sendChangePasswordOtp);
 
