@@ -104,8 +104,6 @@ mongoose
 
     app.use(getUsersWithJobs);
 
-    ///////////////////////////////////////////////////////////////////////////////
-
     app.use(assignJobs);
 
     app.use(getAssignedimporter);

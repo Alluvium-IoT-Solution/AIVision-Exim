@@ -34,6 +34,7 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     tare_weight,
     transporter,
   } = req.body;
+  console.log(vessel_berthing_date);
 
   try {
     function addDaysToDate(dateString, days) {
@@ -59,6 +60,14 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
       .split("-")
       .reverse()
       .join("-");
+    matchingJob.vessel_berthing_date = new Date(vessel_berthing_date)
+      .toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "2-digit",
+      })
+      .replace(/ /g, "-");
+
     matchingJob.status = status;
     matchingJob.detailed_status = detailed_status;
     matchingJob.description = description;
