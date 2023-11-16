@@ -31,6 +31,7 @@ import removeJobs from "./routes/removeJobs.mjs";
 import changePassword from "./routes/changePassword.mjs";
 import downloadReport from "./routes/downloadReport.mjs";
 import dsr from "./routes/dsr.mjs";
+import addQueries from "./routes/addQueries.mjs";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import * as v8 from "v8";
@@ -137,6 +138,8 @@ mongoose
     app.use(downloadReport);
 
     app.use(dsr);
+
+    app.use(addQueries);
 
     app.listen(9002, () => {
       console.log(`BE started at port 9002`);
