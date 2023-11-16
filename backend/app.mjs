@@ -34,24 +34,6 @@ import dsr from "./routes/dsr.mjs";
 import addQueries from "./routes/addQueries.mjs";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
-import * as v8 from "v8";
-
-const heapStats = v8.getHeapStatistics();
-
-console.log(`Total Heap Size: ${heapStats.total_heap_size / (1024 * 1024)} MB`);
-console.log(
-  `Total Heap Size Executable: ${
-    heapStats.total_heap_size_executable / (1024 * 1024)
-  } MB`
-);
-console.log(
-  `Total Physical Size: ${heapStats.total_physical_size / (1024 * 1024)} MB`
-);
-console.log(
-  `Total Available Size: ${heapStats.total_available_size / (1024 * 1024)} MB`
-);
-console.log(`Used Heap Size: ${heapStats.used_heap_size / (1024 * 1024)} MB`);
-console.log(`Heap Size Limit: ${heapStats.heap_size_limit / (1024 * 1024)} MB`);
 
 dotenv.config();
 const app = express();
@@ -77,12 +59,6 @@ mongoose
     }
   )
   .then(() => {
-    var arr = [];
-
-    app.get("/", (req, res) => {
-      res.send("Hello World!");
-    });
-
     app.use(getJobsList);
 
     app.use(getJob);
