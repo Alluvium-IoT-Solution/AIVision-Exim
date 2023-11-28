@@ -31,6 +31,7 @@ const jobSchema = new mongoose.Schema({
   free_time: { type: Number, trim: true },
   remarks: { type: String, trim: true },
   do_validity: { type: String, trim: true },
+  doPlanning: { type: Boolean },
   container_nos: [
     {
       container_number: { type: String, trim: true },
@@ -118,6 +119,27 @@ const jobSchema = new mongoose.Schema({
     trim: true,
   },
   checklist: { type: String, trim: true },
+  shipping_line_bond_completed: { type: String, trim: true },
+  shipping_line_kyc_completed: { type: String, trim: true },
+  shipping_line_invoice_received: { type: String, trim: true },
+  shipping_line_bond_completed_date: { type: String, trim: true },
+  shipping_line_kyc_completed_date: { type: String, trim: true },
+  shipping_line_invoice_received_date: { type: String, trim: true },
+
+  payment_made: { type: String, trim: true },
+  do_processed: { type: String, trim: true },
+  do_received: { type: String, trim: true },
+  bill_document_sent_to_accounts: { type: String, trim: true },
+  payment_made_date: { type: String, trim: true },
+  do_processed_date: { type: String, trim: true },
+  do_received_date: { type: String, trim: true },
+
+  shipping_line_invoice: { type: String, trim: true },
+  icd_cfs_invoice: { type: String, trim: true },
+  other_invoices: { type: String, trim: true },
+  shipping_line_invoice_date: { type: String, trim: true },
+  icd_cfs_invoice_date: { type: String, trim: true },
+  other_invoices_date: { type: String, trim: true },
 });
 
 jobSchema.index({ importerURL: 1, year: 1, status: 1 });

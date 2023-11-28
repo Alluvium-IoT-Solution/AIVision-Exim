@@ -28,6 +28,7 @@ router.post("/api/login", async (req, res) => {
           email: user.email,
           role: user.role,
           importers: user.importers,
+          team: user.team,
         });
       } else {
         return res.json({ message: "Password didn't match" });

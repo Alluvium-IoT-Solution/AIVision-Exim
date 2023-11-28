@@ -32,6 +32,11 @@ import changePassword from "./routes/changePassword.mjs";
 import downloadReport from "./routes/downloadReport.mjs";
 import dsr from "./routes/dsr.mjs";
 import addQueries from "./routes/addQueries.mjs";
+import beFilingIntimation from "./routes/beFilingIntimation.mjs";
+import doTeamListOfJobs from "./routes/doTeamListOfjobs.mjs";
+import updateDoTeamList from "./routes/updateDoTeamJobList.mjs";
+import updateModuleOne from "./routes/updateModuleOne.mjs";
+import updateModuleTwo from "./routes/updateModuleTwo.mjs";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 
@@ -116,6 +121,16 @@ mongoose
     app.use(dsr);
 
     app.use(addQueries);
+
+    app.use(beFilingIntimation);
+
+    app.use(doTeamListOfJobs);
+
+    app.use(updateDoTeamList);
+
+    app.use(updateModuleOne);
+
+    app.use(updateModuleTwo);
 
     app.listen(9002, () => {
       console.log(`BE started at port 9002`);

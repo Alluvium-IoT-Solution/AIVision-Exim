@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema({
       importerURL: { type: String, trim: true },
     },
   ],
+  team: {
+    type: String,
+    trim: true,
+  },
 });
 
 userSchema.index({ username: 1, importers: 1 });
