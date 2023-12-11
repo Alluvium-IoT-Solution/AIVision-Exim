@@ -34,8 +34,13 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     tare_weight,
     transporter,
     doPlanning,
+    do_planning_date,
+    examinationPlanning,
+    examination_planning_date,
   } = req.body;
-  console.log(doPlanning);
+
+  console.log(do_planning_date, examinationPlanning, examination_planning_date);
+
   try {
     function addDaysToDate(dateString, days) {
       var date = new Date(dateString);
@@ -71,6 +76,9 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     matchingJob.status = status;
     matchingJob.detailed_status = detailed_status;
     matchingJob.doPlanning = doPlanning;
+    matchingJob.do_planning_date = do_planning_date;
+    matchingJob.examinationPlanning = examinationPlanning;
+    matchingJob.examination_planning_date = examination_planning_date;
     matchingJob.description = description;
     matchingJob.checklist = checklist;
     matchingJob.do_validity = do_validity;

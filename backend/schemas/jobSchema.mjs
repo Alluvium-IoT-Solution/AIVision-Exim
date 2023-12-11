@@ -32,6 +32,9 @@ const jobSchema = new mongoose.Schema({
   remarks: { type: String, trim: true },
   do_validity: { type: String, trim: true },
   doPlanning: { type: Boolean },
+  examinationPlanning: { type: Boolean },
+  do_planning_date: { type: String, trim: true },
+  examination_planning_date: { type: String, trim: true },
   container_nos: [
     {
       container_number: { type: String, trim: true },
