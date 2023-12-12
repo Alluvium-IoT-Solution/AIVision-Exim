@@ -607,7 +607,7 @@ schedule.scheduleJob("00 22 * * */1", async () => {
 
         // Construct the email content
         const msg = {
-          to: "manu@surajforwarders.com",
+          to: ["manu@surajforwarders.com", "suraj@alluvium.in"],
           from: reportField.senderEmail,
           subject: "Your Excel Report",
           text: "Your Excel Report",
