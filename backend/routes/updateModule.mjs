@@ -2,15 +2,19 @@ import express from "express";
 import JobModel from "../models/jobModel.mjs";
 const router = express.Router();
 
-router.post("/api/updateModuleTwo", async (req, res) => {
+router.post("/api/updateModule", async (req, res) => {
   const {
     job_no,
-    payment_made,
-    do_processed,
-    do_received,
+    kyc,
     shipping_line_invoice,
+    shipping_line_attachment,
     icd_cfs_invoice,
     other_invoices,
+    payment_made,
+    do_processed,
+    do_processed_attachment,
+    do_received,
+    do_validity,
     bill_document_sent_to_accounts,
   } = req.body;
 
@@ -29,6 +33,7 @@ router.post("/api/updateModuleTwo", async (req, res) => {
     }
 
     // Check if any of the boolean fields are already 'Yes' in the database
+    const shouldUpdateKycDate = existingJob.kyc !== "Yes";
     const shouldUpdatePaymentMadeDate = existingJob.payment_made !== "Yes";
     const shouldUpdateDoProcessedDate = existingJob.do_processed !== "Yes";
     const shouldUpdateDoReceivedDate = existingJob.do_received !== "Yes";
@@ -41,17 +46,22 @@ router.post("/api/updateModuleTwo", async (req, res) => {
     const updateFields = {};
 
     // Update date fields based on conditions
+    if (shouldUpdateKycDate && kyc === "Yes") {
+      updateFields.kyc_date = currentDate;
+    }
     if (shouldUpdatePaymentMadeDate && payment_made === "Yes") {
       updateFields.payment_made_date = currentDate;
     }
     if (shouldUpdateDoProcessedDate && do_processed === "Yes") {
       updateFields.do_processed_date = currentDate;
+      updateFields.do_processed_attachment = do_processed_attachment;
     }
     if (shouldUpdateDoReceivedDate && do_received === "Yes") {
       updateFields.do_received_date = currentDate;
     }
     if (shouldUpdateShippingLineDate && shipping_line_invoice === "Yes") {
       updateFields.shipping_line_invoice_date = currentDate;
+      updateFields.shipping_line_attachment = shipping_line_attachment;
     }
     if (shouldUpdateICD_CFSDate && icd_cfs_invoice === "Yes") {
       updateFields.icd_cfs_invoice_date = currentDate;
@@ -59,6 +69,8 @@ router.post("/api/updateModuleTwo", async (req, res) => {
     if (shouldUpdateOtherInvoicesDate && other_invoices === "Yes") {
       updateFields.other_invoices_date = currentDate;
     }
+
+    updateFields.do_validity = do_validity;
 
     // Always update bill_document_sent_to_accounts field
     updateFields.bill_document_sent_to_accounts =

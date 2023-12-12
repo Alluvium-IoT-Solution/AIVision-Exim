@@ -8,7 +8,7 @@ router.get("/api/getDoModuleJobs", async (req, res) => {
     {
       doPlanning: true,
     },
-    "job_no be_no be_date vessel_berthing_date"
+    "job_no awb_bl_no shipping_line_airline be_date vessel_berthing_date"
   );
 
   res.status(200).send(jobs);

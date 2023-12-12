@@ -9,7 +9,7 @@ router.get("/api/doTeamListOfJobs", async (req, res) => {
       be_no: { $exists: true, $ne: "" },
       bill_date: "",
     },
-    "job_no be_no be_date vessel_berthing_date"
+    "job_no awb_bl_no shipping_line_airline be_date vessel_berthing_date"
   );
 
   res.status(200).send(jobs);

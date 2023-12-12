@@ -35,12 +35,12 @@ import addQueries from "./routes/addQueries.mjs";
 import beFilingIntimation from "./routes/beFilingIntimation.mjs";
 import doTeamListOfJobs from "./routes/doTeamListOfjobs.mjs";
 import updateDoTeamList from "./routes/updateDoTeamJobList.mjs";
-import updateModuleOne from "./routes/updateModuleOne.mjs";
-import updateModuleTwo from "./routes/updateModuleTwo.mjs";
+import updateModule from "./routes/updateModule.mjs";
 import updateDoPlanning from "./routes/updateDoPlanning.mjs";
 import getDoModuleJobs from "./routes/getDoModuleJobs.mjs";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import JobModel from "./models/jobModel.mjs";
 
 dotenv.config();
 const app = express();
@@ -66,6 +66,12 @@ mongoose
     }
   )
   .then(() => {
+    app.get("/", async (req, res) => {
+      const jobs = await JobModel.find({}, "supplier_exporter");
+
+      res.status(201).send(jobs);
+    });
+
     app.use(getJobsList);
 
     app.use(getJob);
@@ -130,9 +136,7 @@ mongoose
 
     app.use(updateDoTeamList);
 
-    app.use(updateModuleOne);
-
-    app.use(updateModuleTwo);
+    app.use(updateModule);
 
     app.use(updateDoPlanning);
 
