@@ -30,16 +30,12 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     duty_paid_date,
     out_of_charge_date,
     arrival_date,
-    physical_weight,
-    tare_weight,
     transporter,
     doPlanning,
     do_planning_date,
     examinationPlanning,
     examination_planning_date,
   } = req.body;
-
-  console.log(do_planning_date, examinationPlanning, examination_planning_date);
 
   try {
     function addDaysToDate(dateString, days) {
@@ -98,28 +94,22 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     matchingJob.duty_paid_date = duty_paid_date;
     matchingJob.out_of_charge_date = out_of_charge_date;
     matchingJob.free_time = free_time;
-    matchingJob.physical_weight = physical_weight;
-    matchingJob.tare_weight = tare_weight;
     matchingJob.transporter = transporter;
-    matchingJob.actual_weight =
-      parseInt(physical_weight) - parseInt(tare_weight);
-
-    const gross_weight = parseInt(matchingJob.gross_weight.replace(/,/g, ""));
-
-    matchingJob.weight_shortage = matchingJob.actual_weight
-      ? gross_weight - parseInt(matchingJob.actual_weight)
-      : gross_weight - (parseInt(physical_weight) - parseInt(tare_weight));
 
     if (checked) {
       matchingJob.container_nos = container_nos.map((container) => {
         return {
           ...container,
           arrival_date: arrival_date,
-          container_images: container.container_images,
+          weighment_slip_images: container.weighment_slip_images,
           detention_from:
             arrival_date === ""
               ? ""
               : addDaysToDate(arrival_date, parseInt(free_time)),
+          physical_weight: container.physical_weight,
+          tare_weight: container.tare_weight,
+          actual_weight: container.actual_weight,
+          weight_shortage: container.weight_shortage,
         };
       });
     } else {

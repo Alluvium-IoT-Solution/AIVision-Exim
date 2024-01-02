@@ -38,6 +38,9 @@ import updateDoTeamList from "./routes/updateDoTeamJobList.mjs";
 import updateModule from "./routes/updateModule.mjs";
 import updateDoPlanning from "./routes/updateDoPlanning.mjs";
 import getDoModuleJobs from "./routes/getDoModuleJobs.mjs";
+import operationsTeamListOfJobs from "./routes/operationsTeamListOfJobs.mjs";
+import getOperationsModuleJobs from "./routes/getOperationsModuleJobs.mjs";
+import updateOperationTeamJob from "./routes/updateOperationTeamJob.mjs";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import JobModel from "./models/jobModel.mjs";
@@ -141,6 +144,12 @@ mongoose
     app.use(updateDoPlanning);
 
     app.use(getDoModuleJobs);
+
+    app.use(operationsTeamListOfJobs);
+
+    app.use(getOperationsModuleJobs);
+
+    app.use(updateOperationTeamJob);
 
     app.listen(9002, () => {
       console.log(`BE started at port 9002`);
