@@ -110,6 +110,7 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
           tare_weight: container.tare_weight,
           actual_weight: container.actual_weight,
           weight_shortage: container.weight_shortage,
+          weight_excess: container.weight_excess,
         };
       });
     } else {

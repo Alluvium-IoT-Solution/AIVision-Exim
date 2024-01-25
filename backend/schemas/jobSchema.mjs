@@ -47,6 +47,7 @@ const jobSchema = new mongoose.Schema({
       tare_weight: { type: String, trim: true },
       actual_weight: { type: String, trim: true },
       weight_shortage: { type: String, trim: true },
+      weight_excess: { type: String, trim: true },
       net_weight: { type: String, trim: true },
       container_images: [{ url: { type: String, trim: true } }],
       weighment_slip_images: [{ url: { type: String, trim: true } }],

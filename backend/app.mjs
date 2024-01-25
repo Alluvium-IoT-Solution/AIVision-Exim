@@ -41,6 +41,7 @@ import getDoModuleJobs from "./routes/getDoModuleJobs.mjs";
 import operationsTeamListOfJobs from "./routes/operationsTeamListOfJobs.mjs";
 import getOperationsModuleJobs from "./routes/getOperationsModuleJobs.mjs";
 import updateOperationTeamJob from "./routes/updateOperationTeamJob.mjs";
+import addOperationTeamUser from "./routes/addOperationsTeamUser.mjs";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import JobModel from "./models/jobModel.mjs";
@@ -58,8 +59,8 @@ mongoose.set("strictQuery", true);
 
 mongoose
   .connect(
-    "mongodb+srv://exim:qTT7e4YeE3YSSMiV@aivision.pxmpvlz.mongodb.net/exim?retryWrites=true&w=majority",
-    // "mongodb://localhost:27017/exim",
+    // "mongodb+srv://exim:qTT7e4YeE3YSSMiV@aivision.pxmpvlz.mongodb.net/exim?retryWrites=true&w=majority",
+    "mongodb://localhost:27017/exim",
 
     {
       useNewUrlParser: true,
@@ -150,6 +151,8 @@ mongoose
     app.use(getOperationsModuleJobs);
 
     app.use(updateOperationTeamJob);
+
+    app.use(addOperationTeamUser);
 
     app.listen(9002, () => {
       console.log(`BE started at port 9002`);
