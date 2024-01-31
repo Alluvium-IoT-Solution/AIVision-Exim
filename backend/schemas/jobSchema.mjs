@@ -124,10 +124,6 @@ const jobSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  out_of_charge_date: {
-    type: String,
-    trim: true,
-  },
   exrate: { type: String, trim: true },
   inv_currency: { type: String, trim: true },
   transporter: {
@@ -173,6 +169,9 @@ const jobSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  pcv_date: { type: String },
+  be_customs_copy: { type: String },
+  be_gate_pass: { type: String },
 });
 
 jobSchema.index({ importerURL: 1, year: 1, status: 1 });

@@ -6,7 +6,16 @@ const router = express.Router();
 router.put("/api/updateOperationTeamJob/:year/:jobNo", async (req, res) => {
   const { jobNo, year } = req.params;
 
-  const { status, detailed_status, container_nos, examination_date } = req.body;
+  const {
+    status,
+    detailed_status,
+    container_nos,
+    examination_date,
+    pcv_date,
+    out_of_charge,
+    be_customs_copy,
+    be_gate_pass,
+  } = req.body;
 
   try {
     const matchingJob = await JobModel.findOne({
@@ -23,6 +32,10 @@ router.put("/api/updateOperationTeamJob/:year/:jobNo", async (req, res) => {
     matchingJob.status = status;
     matchingJob.detailed_status = detailed_status;
     matchingJob.examination_date = examination_date;
+    matchingJob.pcv_date = pcv_date;
+    matchingJob.out_of_charge = out_of_charge;
+    matchingJob.be_customs_copy = be_customs_copy;
+    matchingJob.be_gate_pass = be_gate_pass;
 
     matchingJob.container_nos = container_nos.map((container) => {
       return {
