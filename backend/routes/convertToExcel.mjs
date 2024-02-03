@@ -249,13 +249,13 @@ schedule.scheduleJob("00 22 * * */1", async () => {
               dataRow.fill = {
                 type: "pattern",
                 pattern: "solid",
-                fgColor: { argb: "FFF4B183" },
+                fgColor: { argb: "f4b083" },
               };
             } else if (job.detailed_status === "BE Noted, Arrival Pending") {
               dataRow.fill = {
                 type: "pattern",
                 pattern: "solid",
-                fgColor: { argb: "f4b083" },
+                fgColor: { argb: "FFF4B183" },
               };
             } else if (job.detailed_status === "BE Noted, Clearance Pending") {
               dataRow.fill = {
