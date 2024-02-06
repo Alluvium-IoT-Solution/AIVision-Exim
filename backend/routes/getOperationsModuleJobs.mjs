@@ -16,10 +16,10 @@ router.get("/api/getOperationsModuleJobs/:email", async (req, res) => {
 
   let additionalCondition = {};
 
-  // Exclude additional condition for specific emails
   if (
     email !== "mahesh@surajforwarders.com" &&
-    email !== "paras@surajforwarders.com"
+    email !== "paras@surajforwarders.com" &&
+    email !== "operations@surajforwarders.com"
   ) {
     additionalCondition = {
       custom_house: { $in: port },
