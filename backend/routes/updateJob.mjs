@@ -35,6 +35,7 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     do_planning_date,
     examinationPlanning,
     examination_planning_date,
+    do_copies,
   } = req.body;
 
   try {
@@ -95,6 +96,7 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     matchingJob.out_of_charge_date = out_of_charge_date;
     matchingJob.free_time = free_time;
     matchingJob.transporter = transporter;
+    matchingJob.do_copies = do_copies;
 
     if (checked) {
       matchingJob.container_nos = container_nos.map((container) => {

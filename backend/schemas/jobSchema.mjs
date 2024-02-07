@@ -172,6 +172,7 @@ const jobSchema = new mongoose.Schema({
   pcv_date: { type: String },
   be_customs_copy: { type: String },
   be_gate_pass: { type: String },
+  do_copies: [{ type: String }],
 });
 
 jobSchema.index({ importerURL: 1, year: 1, status: 1 });

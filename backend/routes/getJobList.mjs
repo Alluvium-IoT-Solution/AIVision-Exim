@@ -49,13 +49,7 @@ router.get(
         }
       }
 
-      // Check if filterJobNumber is provided and not empty
-      // if (filterJobNumber.trim() !== "all" && filterJobNumber.trim() !== "") {
-      //   // Add a condition to filter by job_no containing filterJobNumber
-      //   query.job_no = { $regex: filterJobNumber, $options: "i" }; // Case-insensitive matching
-      // }
-
-      // Query the database and select relevant field as per detailed status
+      // Query the database and select relevant fields for sorting
       let jobs;
 
       if (detailedStatus === "estimated_time_of_arrival") {
@@ -64,27 +58,22 @@ router.get(
           "job_no custom_house awb_bl_no container_nos vessel_berthing_date remarks detailed_status be_no be_date transporter"
         );
       } else if (detailedStatus === "discharged") {
-        // For other detailedStatus values, select all fields
         jobs = await JobModel.find(query).select(
           "job_no custom_house awb_bl_no container_nos discharge_date remarks detailed_status be_no be_date transporter"
         );
       } else if (detailedStatus === "gateway_igm_filed") {
-        // For other detailedStatus values, select all fields
         jobs = await JobModel.find(query).select(
           "job_no custom_house awb_bl_no container_nos vessel_berthing_date remarks detailed_status be_no be_date transporter"
         );
       } else if (detailedStatus === "be_noted_arrival_pending") {
-        // For other detailedStatus values, select all fields
         jobs = await JobModel.find(query).select(
           "job_no custom_house be_no be_date transporter container_nos vessel_berthing_date remarks detailed_status be_no be_date transporter"
         );
       } else if (detailedStatus === "be_noted_clearance_pending") {
-        // For other detailedStatus values, select all fields
         jobs = await JobModel.find(query).select(
           "job_no custom_house be_no be_date transporter container_nos remarks detailed_status be_no be_date transporter"
         );
       } else if (detailedStatus === "custom_clearance_completed") {
-        // For other detailedStatus values, select all fields
         jobs = await JobModel.find(query).select(
           "job_no custom_house be_no be_date transporter container_nos out_of_charge_date remarks detailed_status be_no be_date transporter"
         );
@@ -94,94 +83,41 @@ router.get(
         );
       }
 
-      // Sort the jobs as per detailed status
-      if (detailedStatus === "estimated_time_of_arrival") {
-        // Sort the sorted jobs by vessel_berthing_date using the custom sorting function
-        jobs = jobs.sort(sortETA);
-      }
-      if (detailedStatus === "discharged") {
-        // Sort the sorted jobs by discharge date using the custom sorting function
-        jobs = jobs.sort(sortDischargeDate);
-      }
+      // Apply the provided sorting logic to the jobs array
+      jobs.sort((a, b) => {
+        const statusPriority = {
+          "Custom Clearance Completed": 1,
+          "BE Noted, Clearance Pending": 2,
+          "BE Noted, Arrival Pending": 3,
+          Discharged: 4,
+          "Gateway IGM Filed": 5,
+          "Estimated Time of Arrival": 6,
+        };
+
+        const statusA = a.detailed_status;
+        const statusB = b.detailed_status;
+
+        // If detailed_status is empty, move job to the bottom
+        if (!statusA && !statusB) {
+          return 0;
+        } else if (!statusA) {
+          return 1;
+        } else if (!statusB) {
+          return -1;
+        }
+
+        // Compare based on priority if both have detailed_status
+        const priorityDiff = statusPriority[statusA] - statusPriority[statusB];
+        if (priorityDiff !== 0) {
+          return priorityDiff;
+        }
+
+        // If priorities are the same, maintain relative order
+        return 0;
+      });
 
       // Calculate the total count of matching documents
       const total = await JobModel.countDocuments(query);
-
-      function sortETA(a, b) {
-        // Helper function to parse date strings into Date objects
-        function parseDate(dateString) {
-          const parts = dateString.split("-");
-          return new Date(parts[0], parts[1] - 1, parts[2]);
-        }
-
-        // Extract the vessel_berthing_date field from each job item
-        const etaA = a.vessel_berthing_date;
-        const etaB = b.vessel_berthing_date;
-
-        // If both job items have valid vessel_berthing_date values, compare them as Date objects
-        if (etaA && etaB) {
-          const dateA = parseDate(etaA);
-          const dateB = parseDate(etaB);
-
-          // Compare the dates as Date objects
-          if (dateA < dateB) {
-            return -1;
-          } else if (dateA > dateB) {
-            return 1;
-          } else {
-            return 0;
-          }
-        }
-
-        // If only one job item has a valid vessel_berthing_date value, it comes first
-        if (etaA) {
-          return -1;
-        }
-        if (etaB) {
-          return 1;
-        }
-
-        // If neither job item has a valid vessel_berthing_date value, leave them in their original order
-        return 0;
-      }
-
-      function sortDischargeDate(a, b) {
-        // Helper function to parse date strings into Date objects
-        function parseDate(dateString) {
-          const parts = dateString.split("-");
-          return new Date(parts[0], parts[1] - 1, parts[2]);
-        }
-
-        // Extract the vessel_berthing_date field from each job item
-        const discharge_date_A = a.discharge_date;
-        const discharge_date_B = b.discharge_date;
-
-        // If both job items have valid vessel_berthing_date values, compare them as Date objects
-        if (discharge_date_A && discharge_date_B) {
-          const dateA = parseDate(discharge_date_A);
-          const dateB = parseDate(discharge_date_B);
-
-          // Compare the dates as Date objects
-          if (dateA < dateB) {
-            return -1;
-          } else if (dateA > dateB) {
-            return 1;
-          } else {
-            return 0;
-          }
-        }
-
-        // If only one job item has a valid vessel_berthing_date value, it comes first
-        if (discharge_date_A) {
-          return -1;
-        }
-        if (discharge_date_B) {
-          return 1;
-        }
-
-        // If neither job item has a valid vessel_berthing_date value, leave them in their original order
-        return 0;
-      }
 
       res.send({ data: jobs, total });
     } catch (error) {

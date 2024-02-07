@@ -33,20 +33,51 @@ router.get(
         const statusA = a.detailed_status;
         const statusB = b.detailed_status;
 
-        if (statusA === "" && statusB === "") {
-          // If both have empty detailed_status, keep their relative order
+        // If detailed_status is empty, move job to the bottom
+        if (!statusA && !statusB) {
           return 0;
-        } else if (statusA === "") {
-          // Put empty detailed_status at the end
+        } else if (!statusA) {
           return 1;
-        } else if (statusB === "") {
-          // Put empty detailed_status at the end
+        } else if (!statusB) {
           return -1;
-        } else {
-          // Use the priority values for sorting non-empty detailed_status
-          return statusPriority[statusA] - statusPriority[statusB];
         }
+
+        // Compare based on priority if both have detailed_status
+        const priorityDiff = statusPriority[statusA] - statusPriority[statusB];
+        if (priorityDiff !== 0) {
+          return priorityDiff;
+        }
+
+        // If priorities are the same, maintain relative order
+        return 0;
       });
+      // jobs.sort((a, b) => {
+      //   const statusPriority = {
+      //     "Custom Clearance Completed": 1,
+      //     "BE Noted, Clearance Pending": 2,
+      //     "BE Noted, Arrival Pending": 3,
+      //     Discharged: 4,
+      //     "Gateway IGM Filed": 5,
+      //     "Estimated Time of Arrival": 6,
+      //   };
+
+      //   const statusA = a.detailed_status;
+      //   const statusB = b.detailed_status;
+
+      //   if (statusA === "" && statusB === "") {
+      //     // If both have empty detailed_status, keep their relative order
+      //     return 0;
+      //   } else if (statusA === "") {
+      //     // Put empty detailed_status at the end
+      //     return 1;
+      //   } else if (statusB === "") {
+      //     // Put empty detailed_status at the end
+      //     return -1;
+      //   } else {
+      //     // Use the priority values for sorting non-empty detailed_status
+      //     return statusPriority[statusA] - statusPriority[statusB];
+      //   }
+      // });
 
       res.send(jobs);
     } catch (error) {
