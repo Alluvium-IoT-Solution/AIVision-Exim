@@ -35,6 +35,7 @@ const jobSchema = new mongoose.Schema({
   examinationPlanning: { type: Boolean },
   do_planning_date: { type: String, trim: true },
   examination_planning_date: { type: String, trim: true },
+  out_of_charge_date: { type: String, trim: true },
   container_nos: [
     {
       container_number: { type: String, trim: true },
