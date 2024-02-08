@@ -38,6 +38,8 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     do_copies,
   } = req.body;
 
+  console.log(examination_planning_date);
+
   try {
     function addDaysToDate(dateString, days) {
       var date = new Date(dateString);
