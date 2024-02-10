@@ -244,7 +244,7 @@ schedule.scheduleJob("00 22 * * */1", async () => {
               "ASSESSMENT DATE": job.assessment_date,
               "EXAMINATION DATE": job.examination_date,
               "DUTY PAID DATE": job.duty_paid_date,
-              "OUT OF CHARGE DATE": job.out_of_charge_date,
+              "OUT OF CHARGE DATE": job.out_of_charge,
             };
 
             const selectedValues = reportField.field.map((val) => {

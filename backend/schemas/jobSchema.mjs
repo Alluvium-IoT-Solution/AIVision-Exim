@@ -35,7 +35,6 @@ const jobSchema = new mongoose.Schema({
   examinationPlanning: { type: Boolean },
   do_planning_date: { type: String, trim: true },
   examination_planning_date: { type: String, trim: true },
-  out_of_charge_date: { type: String, trim: true },
   container_nos: [
     {
       container_number: { type: String, trim: true },
@@ -174,6 +173,7 @@ const jobSchema = new mongoose.Schema({
   be_customs_copy: { type: String },
   be_gate_pass: { type: String },
   do_copies: [{ type: String }],
+  obl_telex_bl: { type: String },
 });
 
 jobSchema.index({ importerURL: 1, year: 1, status: 1 });

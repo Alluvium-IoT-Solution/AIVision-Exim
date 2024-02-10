@@ -75,7 +75,7 @@ router.get(
         );
       } else if (detailedStatus === "custom_clearance_completed") {
         jobs = await JobModel.find(query).select(
-          "job_no custom_house be_no be_date transporter container_nos out_of_charge_date remarks detailed_status be_no be_date transporter"
+          "job_no custom_house be_no be_date transporter container_nos out_of_charge remarks detailed_status be_no be_date transporter"
         );
       } else {
         jobs = await JobModel.find(query).select(

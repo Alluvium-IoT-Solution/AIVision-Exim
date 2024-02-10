@@ -4,8 +4,8 @@ import User from "../models/userModel.mjs";
 
 const router = express.Router();
 
-router.get("/api/getOperationsModuleJobs/:email", async (req, res) => {
-  const { email } = req.params;
+router.get("/api/getOperationsModuleJobs/:email/:date", async (req, res) => {
+  const { email, date } = req.params;
   const user = await User.findOne({ email });
 
   if (!user) {
@@ -13,10 +13,9 @@ router.get("/api/getOperationsModuleJobs/:email", async (req, res) => {
   }
 
   const port = user.port;
-  const currentDate = new Date().toISOString().split("T")[0]; // Get current date in "yyyy-mm-dd" format
 
   let additionalCondition = {
-    examination_planning_date: { $gte: currentDate },
+    examination_planning_date: { $gte: date },
   };
 
   if (
@@ -27,13 +26,21 @@ router.get("/api/getOperationsModuleJobs/:email", async (req, res) => {
     additionalCondition.custom_house = { $in: port };
   }
 
+  if (email === "majhar@surajforwarders.com") {
+    // Exclude jobs with out_of_charge present and equal to ""
+    additionalCondition.out_of_charge = { $eq: "" };
+  } else if (email === "prakash@surajforwarders.com") {
+    // Exclude jobs with delivery_date equal to ""
+    additionalCondition.delivery_date = { $eq: "" };
+  }
+
   const jobs = await JobModel.find(
     {
       examinationPlanning: "true",
       ...additionalCondition,
     },
-    "job_no be_no be_date container_nos examination_planning_date"
-  ).sort({ examination_planning_date: 1 }); // Sort in ascending order by examination_planning_date
+    "job_no be_no be_date container_nos examination_planning_date pcv_date custom_house"
+  ).sort({ examination_planning_date: 1 });
 
   res.status(200).send(jobs);
 });
