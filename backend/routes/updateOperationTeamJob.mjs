@@ -59,6 +59,7 @@ router.put("/api/updateOperationTeamJob/:year/:jobNo", async (req, res) => {
         pre_weighment: container.pre_weighment,
         post_weighment: container.post_weighment,
         net_weight: container.net_weight,
+        container_pre_damage_images: container.container_pre_damage_images,
       };
     });
 

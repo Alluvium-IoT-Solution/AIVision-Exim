@@ -33,6 +33,7 @@ const jobSchema = new mongoose.Schema({
   do_validity: { type: String, trim: true },
   doPlanning: { type: Boolean },
   examinationPlanning: { type: Boolean },
+  do_planning: { type: String },
   do_planning_date: { type: String, trim: true },
   examination_planning_date: { type: String, trim: true },
   container_nos: [
@@ -57,6 +58,7 @@ const jobSchema = new mongoose.Schema({
       container_open_before_examination: [
         { url: { type: String, trim: true } },
       ],
+      container_pre_damage_images: [{ url: { type: String, trim: true } }],
       seal_intact: [{ url: { type: String, trim: true } }],
       first_door_open: [{ url: { type: String, trim: true } }],
       second_door_open: [{ url: { type: String, trim: true } }],
@@ -74,6 +76,7 @@ const jobSchema = new mongoose.Schema({
   assbl_value: { type: String, trim: true },
   total_duty: { type: String, trim: true },
   out_of_charge: { type: String, trim: true },
+  out_of_charge_date: { type: String, trim: true },
   consignment_type: { type: String, trim: true },
   bill_no: { type: String, trim: true },
   bill_date: { type: String, trim: true },
@@ -144,6 +147,7 @@ const jobSchema = new mongoose.Schema({
 
   payment_made: { type: String, trim: true },
   do_processed: { type: String, trim: true },
+  do_processed_attachment: { type: String, trim: true },
   do_received: { type: String, trim: true },
   bill_document_sent_to_accounts: { type: String, trim: true },
   payment_made_date: { type: String, trim: true },
@@ -153,6 +157,7 @@ const jobSchema = new mongoose.Schema({
   shipping_line_invoice: { type: String, trim: true },
   icd_cfs_invoice: { type: String, trim: true },
   other_invoices: { type: String, trim: true },
+  other_invoices_img: { type: String },
   shipping_line_invoice_date: { type: String, trim: true },
   icd_cfs_invoice_date: { type: String, trim: true },
   other_invoices_date: { type: String, trim: true },

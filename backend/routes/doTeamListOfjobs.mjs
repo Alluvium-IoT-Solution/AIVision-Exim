@@ -8,7 +8,7 @@ router.get("/api/doTeamListOfJobs", async (req, res) => {
     {
       detailed_status: "Gateway IGM Filed",
     },
-    "job_no awb_bl_no shipping_line_airline be_date vessel_berthing_date"
+    "job_no awb_bl_no shipping_line_airline custom_house obl_telex_bl importer"
   );
 
   res.status(200).send(jobs);

@@ -3,14 +3,14 @@ import JobModel from "../models/jobModel.mjs";
 
 const router = express.Router();
 
-router.get("/api/getDoModuleJobs", async (req, res) => {
+router.get("/api/getDoBilling", async (req, res) => {
   try {
     const jobs = await JobModel.find(
       {
-        $or: [{ doPlanning: true }, { doPlanning: "true" }],
-        do_processed_attachment: { $exists: false }, // Check if do_processed_attachment does not exist
+        do_processed_attachment: { $ne: "" },
+        out_of_charge: { $ne: "" },
       },
-      "job_no importer awb_bl_no shipping_line_airline custom_house obl_telex_bl payment_made_date"
+      "job_no importer awb_bl_no shipping_line_airline custom_house obl_telex_bl bill_document_sent_to_accounts"
     );
 
     res.status(200).send(jobs);
