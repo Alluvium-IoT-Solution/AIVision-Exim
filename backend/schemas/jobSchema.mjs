@@ -36,8 +36,10 @@ const jobSchema = new mongoose.Schema({
   do_planning: { type: String },
   do_planning_date: { type: String, trim: true },
   examination_planning_date: { type: String, trim: true },
+  examination_planning_time: { type: String, trim: true },
   container_nos: [
     {
+      transporter: { type: String, trim: true },
       container_number: { type: String, trim: true },
       arrival_date: { type: String, trim: true },
       detention_from: { type: String, trim: true },
@@ -129,10 +131,7 @@ const jobSchema = new mongoose.Schema({
   },
   exrate: { type: String, trim: true },
   inv_currency: { type: String, trim: true },
-  transporter: {
-    type: String,
-    trim: true,
-  },
+
   vessel_berthing_date: {
     type: String,
     trim: true,

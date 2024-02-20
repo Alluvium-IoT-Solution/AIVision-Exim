@@ -16,7 +16,7 @@ router.get("/api/getDoBilling", async (req, res) => {
         delivery_date: {
           $gt: feb2024DateString, // Just compare directly with the string
         },
-      },
+      }, 
       "job_no importer awb_bl_no shipping_line_airline custom_house obl_telex_bl bill_document_sent_to_accounts"
     );
 

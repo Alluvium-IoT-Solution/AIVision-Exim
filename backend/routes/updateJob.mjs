@@ -38,6 +38,8 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     do_copies,
   } = req.body;
 
+  console.log(examinationPlanning);
+
   try {
     function addDaysToDate(dateString, days) {
       var date = new Date(dateString);
@@ -97,6 +99,16 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     matchingJob.free_time = free_time;
     matchingJob.transporter = transporter;
     matchingJob.do_copies = do_copies;
+    if (examinationPlanning === true || examinationPlanning === "true") {
+      let currentTime = new Date();
+      let hours = currentTime.getHours();
+      let minutes = currentTime.getMinutes();
+      let period = hours >= 12 ? "PM" : "AM";
+      hours = hours % 12 || 12; // Convert hours to 12-hour format
+      let formattedHours = hours.toString().padStart(2, "0");
+      let formattedMinutes = minutes.toString().padStart(2, "0");
+      matchingJob.examination_planning_time = `${formattedHours}:${formattedMinutes} ${period}`;
+    }
 
     if (checked) {
       matchingJob.container_nos = container_nos.map((container) => {
