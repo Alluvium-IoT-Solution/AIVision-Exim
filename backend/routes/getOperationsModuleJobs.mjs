@@ -27,8 +27,8 @@ router.get("/api/getOperationsModuleJobs/:email/:date", async (req, res) => {
   }
 
   if (email === "majhar@surajforwarders.com") {
-    // Exclude jobs with out_of_charge present and equal to ""
-    additionalCondition.out_of_charge = { $eq: "" };
+    // Exclude jobs with out_of_charge present and equal to "" or
+    additionalCondition.out_of_charge = { $in: ["", "--"] };
   } else if (email === "prakash@surajforwarders.com") {
     // Exclude jobs with delivery_date equal to ""
     additionalCondition.delivery_date = { $eq: "" };
