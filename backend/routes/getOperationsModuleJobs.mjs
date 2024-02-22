@@ -15,7 +15,7 @@ router.get("/api/getOperationsModuleJobs/:email/:date", async (req, res) => {
   const port = user.port;
 
   let additionalCondition = {
-    examination_planning_date: { $gte: date },
+    examination_planning_date: { $eq: date },
   };
 
   if (

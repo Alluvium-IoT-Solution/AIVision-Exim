@@ -18,7 +18,7 @@ router.post("/api/updateModule", async (req, res) => {
     obl_telex_bl,
     other_invoices_img,
   } = req.body;
-  console.log(obl_telex_bl);
+  console.log(do_processed_attachment);
   try {
     const currentDate = new Date().toLocaleDateString("en-GB", {
       day: "2-digit",

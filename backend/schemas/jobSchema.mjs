@@ -146,7 +146,7 @@ const jobSchema = new mongoose.Schema({
 
   payment_made: { type: String, trim: true },
   do_processed: { type: String, trim: true },
-  do_processed_attachment: { type: String, trim: true },
+  do_processed_attachment: [{ type: String, trim: true }],
   do_received: { type: String, trim: true },
   bill_document_sent_to_accounts: { type: String, trim: true },
   payment_made_date: { type: String, trim: true },
@@ -166,10 +166,6 @@ const jobSchema = new mongoose.Schema({
   },
   kyc_date: { type: String, trim: true },
   shipping_line_attachment: {
-    type: String,
-    trim: true,
-  },
-  do_processed_attachment: {
     type: String,
     trim: true,
   },

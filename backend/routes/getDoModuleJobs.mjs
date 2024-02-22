@@ -8,7 +8,7 @@ router.get("/api/getDoModuleJobs", async (req, res) => {
     const jobs = await JobModel.find(
       {
         $or: [{ doPlanning: true }, { doPlanning: "true" }],
-        do_processed_attachment: { $exists: false }, // Check if do_processed_attachment does not exist
+        do_processed_attachment: { $exists: false },
       },
       "job_no importer awb_bl_no shipping_line_airline custom_house obl_telex_bl payment_made_date"
     );
