@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 const jobSchema = new mongoose.Schema({
   year: { type: String, trim: true },
   job_no: { type: String, trim: true },
+  pr_no: { type: String, trim: true },
+  pr_date: { type: String, trim: true },
   custom_house: { type: String, trim: true },
   job_date: { type: String, trim: true },
   importer: { type: String, trim: true },
@@ -37,9 +39,13 @@ const jobSchema = new mongoose.Schema({
   do_planning_date: { type: String, trim: true },
   examination_planning_date: { type: String, trim: true },
   examination_planning_time: { type: String, trim: true },
+  factory_weighment_slip: { type: String, trim: true },
   container_nos: [
     {
       transporter: { type: String, trim: true },
+      vehicle_no: { type: String, trim: true },
+      driver_name: { type: String, trim: true },
+      driver_phone: { type: String, trim: true },
       container_number: { type: String, trim: true },
       arrival_date: { type: String, trim: true },
       detention_from: { type: String, trim: true },
@@ -143,7 +149,6 @@ const jobSchema = new mongoose.Schema({
   shipping_line_bond_completed_date: { type: String, trim: true },
   shipping_line_kyc_completed_date: { type: String, trim: true },
   shipping_line_invoice_received_date: { type: String, trim: true },
-
   payment_made: { type: String, trim: true },
   do_processed: { type: String, trim: true },
   do_processed_attachment: [{ type: String, trim: true }],
@@ -152,12 +157,11 @@ const jobSchema = new mongoose.Schema({
   payment_made_date: { type: String, trim: true },
   do_processed_date: { type: String, trim: true },
   do_received_date: { type: String, trim: true },
-
   shipping_line_invoice: { type: String, trim: true },
+  shipping_line_invoice_date: { type: String },
   icd_cfs_invoice: { type: String, trim: true },
   other_invoices: { type: String, trim: true },
-  other_invoices_img: { type: String },
-  shipping_line_invoice_date: { type: String, trim: true },
+  other_invoices_img: [{ type: String, trim: true }],
   icd_cfs_invoice_date: { type: String, trim: true },
   other_invoices_date: { type: String, trim: true },
   kyc: {
@@ -165,15 +169,38 @@ const jobSchema = new mongoose.Schema({
     trim: true,
   },
   kyc_date: { type: String, trim: true },
-  shipping_line_attachment: {
-    type: String,
-    trim: true,
-  },
+  shipping_line_attachment: [
+    {
+      type: String,
+      trim: true,
+    },
+  ],
+  utr: [
+    {
+      type: String,
+      trim: true,
+    },
+  ],
   pcv_date: { type: String },
   be_customs_copy: { type: String },
   be_gate_pass: { type: String },
+  be_customs_gate_pass: { type: String },
   do_copies: [{ type: String }],
   obl_telex_bl: { type: String },
+  processed_be_attachment: { type: String },
+  do_revalidation: { type: String },
+  do_revalidation_date: { type: String },
+  shipping_line_amount: { type: String },
+  security_deposit: { type: String },
+  consignor: { type: String },
+  consignee: { type: String },
+  type_of_vehicle: { type: String },
+  description_srcc: { type: String },
+  container_loading: { type: String },
+  container_offloading: { type: String },
+  instructions: { type: String },
+  goods_pickup: { type: String },
+  goods_delivery: { type: String },
 });
 
 jobSchema.index({ importerURL: 1, year: 1, status: 1 });

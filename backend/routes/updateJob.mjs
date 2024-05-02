@@ -1,148 +1,111 @@
 import express from "express";
 import JobModel from "../models/jobModel.mjs";
+import PrModel from "../models/prModel.mjs";
+import PrData from "../models/pr.mjs";
 
 const router = express.Router();
 
 router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
   const { jobNo, year } = req.params;
 
-  const {
-    vessel_berthing_date,
-    checked,
-    status,
-    detailed_status,
-    container_nos,
-    free_time,
-    description,
-    checklist,
-    do_validity,
-    remarks,
-    sims_reg_no,
-    pims_reg_no,
-    nfmims_reg_no,
-    sims_date,
-    pims_date,
-    nfmims_date,
-    delivery_date,
-    discharge_date,
-    assessment_date,
-    examination_date,
-    duty_paid_date,
-    out_of_charge,
-    arrival_date,
-    transporter,
-    doPlanning,
-    do_planning_date,
-    examinationPlanning,
-    examination_planning_date,
-    do_copies,
-  } = req.body;
-
-  console.log(examinationPlanning);
-
   try {
-    function addDaysToDate(dateString, days) {
-      var date = new Date(dateString);
-      date.setDate(date.getDate() + days);
-      var year = date.getFullYear();
-      var month = String(date.getMonth() + 1).padStart(2, "0");
-      var day = String(date.getDate()).padStart(2, "0");
-      return year + "-" + month + "-" + day;
-    }
-
-    const matchingJob = await JobModel.findOne({
-      year,
-      job_no: jobNo,
-    });
+    // 1. Retrieve the matching job document
+    const matchingJob = await JobModel.findOne({ year, job_no: jobNo });
 
     if (!matchingJob) {
       return res.status(404).json({ error: "Job not found" });
     }
 
-    // Update the matching job with the provided data
-    matchingJob.vessel_berthing_date = vessel_berthing_date
-      .split("-")
-      .reverse()
-      .join("-");
-    matchingJob.vessel_berthing_date = new Date(vessel_berthing_date)
-      .toLocaleDateString("en-GB", {
-        day: "numeric",
-        month: "short",
-        year: "2-digit",
-      })
-      .replace(/ /g, "-");
-
-    matchingJob.status = status;
-    matchingJob.detailed_status = detailed_status;
-    matchingJob.doPlanning = doPlanning;
-    matchingJob.do_planning_date = do_planning_date;
-    matchingJob.examinationPlanning = examinationPlanning;
-    matchingJob.examination_planning_date = examination_planning_date;
-    matchingJob.description = description;
-    matchingJob.checklist = checklist;
-    matchingJob.do_validity = do_validity;
-    matchingJob.remarks = remarks;
-    matchingJob.sims_reg_no =
-      sims_reg_no !== undefined ? `STL-${sims_reg_no}` : "";
-    matchingJob.pims_reg_no =
-      pims_reg_no !== undefined ? `ORIGINAL-DPIIT-PPR-${pims_reg_no}` : "";
-    matchingJob.nfmims_reg_no = nfmims_reg_no ? `MIN-${nfmims_reg_no}` : "";
-    matchingJob.sims_date = sims_date;
-    matchingJob.pims_date = pims_date;
-    matchingJob.nfmims_date = nfmims_date;
-    matchingJob.delivery_date = delivery_date;
-    matchingJob.discharge_date = discharge_date;
-    matchingJob.assessment_date = assessment_date;
-    matchingJob.examination_date = examination_date;
-    matchingJob.duty_paid_date = duty_paid_date;
-    matchingJob.out_of_charge = out_of_charge;
-    matchingJob.free_time = free_time;
-    matchingJob.transporter = transporter;
-    matchingJob.do_copies = do_copies;
-    if (examinationPlanning === true || examinationPlanning === "true") {
-      let currentTime = new Date();
-      let hours = currentTime.getHours();
-      let minutes = currentTime.getMinutes();
-      let period = hours >= 12 ? "PM" : "AM";
-      hours = hours % 12 || 12; // Convert hours to 12-hour format
-      let formattedHours = hours.toString().padStart(2, "0");
-      let formattedMinutes = minutes.toString().padStart(2, "0");
-      matchingJob.examination_planning_time = `${formattedHours}:${formattedMinutes} ${period}`;
+    // 2. Determine the branch_code based on the custom_house field
+    let branch_code;
+    switch (matchingJob.custom_house) {
+      case "THAR DRY PORT":
+        branch_code = "SND";
+        break;
+      case "ICD Sabarmati, Ahmedabad":
+        branch_code = "KHD";
+        break;
+      case "HAZIRA":
+        branch_code = "HZR";
+        break;
+      case "MUNDRA":
+        branch_code = "MND";
+        break;
+      case "ICD SACHANA":
+        branch_code = "SCH";
+        break;
+      case "BARODA":
+        branch_code = "BRD";
+        break;
+      case "AIRPORT":
+        branch_code = "AIR";
+        break;
+      default:
+        break;
     }
 
-    if (checked) {
-      matchingJob.container_nos = container_nos.map((container) => {
-        return {
-          ...container,
-          arrival_date: arrival_date,
-          weighment_slip_images: container.weighment_slip_images,
-          detention_from:
-            arrival_date === ""
-              ? ""
-              : addDaysToDate(arrival_date, parseInt(free_time)),
-          physical_weight: container.physical_weight,
-          tare_weight: container.tare_weight,
-          actual_weight: container.actual_weight,
-          weight_shortage: container.weight_shortage,
-          weight_excess: container.weight_excess,
-        };
-      });
-    } else {
-      matchingJob.container_nos = container_nos.map((container) => {
-        return {
-          ...container,
-          arrival_date: container.arrival_date,
-          container_images: container.container_images,
-          detention_from:
-            arrival_date === ""
-              ? ""
-              : addDaysToDate(arrival_date, parseInt(free_time)),
-        };
-      });
+    // 3. Check if the transporter is "SRCC" in the request body
+    if (req.body.container_nos) {
+      const transporterContainers = req.body.container_nos.filter(
+        (container) => container.transporter === "SRCC"
+      );
+
+      if (transporterContainers.length > 0) {
+        // 4. Fetch the last document from PrModel and generate a 5-digit number
+        const lastPr = await PrModel.findOne().sort({ _id: -1 });
+        let lastPrNo;
+        if (lastPr) {
+          lastPrNo = parseInt(lastPr.pr_no) + 1;
+        } else {
+          lastPrNo = 1;
+        }
+        const paddedNo = lastPrNo.toString().padStart(5, "0");
+        const fiveDigitNo = "0".repeat(5 - paddedNo.length) + paddedNo;
+        console.log("Five Digit No:", fiveDigitNo);
+
+        // 5. Update the job model
+        matchingJob.pr_no = `PR/${branch_code}/${fiveDigitNo}/${matchingJob.year}`;
+
+        // 6. Create a new document in PrData collection
+        const newPrData = new PrData({
+          pr_date: new Date().toLocaleDateString(),
+          pr_no: matchingJob.pr_no,
+          branch: matchingJob.custom_house,
+          consignor: matchingJob.importer,
+          consignee: matchingJob.importer,
+          container_type: "",
+          container_count: transporterContainers.length,
+          gross_weight: matchingJob.gross_weight,
+          type_of_vehicle: "",
+          description: "",
+          shipping_line: matchingJob.shipping_line_airline,
+          container_loading: "",
+          container_offloading: "",
+          do_validity: matchingJob.do_validity,
+          document_no: matchingJob.be_no,
+          document_date: matchingJob.be_date,
+          goods_pickup: "",
+          goods_delivery: "",
+          containers: transporterContainers,
+        });
+
+        // Save the new PrData document to the database
+        await newPrData.save();
+
+        const newPr = new PrModel({
+          pr_no: fiveDigitNo,
+        });
+
+        // Save the new PrModel document to the database
+        await newPr.save();
+      }
     }
 
-    // Save the parent clientDoc (which contains the updated subdocument) to the database
-    const updatedClient = await matchingJob.save();
+    // Step 7: Add remaining fields from req.body to matching job
+    Object.assign(matchingJob, req.body);
+
+    // Step 8: Save the updated job document
+    await matchingJob.save();
 
     res.status(200).json(matchingJob);
   } catch (error) {

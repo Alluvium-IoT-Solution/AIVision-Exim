@@ -48,6 +48,20 @@ import updateDoBilling from "./routes/updateDoBilling.mjs";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import JobModel from "./models/jobModel.mjs";
+// ////////////////////////////////////////////////
+import customerLogin from "./routes/customer/customerLogin.mjs";
+// import customerIntimation from "./routes/customer/customerIntimation.mjs";
+import customerDoPlanning from "./routes/customer/customerDoPlanning.mjs";
+import uploadFactoryWeighment from "./routes/uploadFactoryWeighment.mjs";
+
+// LR
+import getLrJobs from "./routes/lr/getJobs.mjs";
+import getContainers from "./routes/lr/getContainers.mjs";
+import updatePr from "./routes/lr/updatePr.mjs";
+import getPrData from "./routes/lr/getPrData.mjs";
+import updateContainer from "./routes/lr/updateContainer.mjs";
+import deletePr from "./routes/lr/deletePr.mjs";
+import deleteTr from "./routes/lr/deleteTr.mjs";
 
 dotenv.config();
 const app = express();
@@ -162,6 +176,28 @@ mongoose
     app.use(getDoBilling);
 
     app.use(updateDoBilling);
+
+    app.use(customerLogin);
+
+    // app.use(customerIntimation);
+
+    app.use(customerDoPlanning);
+
+    app.use(uploadFactoryWeighment);
+
+    app.use(getLrJobs);
+
+    app.use(getContainers);
+
+    app.use(updatePr);
+
+    app.use(getPrData);
+
+    app.use(updateContainer);
+
+    app.use(deletePr);
+
+    app.use(deleteTr);
 
     app.listen(9002, () => {
       console.log(`BE started at port 9002`);

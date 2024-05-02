@@ -49,39 +49,7 @@ router.get(
         }
       }
 
-      // Query the database and select relevant fields for sorting
-      let jobs;
-
-      if (detailedStatus === "estimated_time_of_arrival") {
-        console.log(query);
-        jobs = await JobModel.find(query).select(
-          "job_no custom_house awb_bl_no container_nos vessel_berthing_date remarks detailed_status be_no be_date transporter"
-        );
-      } else if (detailedStatus === "discharged") {
-        jobs = await JobModel.find(query).select(
-          "job_no custom_house awb_bl_no container_nos discharge_date remarks detailed_status be_no be_date transporter"
-        );
-      } else if (detailedStatus === "gateway_igm_filed") {
-        jobs = await JobModel.find(query).select(
-          "job_no custom_house awb_bl_no container_nos vessel_berthing_date remarks detailed_status be_no be_date transporter"
-        );
-      } else if (detailedStatus === "be_noted_arrival_pending") {
-        jobs = await JobModel.find(query).select(
-          "job_no custom_house be_no be_date transporter container_nos vessel_berthing_date remarks detailed_status be_no be_date transporter"
-        );
-      } else if (detailedStatus === "be_noted_clearance_pending") {
-        jobs = await JobModel.find(query).select(
-          "job_no custom_house be_no be_date transporter container_nos remarks detailed_status be_no be_date transporter"
-        );
-      } else if (detailedStatus === "custom_clearance_completed") {
-        jobs = await JobModel.find(query).select(
-          "job_no custom_house be_no be_date transporter container_nos out_of_charge remarks detailed_status be_no be_date transporter"
-        );
-      } else {
-        jobs = await JobModel.find(query).select(
-          "job_no custom_house awb_bl_no container_nos vessel_berthing_date remarks detailed_status be_no be_date transporter"
-        );
-      }
+      let jobs = await JobModel.find(query);
 
       // Apply the provided sorting logic to the jobs array
       jobs.sort((a, b) => {

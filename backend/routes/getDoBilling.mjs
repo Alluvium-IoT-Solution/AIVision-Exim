@@ -9,6 +9,7 @@ router.get("/api/getDoBilling", async (req, res) => {
       {
         $or: [{ doPlanning: true }, { doPlanning: "true" }],
         do_processed_attachment: { $ne: [] },
+        custom_house: "ICD Sabarmati, Ahmedabad",
       },
       "job_no importer awb_bl_no shipping_line_airline custom_house obl_telex_bl bill_document_sent_to_accounts"
     );

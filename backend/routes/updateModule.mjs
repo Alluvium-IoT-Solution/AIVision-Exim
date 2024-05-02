@@ -7,7 +7,10 @@ router.post("/api/updateModule", async (req, res) => {
     job_no,
     kyc,
     shipping_line_invoice,
+    security_deposit,
+    shipping_line_amount,
     shipping_line_attachment,
+    utr,
     icd_cfs_invoice,
     other_invoices,
     payment_made,
@@ -18,7 +21,7 @@ router.post("/api/updateModule", async (req, res) => {
     obl_telex_bl,
     other_invoices_img,
   } = req.body;
-  console.log(do_processed_attachment);
+
   try {
     const currentDate = new Date().toLocaleDateString("en-GB", {
       day: "2-digit",
@@ -28,13 +31,15 @@ router.post("/api/updateModule", async (req, res) => {
 
     // Fetch the existing job document
     const existingJob = await JobModel.findOne({ job_no });
-
     if (!existingJob) {
       return res.status(404).json({ success: false, message: "Job not found" });
     }
 
     const updateFields = {};
     updateFields.shipping_line_invoice = shipping_line_invoice;
+    updateFields.security_deposit = security_deposit;
+    updateFields.shipping_line_amount = shipping_line_amount;
+    updateFields.utr = utr;
     updateFields.icd_cfs_invoice = icd_cfs_invoice;
     updateFields.other_invoices = other_invoices;
     updateFields.payment_made = payment_made;
@@ -49,10 +54,11 @@ router.post("/api/updateModule", async (req, res) => {
     updateFields.shipping_line_invoice_date = currentDate;
     updateFields.shipping_line_attachment = shipping_line_attachment;
     updateFields.other_invoices_date = currentDate;
-
     updateFields.do_validity = do_validity;
     updateFields.obl_telex_bl = obl_telex_bl;
     updateFields.other_invoices_img = other_invoices_img;
+
+    console.log(updateFields);
 
     if (Object.keys(updateFields).length > 0) {
       const updatedJob = await JobModel.findOneAndUpdate(

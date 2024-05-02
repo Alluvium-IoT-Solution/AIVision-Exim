@@ -39,7 +39,7 @@ router.get("/api/getOperationsModuleJobs/:email/:date", async (req, res) => {
       $or: [{ examinationPlanning: true }, { examinationPlanning: "true" }],
       ...additionalCondition,
     },
-    "job_no be_no be_date container_nos examination_planning_date examination_planning_time pcv_date custom_house out_of_charge"
+    "job_no be_no be_date container_nos examination_planning_date examination_planning_time pcv_date custom_house out_of_charge year"
   ).sort({ examination_planning_date: 1 });
 
   res.status(200).send(jobs);

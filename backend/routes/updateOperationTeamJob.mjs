@@ -15,6 +15,7 @@ router.put("/api/updateOperationTeamJob/:year/:jobNo", async (req, res) => {
     out_of_charge,
     be_customs_copy,
     be_gate_pass,
+    be_customs_gate_pass,
   } = req.body;
 
   try {
@@ -36,6 +37,7 @@ router.put("/api/updateOperationTeamJob/:year/:jobNo", async (req, res) => {
     matchingJob.out_of_charge = out_of_charge;
     matchingJob.be_customs_copy = be_customs_copy;
     matchingJob.be_gate_pass = be_gate_pass;
+    matchingJob.be_customs_gate_pass = be_customs_gate_pass;
 
     matchingJob.container_nos = container_nos.map((container) => {
       return {
