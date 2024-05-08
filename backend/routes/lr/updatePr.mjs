@@ -7,6 +7,7 @@ const router = express.Router();
 router.post("/api/updatePr", async (req, res) => {
   const {
     pr_no,
+    branch,
     type_of_vehicle,
     goods_pickup,
     goods_delivery,
@@ -14,13 +15,26 @@ router.post("/api/updatePr", async (req, res) => {
     containers,
     ...updatedJobData
   } = req.body; // Extract relevant data from req.body
-  console.log(pr_no, container_count);
 
   try {
     let prDataToUpdate = await PrData.findOne({ pr_no }).sort({ _id: -1 });
 
     if (prDataToUpdate) {
-      // If document found, update it
+      // Trying to update branch
+      if (prDataToUpdate.branch !== branch) {
+        // Check if any container has tr_no
+        const hasTrNo = prDataToUpdate.containers.some(
+          (container) => container.tr_no
+        );
+        if (hasTrNo) {
+          return res.status(200).send({
+            message: "Cannot update branch. Please delete LR to update branch.",
+          });
+        }
+        // Otherwise, update branch
+        prDataToUpdate.branch = branch;
+      }
+
       prDataToUpdate.set({
         type_of_vehicle,
         goods_pickup,
@@ -29,7 +43,6 @@ router.post("/api/updatePr", async (req, res) => {
         container_count,
         ...updatedJobData,
       });
-
       // Update type_of_vehicle, goods_pickup, and goods_delivery in each container
       containers.forEach((container) => {
         container.type_of_vehicle = type_of_vehicle;
@@ -37,7 +50,6 @@ router.post("/api/updatePr", async (req, res) => {
         container.goods_delivery = goods_delivery;
       });
       prDataToUpdate.containers = containers;
-
       await prDataToUpdate.save();
       res.status(200).send({ message: "PR updated successfully" });
     } else {
@@ -106,13 +118,13 @@ router.post("/api/updatePr", async (req, res) => {
 
       // Create a new PrData document
       const newPrData = new PrData({
-        pr_date: new Date().toLocaleDateString(),
+        pr_date: new Date().toLocaleDateString("en-GB"),
         pr_no: newPrNo,
         branch: req.body.branch,
         consignor: req.body.consignor,
         consignee: req.body.consignee,
         container_type: req.body.container_type,
-        container_count: containers?.length || 0,
+        container_count: container_count,
         gross_weight: req.body.gross_weight,
         type_of_vehicle: req.body.type_of_vehicle,
         description: req.body.description,

@@ -8,6 +8,7 @@ const router = express.Router();
 router.post("/api/updateContainer", async (req, res) => {
   try {
     const {
+      tr_no,
       container_number,
       tare_weight,
       net_weight,
@@ -96,6 +97,16 @@ router.post("/api/updateContainer", async (req, res) => {
     } else {
       // Update the fields of the matching container with the data sent in req.body
       const matchingContainer = lastPrDocument.containers[containerIndex];
+      const trDigit = tr_no.split("/")[2];
+
+      if (matchingContainer.tr_no !== tr_no) {
+        // Check if tr_no exists in Tr model
+        const trDocument = await Tr.findOne({ trDigit }).exec();
+
+        if (trDocument) {
+          return res.status(200).json({ message: "LR no already exists" });
+        }
+      }
       matchingContainer.tare_weight = tare_weight;
       matchingContainer.net_weight = net_weight;
       matchingContainer.goods_pickup = goods_pickup;

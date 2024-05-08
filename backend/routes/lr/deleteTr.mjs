@@ -1,14 +1,22 @@
 import express from "express";
 import PrData from "../../models/pr.mjs";
+import Tr from "../../models/tr.mjs";
 
 const router = express.Router();
 
 router.post("/api/deleteTr", async (req, res) => {
   const { pr_no, tr_no, container_number } = req.body;
-  console.log(pr_no, tr_no, container_number);
+
   try {
     // Find the document with matching pr_no
     const prData = await PrData.findOne({ pr_no });
+    const lastTr = await Tr.findOne({}).sort({ _id: -1 });
+
+    // Check if tr_no.split("/")[2] and lastTr.tr_no are equal
+    if (tr_no.split("/")[2] === lastTr.tr_no) {
+      // Delete the lastTr from the database
+      await lastTr.remove();
+    }
 
     // Check if the document exists
     if (!prData) {

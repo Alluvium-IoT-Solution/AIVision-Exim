@@ -28,14 +28,14 @@ const router = express.Router();
 
 router.get("/api/getPrData/:branch", async (req, res) => {
   const { branch } = req.params;
-  console.log(branch);
+
   try {
     const prDataArray = await PrData.find({});
 
     let matchingBranchCode = prDataArray;
 
     // If branch is not empty, filter by branch code
-    if (branch !== "undefined") {
+    if (branch !== "all") {
       matchingBranchCode = prDataArray.filter((doc) => {
         // Extract branch code from pr_no
         const prBranchCode = doc.pr_no.split("/")[1];

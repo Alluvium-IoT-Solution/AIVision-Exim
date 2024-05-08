@@ -68,7 +68,7 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
 
         // 6. Create a new document in PrData collection
         const newPrData = new PrData({
-          pr_date: new Date().toLocaleDateString(),
+          pr_date: new Date().toLocaleDateString("en-GB"),
           pr_no: matchingJob.pr_no,
           branch: matchingJob.custom_house,
           consignor: matchingJob.importer,
@@ -102,6 +102,13 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
     }
 
     // Step 7: Add remaining fields from req.body to matching job
+    if (req.body.arrival_date && req.body.container_nos) {
+      // If arrival_date is not empty and container_nos array exists
+      req.body.container_nos.forEach((container) => {
+        // Apply arrival date to each document in the container_nos array
+        container.arrival_date = req.body.arrival_date;
+      });
+    }
     Object.assign(matchingJob, req.body);
 
     // Step 8: Save the updated job document
