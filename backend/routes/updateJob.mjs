@@ -61,7 +61,6 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
         }
         const paddedNo = lastPrNo.toString().padStart(5, "0");
         const fiveDigitNo = "0".repeat(5 - paddedNo.length) + paddedNo;
-        console.log("Five Digit No:", fiveDigitNo);
 
         // 5. Update the job model
         matchingJob.pr_no = `PR/${branch_code}/${fiveDigitNo}/${matchingJob.year}`;
@@ -109,7 +108,26 @@ router.put("/api/updatejob/:year/:jobNo", async (req, res) => {
         container.arrival_date = req.body.arrival_date;
       });
     }
-    Object.assign(matchingJob, req.body);
+
+    // Convert examinatinPlanning and doPlanning to boolean values
+    const { examinationPlanning, doPlanning, do_revalidation, ...rest } =
+      req.body;
+
+    const updatedFields = {
+      ...rest,
+      examinationPlanning:
+        typeof examinationPlanning === "string"
+          ? examinationPlanning === "true"
+          : !!examinationPlanning,
+      doPlanning:
+        typeof doPlanning === "string" ? doPlanning === "true" : !!doPlanning,
+      do_revalidation:
+        typeof do_revalidation === "string"
+          ? do_revalidation === "true"
+          : !!do_revalidation,
+    };
+
+    Object.assign(matchingJob, updatedFields);
 
     // Step 8: Save the updated job document
     await matchingJob.save();

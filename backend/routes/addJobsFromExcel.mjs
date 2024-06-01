@@ -10,43 +10,45 @@ router.post("/api/jobs/addJob", async (req, res) => {
     const bulkOperations = [];
 
     for (const data of jsonData) {
-      const { year, job_no, container_nos } = data;
+      const { year, job_no, be_no, be_date } = data;
 
       // Define the filter to find existing jobs
       const filter = { year, job_no };
 
-      // Check if "arrival_date" is not already set in the database
+      // Check if the job already exists in the database
       const existingJob = await JobModel.findOne(filter);
-      if (existingJob && existingJob.container_nos.length > 0) {
-        // Preserve the existing "arrival_date"
-        data.container_nos = existingJob.container_nos;
-      }
       if (existingJob) {
-        // Preserve the existing "eta"
+        // Preserve the existing container_nos if present
+        if (existingJob.container_nos.length > 0) {
+          data.container_nos = existingJob.container_nos;
+        }
+        // Preserve the existing vessel_berthing_date if present
         data.vessel_berthing_date = existingJob.vessel_berthing_date;
       }
 
-      // If the existing status is already "Completed," skip updating the status
-      if (!(existingJob && existingJob.status === "Completed")) {
-        // Define the update to set new data, including "container_nos"
-        const update = {
-          $set: {
-            ...data,
-            status: computeStatus(data.bill_date),
-          },
-        };
+      // Define the update to set new data, including "container_nos", "be_no", and "be_date"
+      const update = {
+        $set: {
+          ...data,
+          status:
+            existingJob && existingJob.status === "Completed"
+              ? existingJob.status
+              : computeStatus(data.bill_date),
+          be_no, // Always update be_no
+          be_date, // Always update be_date
+        },
+      };
 
-        // Create the bulk update operation for upsert or update
-        const bulkOperation = {
-          updateOne: {
-            filter,
-            update,
-            upsert: true, // Create if it doesn't exist
-          },
-        };
+      // Create the bulk update operation for upsert or update
+      const bulkOperation = {
+        updateOne: {
+          filter,
+          update,
+          upsert: true, // Create if it doesn't exist
+        },
+      };
 
-        bulkOperations.push(bulkOperation);
-      }
+      bulkOperations.push(bulkOperation);
     }
 
     // Execute the bulkWrite operation to update or insert multiple jobs

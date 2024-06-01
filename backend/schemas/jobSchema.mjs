@@ -35,9 +35,11 @@ const jobSchema = new mongoose.Schema({
   do_validity: { type: String, trim: true },
   examinationPlanning: { type: Boolean },
   doPlanning: { type: Boolean },
+  do_revalidation: { type: Boolean },
   do_planning_date: { type: String, trim: true },
   examination_planning_date: { type: String, trim: true },
   examination_planning_time: { type: String, trim: true },
+  do_revalidation_date: { type: String },
   factory_weighment_slip: { type: String, trim: true },
   container_nos: [
     {
@@ -188,8 +190,6 @@ const jobSchema = new mongoose.Schema({
   do_copies: [{ type: String }],
   obl_telex_bl: { type: String },
   processed_be_attachment: [{ type: String }],
-  do_revalidation: { type: String },
-  do_revalidation_date: { type: String },
   shipping_line_amount: { type: String },
   security_deposit: { type: String },
   consignor: { type: String },
