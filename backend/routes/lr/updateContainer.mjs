@@ -33,36 +33,32 @@ router.post("/api/updateContainer", async (req, res) => {
     } else {
       lastTrNo = 1;
     }
+
     const paddedNo = lastTrNo.toString().padStart(5, "0");
     const fiveDigitNo = "0".repeat(5 - paddedNo.length) + paddedNo;
     const tr = `TR/${pr_no.split("/")[1]}/${fiveDigitNo}/${
       pr_no.split("/")[3]
     }`;
 
-    // Create and save new Tr document
-    await Tr.create({ tr_no: fiveDigitNo.toString() });
-
     // Find the document with matching pr_no and is at the last index
-    const lastPrDocument = await PrData.findOne({ pr_no })
-      .sort({ _id: -1 })
-      .exec();
-    if (!lastPrDocument) {
-      return res.status(404).json({ error: "PR document not found" });
+    const prDocument = await PrData.findOne({ pr_no }).sort({ _id: -1 }).exec();
+    if (!prDocument) {
+      return res.status(200).json({ message: "PR document not found" });
     }
 
-    // Find the index of the container with matching container_number in the lastPrDocument
-    const containerIndex = lastPrDocument.containers.findIndex(
+    // Find the index of the container with matching container_number in the prDocument
+    const containerIndex = prDocument.containers.findIndex(
       (container) => container.container_number === container_number
     );
 
     // If container not found and there's a document without container number, update it
     if (containerIndex === -1) {
-      const containerWithoutNumberIndex = lastPrDocument.containers.findIndex(
+      const containerWithoutNumberIndex = prDocument.containers.findIndex(
         (container) => !container.container_number
       );
       if (containerWithoutNumberIndex !== -1) {
         const containerWithoutNumber =
-          lastPrDocument.containers[containerWithoutNumberIndex];
+          prDocument.containers[containerWithoutNumberIndex];
         containerWithoutNumber.container_number = container_number;
         containerWithoutNumber.tare_weight = tare_weight;
         containerWithoutNumber.net_weight = net_weight;
@@ -76,9 +72,12 @@ router.post("/api/updateContainer", async (req, res) => {
         containerWithoutNumber.gross_weight = gross_weight;
         containerWithoutNumber.vehicle_no = vehicle_no;
         containerWithoutNumber.tr_no = tr;
+
+        // Create and save new Tr document
+        await Tr.create({ tr_no: fiveDigitNo.toString() });
       } else {
         // If no document without container number, create a new one
-        lastPrDocument.containers.push({
+        prDocument.containers.push({
           container_number,
           tare_weight,
           net_weight,
@@ -96,7 +95,7 @@ router.post("/api/updateContainer", async (req, res) => {
       }
     } else {
       // Update the fields of the matching container with the data sent in req.body
-      const matchingContainer = lastPrDocument.containers[containerIndex];
+      const matchingContainer = prDocument.containers[containerIndex];
       const trDigit = tr_no.split("/")[2];
 
       if (matchingContainer.tr_no !== tr_no) {
@@ -126,7 +125,7 @@ router.post("/api/updateContainer", async (req, res) => {
     }
 
     // Save the updated document
-    await lastPrDocument.save();
+    await prDocument.save();
 
     res.status(200).json({ message: "Container data updated successfully" });
   } catch (error) {

@@ -10,7 +10,6 @@ import bodyParser from "body-parser";
 
 import JobModel from "./models/jobModel.mjs";
 // Import routes
-import readMail from "./routes/readMail.mjs";
 import getJobsList from "./routes/getJobList.mjs";
 import getJob from "./routes/getJobRoute.mjs";
 import updateJob from "./routes/updateJob.mjs";
@@ -74,6 +73,8 @@ import deletePr from "./routes/lr/deletePr.mjs";
 import deleteTr from "./routes/lr/deleteTr.mjs";
 import viewAllPr from "./routes/lr/viewAllLr.mjs";
 
+import replaceNames from "./routes/replaceNames.mjs";
+
 const numOfCPU = os.availableParallelism();
 
 if (cluster.isPrimary) {
@@ -115,8 +116,6 @@ if (cluster.isPrimary) {
         res.setHeader("Content-Type", "application/json");
         res.status(201).send(jobs);
       });
-
-      app.use(readMail);
 
       app.use(getJobsList);
 
@@ -229,6 +228,8 @@ if (cluster.isPrimary) {
       app.use(getFeedback);
 
       app.use(updateFeedback);
+
+      app.use(replaceNames);
 
       app.listen(9002, () => {
         console.log(`BE started at port 9002`);

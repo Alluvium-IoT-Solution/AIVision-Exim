@@ -10,7 +10,23 @@ router.post("/api/jobs/addJob", async (req, res) => {
     const bulkOperations = [];
 
     for (const data of jsonData) {
-      const { year, job_no, be_no, be_date } = data;
+      const {
+        year,
+        job_no,
+        be_no,
+        be_date,
+        invoice_number,
+        invoice_date,
+        awb_bl_no,
+        awb_bl_date,
+        bill_no,
+        bill_date,
+        no_of_pkgs,
+        gross_weight,
+        exrate,
+        cif_amount,
+        unit_price,
+      } = data;
 
       // Define the filter to find existing jobs
       const filter = { year, job_no };
@@ -36,6 +52,17 @@ router.post("/api/jobs/addJob", async (req, res) => {
               : computeStatus(data.bill_date),
           be_no, // Always update be_no
           be_date, // Always update be_date
+          invoice_number,
+          invoice_date,
+          awb_bl_no,
+          awb_bl_date,
+          bill_no,
+          bill_date,
+          no_of_pkgs,
+          gross_weight,
+          exrate,
+          cif_amount,
+          unit_price,
         },
       };
 

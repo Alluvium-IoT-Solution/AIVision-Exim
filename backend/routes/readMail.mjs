@@ -6,9 +6,23 @@ import axios from "axios";
 const router = express.Router();
 
 // Initialize mail listener
+// const mailListenerConfig = {
+//   username: "cloud@novusha.com",
+//   password: "ahys qfck hgvz lboy",
+//   host: "imap.gmail.com",
+//   port: 993,
+//   tls: true,
+//   tlsOptions: { rejectUnauthorized: false },
+//   mailbox: "INBOX",
+//   markSeen: true,
+//   fetchUnreadOnStart: true,
+//   connTimeout: 30000,
+//   authTimeout: 30000,
+// };
+
 const mailListenerConfig = {
-  username: "cloud@novusha.com",
-  password: "ahys qfck hgvz lboy",
+  username: "sameery.020@gmail.com",
+  password: "leeh qwzs tpbi exsi",
   host: "imap.gmail.com",
   port: 993,
   tls: true,
@@ -37,9 +51,9 @@ const watchEmailAddresses = [
 const startMailListener = async () => {
   const mailListenerInstance = new mailListener(mailListenerConfig);
 
-  // Re-attemot connection on errors
+  // Re-attempt connection on errors
   mailListenerInstance.on("error", (error) => {
-    console.error("Mail listener error:", error);
+    // console.error("Mail listener error:", error);
     setTimeout(startMailListener, 1000);
   });
 
@@ -58,7 +72,6 @@ const startMailListener = async () => {
       if (mail.attachments && mail.attachments.length > 0) {
         // Initialize mergedData for each email processing
         const mergedData = [];
-
         // Loop through each attachment
         for (const attachment of mail.attachments) {
           // Check if the attachment is an xlsx file
@@ -78,7 +91,7 @@ const startMailListener = async () => {
                   range: 2,
                 }
               );
-
+              console.log("Reading data");
               // Process each row of data
               const modifiedData = jsonData.map((item) => {
                 const modifiedItem = {};
@@ -124,12 +137,14 @@ const startMailListener = async () => {
                       modifiedItem.year = match[4]; // Save year
                     } else if (modifiedKey === "importer") {
                       modifiedItem.importer = item[key];
-                      // Convert importer name to small case, replace spaces with underscores, replace "-" with "_", and replace consecutive underscores with a single underscore
+                      // Convert importerURL to small case, replace spaces with underscores, replace "-" with "_", and replace consecutive underscores with a single underscore
                       modifiedItem.importerURL = item[key]
                         .toLowerCase()
-                        .replace(/\s+/g, "_")
-                        .replace(/-/g, "_")
-                        .replace(/_+/g, "_");
+                        .replace(/\s+/g, "_") // Replace spaces with underscores
+                        .replace(/[^\w]+/g, "") // Remove all special characters except underscores
+                        .replace(/_/g, "_") // Ensure underscores remain unchanged (this line is optional)
+                        .replace(/_+/g, "_") // Replace multiple underscores with a single underscore
+                        .replace(/^\_|\_$/g, ""); // Remove leading and trailing underscores
                     } else if (modifiedKey === "container_no") {
                       // Rename key from "container_no" to "container_nos"
                       modifiedItem.container_nos = item[key];
@@ -225,11 +240,13 @@ const startMailListener = async () => {
                   }
                 });
 
-                async function sendDataToAPI(data) {
+                console.log(JSON.stringify(mergedData));
+
+                async function sendDataToAPI(mergedData) {
                   try {
                     const response = await axios.post(
                       "http://localhost:9002/api/jobs/addJob",
-                      data
+                      mergedData
                     );
                     console.log("Response from API:", response.data);
                   } catch (error) {
