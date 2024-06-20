@@ -1,0 +1,1087 @@
+[
+  {
+    "first_name": "ARPIT",
+    "middle_name": "",
+    "last_name": "SINGHAL",
+    "email": "",
+    "company": "Alluvium IoT Solutions Private Limited",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "KUSHAL",
+    "middle_name": "",
+    "last_name": "SONI",
+    "email": "",
+    "company": "Alluvium IoT Solutions Private Limited",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "Namdeo",
+    "middle_name": "Nanabhau",
+    "last_name": "Patil",
+    "email": "namdeo1397@gmail.com",
+    "company": "Alluvium IoT Solutions Private Limited",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "POOBALAN",
+    "middle_name": "",
+    "last_name": "P",
+    "email": "poobalanbalu475@gmail.com",
+    "company": "Alluvium IoT Solutions Private Limited",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "Pranav",
+    "middle_name": "",
+    "last_name": "Kumar",
+    "email": "pranavkumar82100@gmail.com",
+    "company": "Alluvium IoT Solutions Private Limited",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "PUNIT",
+    "middle_name": "",
+    "last_name": "PANDEY",
+    "email": "punit@alluvium.in",
+    "company": "Alluvium IoT Solutions Private Limited",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SAMEER",
+    "middle_name": "",
+    "last_name": "YADAV",
+    "email": "sameery.020@gmail.com",
+    "company": "Alluvium IoT Solutions Private Limited",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "UDAY",
+    "middle_name": "uday@alluvium.in",
+    "last_name": "ZOPE",
+    "email": "",
+    "company": "Alluvium IoT Solutions Private Limited",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "AHMED",
+    "middle_name": "ADENWALA",
+    "last_name": "",
+    "email": "",
+    "company": "EXIMBIZ Enterprise",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "AMBILY",
+    "middle_name": "SUNIL",
+    "last_name": "",
+    "email": "",
+    "company": "EXIMBIZ Enterprise",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "ANKIT",
+    "middle_name": "KADIKAR",
+    "last_name": "",
+    "email": "",
+    "company": "EXIMBIZ Enterprise",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "BABY",
+    "middle_name": "SUDARSHAN",
+    "last_name": "",
+    "email": "",
+    "company": "EXIMBIZ Enterprise",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "DEEPAK",
+    "middle_name": "VAGHELA",
+    "last_name": "",
+    "email": "",
+    "company": "EXIMBIZ Enterprise",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "HIRANRAJ",
+    "middle_name": "M",
+    "last_name": "R",
+    "email": "",
+    "company": "EXIMBIZ Enterprise",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "KARAN",
+    "middle_name": "RAJESHMANI",
+    "last_name": "MISHRA",
+    "email": "karanmishra6070625@gmail.com",
+    "company": "EXIMBIZ Enterprise",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "KARTHIK",
+    "middle_name": "VELLY",
+    "last_name": "",
+    "email": "",
+    "company": "EXIMBIZ Enterprise",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "PREM",
+    "middle_name": "CHAUDHRY",
+    "last_name": "",
+    "email": "",
+    "company": "EXIMBIZ Enterprise",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "RAHUL",
+    "middle_name": "SOLANKI",
+    "last_name": "",
+    "email": "",
+    "company": "EXIMBIZ Enterprise",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "CHANCHAL",
+    "middle_name": "RATHOR",
+    "last_name": "_",
+    "email": "",
+    "company": "Paramount Propack Private Limited",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "DHARMIK",
+    "middle_name": "BHAVESHBHAI",
+    "last_name": "SHAH",
+    "email": "dharmikshah1661@gmail.com",
+    "company": "Paramount Propack Private Limited",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "KRISHNAPAL",
+    "middle_name": "SINGH",
+    "last_name": "PUVAR",
+    "email": "",
+    "company": "Paramount Propack Private Limited",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "KUNJESH",
+    "middle_name": "THAKKAR",
+    "last_name": "_",
+    "email": "",
+    "company": "Paramount Propack Private Limited",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "PRATIK",
+    "middle_name": "SAKRECHA",
+    "last_name": "_",
+    "email": "",
+    "company": "Paramount Propack Private Limited",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SHRIKANT",
+    "middle_name": "PATIL",
+    "last_name": "_",
+    "email": "",
+    "company": "Paramount Propack Private Limited",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "AKASH",
+    "middle_name": "_",
+    "last_name": "PARMAR",
+    "employment_type": "Permanent",
+    "company": "Sansar Tradelink",
+    "email": "abc@gmail.com",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "PARTH",
+    "middle_name": "SOLANKI",
+    "last_name": "_",
+    "email": "",
+    "employment_type": "Permanent",
+    "company": "Sansar Tradelink",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SOURAV",
+    "middle_name": "A",
+    "last_name": "A",
+    "employment_type": "Permanent",
+    "company": "Sansar Tradelink",
+    "email": "abc@gmail.com",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SRUTHI",
+    "middle_name": "_",
+    "last_name": "NAIR",
+    "employment_type": "Permanent",
+    "company": "Sansar Tradelink",
+    "email": "",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "AJAY",
+    "middle_name": "_",
+    "last_name": "KUMAWAT",
+    "email": "",
+    "company": "Suraj Forwarders",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "ANUP",
+    "middle_name": "_",
+    "last_name": "CHAUHAN",
+    "email": "",
+    "company": "Suraj Forwarders",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "DHARMENDRA",
+    "middle_name": "_",
+    "last_name": "VINZAVA",
+    "email": "",
+    "company": "Suraj Forwarders",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "DIPAK ",
+    "middle_name": "HARJIBHAI",
+    "last_name": "RAVAT",
+    "email": "dipakkumarharjibhai@gmail.com",
+    "company": "Suraj Forwarders",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "DIPEN",
+    "middle_name": "_",
+    "last_name": "THAKOR",
+    "email": "",
+    "company": "Suraj Forwarders",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "KALPESH",
+    "middle_name": "_",
+    "last_name": "CHAUHAN",
+    "email": "",
+    "company": "Suraj Forwarders",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "NAMAN",
+    "middle_name": "JITENDRABHAI",
+    "last_name": "JAISWAL",
+    "email": "njjaiswal2408@gmail.com",
+    "company": "Suraj Forwarders",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "NIKHIL",
+    "middle_name": "_",
+    "last_name": "JOSHI",
+    "email": "",
+    "company": "Suraj Forwarders",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "NIRALI",
+    "middle_name": "DHARMESHBHAI",
+    "last_name": "PATEL",
+    "email": "npatel8194@gmail.com",
+    "company": "Suraj Forwarders",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "PARAS",
+    "middle_name": "_",
+    "last_name": "MAKWANA",
+    "email": "",
+    "company": "Suraj Forwarders",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "UJAS",
+    "middle_name": "_",
+    "last_name": "MODI",
+    "email": "",
+    "company": "Suraj Forwarders",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "AKASH",
+    "middle_name": "HARIVADAN",
+    "last_name": "MODI",
+    "email": "MODIAKASH382@GMAIL.COM",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "ALPESH",
+    "middle_name": "RATILAL",
+    "last_name": "PARMAR",
+    "email": "alpesh14340@gmail.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "ASHOKKUMAR",
+    "middle_name": "THAKORBHAI",
+    "last_name": "CHAUHAN",
+    "email": "ASHOKCHAUHAN2203@GMAIL.COM",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "BALVIR",
+    "middle_name": "AMRUTLAL",
+    "last_name": "NANDA",
+    "email": "abc@gmail.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "CHIRAG",
+    "middle_name": "PRAVINCHANDRA",
+    "last_name": "SHAH",
+    "email": "CPSHAH_77@YAHOO.CO.IN",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "DEEPU",
+    "middle_name": "MURALIDHARAN",
+    "last_name": "PILLAI",
+    "email": "deepu.pillai1987@gmail.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "GEETHANJALI",
+    "middle_name": "A",
+    "last_name": "B",
+    "email": "githuab7@gmail.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "JYOTHISH",
+    "middle_name": "K",
+    "last_name": "R",
+    "email": "KJYOTHISHR@GMAIL.COM",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "KETANKUMAR",
+    "middle_name": "NATVARLAL",
+    "last_name": "PATEL",
+    "ESINo": "3712959382",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "LEENA",
+    "middle_name": "_",
+    "last_name": "VIJAYAN",
+    "email": "vijayan9308@gmail.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "MANU",
+    "middle_name": "M",
+    "last_name": "PILLAI",
+    "email": "mmpillai1978@gmail.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "PARTHIV",
+    "middle_name": "GOVINDBHAI",
+    "last_name": "JADAV",
+    "email": "parthjadav99@gmail.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "PRAJESH",
+    "middle_name": "CHANDRAN",
+    "last_name": "IZAVA",
+    "email": "pcizava@gmail.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "PRAMOD",
+    "middle_name": "PRABHAKARAN",
+    "last_name": "THEKEPATTU",
+    "email": "pramodgvr.gvr@gmail.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "PRAVEENA",
+    "middle_name": "PRADEEPBHAI",
+    "last_name": "EZHAVA",
+    "email": "praveena.pradeep74@yahoo.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "RAJAN",
+    "middle_name": "MADHAVAN",
+    "last_name": "ARANAMKATTE ",
+    "email": "rajan@surajforwarders.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "RAVI",
+    "middle_name": "_",
+    "last_name": "PATEL",
+    "email": "RAVI.KPATEL1995@GMAIL.COM",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "RENJITH",
+    "middle_name": "_",
+    "last_name": "R",
+    "email": "renjukjp@gmail.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SANJAYBHAI",
+    "middle_name": "DASHRATHJI",
+    "last_name": "THAKOR",
+    "email": "sanjay@surajforwarders.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SANJIV",
+    "middle_name": "VINODBHAI",
+    "last_name": "SONI",
+    "email": "sanjay.sahni599@gmail.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SHALINI",
+    "middle_name": "ASHISH",
+    "last_name": "ARUN",
+    "email": "admin@surajforwarders.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SOJITH",
+    "middle_name": "RAMACHANDRAN",
+    "last_name": "MAMMUTTIL",
+    "email": "SOJITHMR@GMAIL.COM",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SREEKUMAR",
+    "middle_name": "BALAKRISHNA",
+    "last_name": "PILLAI",
+    "email": "pillaibsreekumar@gmail.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SURAJ",
+    "middle_name": "ARANAMKATTE",
+    "last_name": "RAJAN",
+    "email": "suraj@surajforwarders.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SUSEELA",
+    "middle_name": "ARANAMKATTE",
+    "last_name": "RAJAN",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "VINODCHANDRA",
+    "middle_name": "BHUPENDRABHAI",
+    "last_name": "RANA",
+    "email": "vinodchandrabrana@gmail.com",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "YASH",
+    "middle_name": "MUKESHKUMAR",
+    "last_name": "SHAH",
+    "email": "YSHAH13121993@GMAIL.COM",
+    "employment_type": "Permanent",
+    "company": "Suraj Forwarders Private Limited",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "AJITH",
+    "middle_name": "A",
+    "last_name": "S",
+    "email": "ajithsivadasan1@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "AKSHAY",
+    "middle_name": "PRATAP SURENDRASINH",
+    "last_name": "RAJPUT",
+    "email": "akshay.rajput823@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "AMIT",
+    "middle_name": "_",
+    "last_name": "MISHRA",
+    "email": "amitmishra7183@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "ANAND",
+    "middle_name": "JAYPRAKASH",
+    "last_name": "RAJPUT",
+    "email": "rajputanand96@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "ANURAG",
+    "middle_name": "JAYACHANDRAN",
+    "last_name": "PILLAI",
+    "email": "anurag@surajforwarders.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "ASHOK",
+    "middle_name": "KASTURA RAM",
+    "last_name": "GAHLOT",
+    "email": "ashok.sain2608@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "BHALUSINH",
+    "middle_name": "JIVANJI",
+    "last_name": "RATHOD",
+    "email": "narendra2133@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "BHARAT",
+    "middle_name": "SHRI NARANLAL",
+    "last_name": "DEVASI",
+    "email": "",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "CHETANBHAI",
+    "middle_name": "KANJIBHAI",
+    "last_name": "PARMAR",
+    "email": "",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "DHARMENDRA KUMAR",
+    "middle_name": "RAMESH",
+    "last_name": "DIXIT",
+    "email": "dkddixit368@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "DURGESH",
+    "middle_name": "SANTOSH",
+    "last_name": "PANDEY",
+    "email": "durgeshpandey62@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "GAURAV",
+    "middle_name": "KUMAR",
+    "last_name": "SINGH",
+    "email": "gauravrajput227@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "HIMMAT",
+    "middle_name": "SINGH",
+    "last_name": "PANWAR",
+    "email": "HS7617685@GMAIL.COM",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "JITENDRAKUMAR",
+    "middle_name": "ISHWARBHAI",
+    "last_name": "MAKWANA",
+    "email": "",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "JITENDRASINH",
+    "middle_name": "PRABHUSINH",
+    "last_name": "SHEKHAVAT",
+    "email": "jitendrasinghshekhawat763@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "KAPILGIRI",
+    "middle_name": "HIMATGIRI",
+    "last_name": "GOSWAMI",
+    "email": "goswami.kapil55@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "MAHESH",
+    "middle_name": "NARAYANBHAI",
+    "last_name": "PATIL",
+    "email": "MNPATIL1982@GMAIL.COM",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "MAJHAR",
+    "middle_name": "MUNNA",
+    "last_name": "KHAN",
+    "email": "majharkhan1982@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "MANUBHAI",
+    "middle_name": "_",
+    "last_name": "RAVAL",
+    "email": "manuraval1986@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "PARASMAL",
+    "middle_name": "RAMLAL",
+    "last_name": "MARVADI",
+    "email": "paras.sonariya1987@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "PARITOSH",
+    "middle_name": "BHARATKUMAR",
+    "last_name": "THAKOR",
+    "email": "TPARTH1805@GMAIL.COM",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "PRAKASH",
+    "middle_name": "_",
+    "last_name": "DARJI",
+    "email": "PRAKASHDARJI1990@GMAIL.COM",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "RAHUL",
+    "middle_name": "RAJNIKANT",
+    "last_name": "VAGHELA",
+    "email": "RV720489@GMAIL.COM",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SAMEER",
+    "middle_name": "M",
+    "last_name": "S",
+    "email": "sameerms006@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SUNIL",
+    "middle_name": "_",
+    "last_name": "HARINDRAN",
+    "email": "",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SURAJ",
+    "middle_name": "SUDHAKARAN",
+    "last_name": "C G",
+    "email": "surajsudhakaran1994@gmail.com",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "TEJAS",
+    "middle_name": "_",
+    "last_name": "PARIKH",
+    "email": "",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "VIJAYKUMAR",
+    "middle_name": "_",
+    "last_name": "JADEJA",
+    "email": "JADEJAVIJAY4874@GMAIL.COM",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "VIKRAMBHAI",
+    "middle_name": "NARSINHBHAI",
+    "last_name": "VAGHELA",
+    "email": "",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "VISHNU",
+    "middle_name": "MURGESH",
+    "last_name": "ADIDRAVID",
+    "email": "VDRAVID95@GMAIL.COM",
+    "company": "Suraj Forwarders & Shipping Agencies",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "AJAY",
+    "middle_name": "PRATAP",
+    "last_name": "SINGH",
+    "email": "",
+    "company": "SR Container Carriers",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "ANKIT",
+    "middle_name": "C",
+    "last_name": "RAJYAGURU",
+    "email": "",
+    "company": "SR Container Carriers",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "Komal",
+    "middle_name": "_",
+    "last_name": "Saroj",
+    "email": "komalsaroj190@gmail.com",
+    "company": "SR Container Carriers",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "KULDEEP",
+    "middle_name": "SINGH",
+    "last_name": "RAWAT",
+    "email": "",
+    "company": "SR Container Carriers",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "LIBIN",
+    "middle_name": "K.",
+    "last_name": "V.",
+    "email": "",
+    "company": "SR Container Carriers",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "MOHIT",
+    "middle_name": "_",
+    "last_name": "SINGH",
+    "email": "",
+    "company": "SR Container Carriers",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "NISARG",
+    "middle_name": "HARESHBHAI",
+    "last_name": "PATEL",
+    "email": "nisargp0022@gmail.com",
+    "company": "SR Container Carriers",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "PAHAD",
+    "middle_name": "_",
+    "last_name": "SINGH",
+    "email": "",
+    "company": "SR Container Carriers",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "Rajvi",
+    "middle_name": "_",
+    "last_name": "Shah",
+    "email": "rajvi5682@gmail.com",
+    "company": "SR Container Carriers",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "Riya",
+    "middle_name": "_",
+    "last_name": "Saini",
+    "email": "riyasaini1206@gmail.com",
+    "company": "SR Container Carriers",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SREEKUMAR",
+    "middle_name": "_",
+    "last_name": "NAIR",
+    "email": "",
+    "company": "SR Container Carriers",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "SUNIL",
+    "middle_name": "KUMAR",
+    "last_name": "THAKUR",
+    "email": "sunilkumarfx7976@gmail.com",
+    "company": "SR Container Carriers",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  },
+  {
+    "first_name": "THENNA",
+    "middle_name": "_",
+    "last_name": "ADIDRAVID",
+    "email": "",
+    "company": "SR Container Carriers",
+    "employment_type": "Permanent",
+    "password": "$2b$10$/vdQX33BZpLVaK9zK9BbX.uAaIcmHZdwIR1RGWwRz1KgF0/k.Okia",
+    "modules": ["Employee KYC", "Employee Onboarding"]
+  }
+]
