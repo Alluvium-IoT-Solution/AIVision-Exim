@@ -101,8 +101,8 @@ if (cluster.isPrimary) {
 
   mongoose
     .connect(
-      "mongodb+srv://exim:qTT7e4YeE3YSSMiV@aivision.pxmpvlz.mongodb.net/exim?retryWrites=true&w=majority",
-      // "mongodb://localhost:27017/exim",
+      // "mongodb+srv://exim:qTT7e4YeE3YSSMiV@aivision.pxmpvlz.mongodb.net/exim?retryWrites=true&w=majority",
+      "mongodb://localhost:27017/exim",
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,

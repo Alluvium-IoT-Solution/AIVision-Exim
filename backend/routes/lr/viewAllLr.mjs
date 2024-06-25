@@ -5,29 +5,40 @@ const router = express.Router();
 
 router.post("/api/viewAllLr", async (req, res) => {
   try {
-    const { pr_no } = req.body;
+    const { tr, branch, year } = req.body;
+    const tr_no = `TR/${branch}/${tr}/${year}`;
 
-    // Query the database to get the documents matching the pr_no
-    const prData = await Pr.find({ pr_no });
+    // Using aggregation to match the document and filter the containers array
+    const result = await Pr.aggregate([
+      { $match: { "containers.tr_no": tr_no } },
+      {
+        $project: {
+          _id: 1,
+          pr_no: 1,
+          pr_date: 1,
+          branch: 1,
+          consignor: 1,
+          consignee: 1,
+          container_count: 1,
+          containers: {
+            $filter: {
+              input: "$containers",
+              as: "container",
+              cond: { $eq: ["$$container.tr_no", tr_no] },
+            },
+          },
+          __v: 1,
+          description: 1,
+          instructions: 1,
+        },
+      },
+    ]);
 
-    // Map through the data to filter the containers
-    const filteredData = prData.map((pr) => {
-      const { consignor, consignee, instructions, description, containers } =
-        pr;
-      const filteredContainers = containers.filter(
-        (container) => container.tr_no
-      );
-
-      return {
-        consignor,
-        consignee,
-        instructions,
-        description,
-        containers: filteredContainers,
-      };
-    });
-
-    res.json(filteredData);
+    if (result.length > 0) {
+      res.status(200).json(result[0]);
+    } else {
+      res.status(404).send("Document not found");
+    }
   } catch (error) {
     console.error("Error retrieving LR data:", error);
     res.status(500).send("Internal Server Error");
